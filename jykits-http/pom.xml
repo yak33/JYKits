@@ -7,7 +7,7 @@
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>org.junya</groupId>
+		<groupId>com.junya</groupId>
 		<artifactId>JYKits</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
@@ -18,12 +18,12 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.junya</groupId>
+			<groupId>com.junya</groupId>
 			<artifactId>jykits-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.junya</groupId>
+			<groupId>com.junya</groupId>
 			<artifactId>jykits-json</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>

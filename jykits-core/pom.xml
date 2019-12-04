@@ -7,7 +7,7 @@
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>org.junya</groupId>
+		<groupId>com.junya</groupId>
 		<artifactId>JYKits</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
