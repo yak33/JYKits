@@ -18,16 +18,13 @@ import com.junya.core.bean.BeanDesc.PropDesc;
 import com.junya.core.bean.copier.BeanCopier;
 import com.junya.core.bean.copier.CopyOptions;
 import com.junya.core.bean.copier.ValueProvider;
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.convert.Convert;
 import com.junya.core.lang.Editor;
 import com.junya.core.lang.Filter;
 import com.junya.core.map.CaseInsensitiveMap;
 import com.junya.core.map.MapUtil;
-import com.junya.core.util.ArrayUtil;
-import com.junya.core.util.ClassUtil;
-import com.junya.core.util.ReflectUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.*;
 
 /**
  * Bean工具类
@@ -36,8 +33,8 @@ import com.junya.core.util.StrUtil;
  * 把一个拥有对属性进行set和get方法的类，我们就可以称之为JavaBean。
  * </p>
  *
- * @author Looly
- * @since 3.1.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class BeanUtil {
 
@@ -59,7 +56,7 @@ public class BeanUtil {
 	 *
 	 * @param clazz 待测试类
 	 * @return 是否为Bean对象
-	 * @since 4.2.2
+	 * @since 2.0.3
 	 */
 	public static boolean hasSetter(Class<?> clazz) {
 		if (ClassUtil.isNormalClass(clazz)) {
@@ -80,7 +77,7 @@ public class BeanUtil {
 	 *
 	 * @param clazz 待测试类
 	 * @return 是否为Bean对象
-	 * @since 4.2.2
+	 * @since 2.0.3
 	 */
 	public static boolean hasGetter(Class<?> clazz) {
 		if (ClassUtil.isNormalClass(clazz)) {
@@ -97,11 +94,30 @@ public class BeanUtil {
 	}
 
 	/**
+	 * 指定类中是否有public类型字段(static字段除外)
+	 *
+	 * @param clazz 待测试类
+	 * @return 是否有public类型字段
+	 * @since 2.1.2
+	 */
+	public static boolean hasPublicField(Class<?> clazz) {
+		if (ClassUtil.isNormalClass(clazz)) {
+			for (Field field : clazz.getFields()) {
+				if (ModifierUtil.isPublic(field) && false == ModifierUtil.isStatic(field)) {
+					//非static的public字段
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * 创建动态Bean
 	 *
 	 * @param bean 普通Bean或Map
 	 * @return {@link DynaBean}
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public static DynaBean createDynaBean(Object bean) {
 		return new DynaBean(bean);
@@ -118,37 +134,11 @@ public class BeanUtil {
 	}
 
 	/**
-	 * 判断Bean中是否有值为null的字段
-	 *
-	 * @param bean Bean
-	 * @return 是否有值为null的字段
-	 * @deprecated 请使用{@link #hasNullField(Object)}
-	 */
-	@Deprecated
-	public static boolean hasNull(Object bean) {
-		final Field[] fields = ClassUtil.getDeclaredFields(bean.getClass());
-
-		Object fieldValue = null;
-		for (Field field : fields) {
-			field.setAccessible(true);
-			try {
-				fieldValue = field.get(bean);
-			} catch (Exception e) {
-				//ignore
-			}
-			if (null == fieldValue) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * 获取{@link BeanDesc} Bean描述信息
 	 *
 	 * @param clazz Bean类
 	 * @return {@link BeanDesc}
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static BeanDesc getBeanDesc(Class<?> clazz) {
 		BeanDesc beanDesc = BeanDescCache.INSTANCE.getBeanDesc(clazz);
@@ -259,7 +249,7 @@ public class BeanUtil {
 		if (bean instanceof Map) {
 			return ((Map<?, ?>) bean).get(fieldNameOrIndex);
 		} else if (bean instanceof Collection) {
-			return CollUtil.get((Collection<?>) bean, Integer.parseInt(fieldNameOrIndex));
+			return CollectionUtil.get((Collection<?>) bean, Integer.parseInt(fieldNameOrIndex));
 		} else if (ArrayUtil.isArray(bean)) {
 			return ArrayUtil.get(bean, Integer.parseInt(fieldNameOrIndex));
 		} else {// 普通Bean对象
@@ -280,7 +270,7 @@ public class BeanUtil {
 		if (bean instanceof Map) {
 			((Map) bean).put(fieldNameOrIndex, value);
 		} else if (bean instanceof List) {
-			CollUtil.setOrAppend((List) bean, Convert.toInt(fieldNameOrIndex), value);
+			CollectionUtil.setOrAppend((List) bean, Convert.toInt(fieldNameOrIndex), value);
 		} else if (ArrayUtil.isArray(bean)) {
 			ArrayUtil.setOrAppend(bean, Convert.toInt(fieldNameOrIndex), value);
 		} else {
@@ -292,12 +282,12 @@ public class BeanUtil {
 	/**
 	 * 解析Bean中的属性值
 	 *
-	 * @param <T> 属性值类型
+	 * @param <T>        属性值类型
 	 * @param bean       Bean对象，支持Map、List、Collection、Array
 	 * @param expression 表达式，例如：person.friend[5].name
 	 * @return Bean属性值
 	 * @see BeanPath#get(Object)
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getProperty(Object bean, String expression) {
@@ -311,7 +301,7 @@ public class BeanUtil {
 	 * @param expression 表达式，例如：person.friend[5].name
 	 * @param value      属性值
 	 * @see BeanPath#get(Object)
-	 * @since 4.0.6
+	 * @since 2.0.3
 	 */
 	public static void setProperty(Object bean, String expression, Object value) {
 		BeanPath.create(expression).set(bean, value);
@@ -423,7 +413,7 @@ public class BeanUtil {
 	 * @param isToCamelCase 是否将Map中的下划线风格key转换为驼峰风格
 	 * @param copyOptions   属性复制选项 {@link CopyOptions}
 	 * @return Bean
-	 * @since 3.3.1
+	 * @since 2.0.3
 	 */
 	public static <T> T fillBeanWithMap(Map<?, ?> map, T bean, boolean isToCamelCase, CopyOptions copyOptions) {
 		if (MapUtil.isEmpty(map)) {
@@ -444,7 +434,7 @@ public class BeanUtil {
 	 * @param source Bean对象或Map
 	 * @param clazz  目标的Bean类型
 	 * @return Bean对象
-	 * @since 4.1.20
+	 * @since 2.0.3
 	 */
 	public static <T> T toBean(Object source, Class<T> clazz) {
 		final T target = ReflectUtil.newInstance(clazz);
@@ -514,14 +504,14 @@ public class BeanUtil {
 	 * @param isToUnderlineCase 是否转换为下划线模式
 	 * @param ignoreNullValue   是否忽略值为空的字段
 	 * @return Map
-	 * @since 3.2.3
+	 * @since 2.0.3
 	 */
 	public static Map<String, Object> beanToMap(Object bean, Map<String, Object> targetMap, final boolean isToUnderlineCase, boolean ignoreNullValue) {
 		if (bean == null) {
 			return null;
 		}
 
-		return beanToMap(bean, targetMap, ignoreNullValue, key -> isToUnderlineCase ? StrUtil.toUnderlineCase(key) : key);
+		return beanToMap(bean, targetMap, ignoreNullValue, key -> isToUnderlineCase ? StringUtil.toUnderlineCase(key) : key);
 	}
 
 	/**
@@ -539,7 +529,7 @@ public class BeanUtil {
 	 * @param ignoreNullValue 是否忽略值为空的字段
 	 * @param keyEditor       属性字段（Map的key）编辑器，用于筛选、编辑key
 	 * @return Map
-	 * @since 4.0.5
+	 * @since 2.0.3
 	 */
 	public static Map<String, Object> beanToMap(Object bean, Map<String, Object> targetMap, boolean ignoreNullValue, Editor<String> keyEditor) {
 		if (bean == null) {
@@ -633,10 +623,10 @@ public class BeanUtil {
 	 * @param beanClassName Bean的类名
 	 * @param isSimple      是否只匹配类名而忽略包名，true表示忽略包名
 	 * @return 是否匹配
-	 * @since 4.0.6
+	 * @since 2.0.3
 	 */
 	public static boolean isMatchName(Object bean, String beanClassName, boolean isSimple) {
-		return ClassUtil.getClassName(bean, isSimple).equals(isSimple ? StrUtil.upperFirst(beanClassName) : beanClassName);
+		return ClassUtil.getClassName(bean, isSimple).equals(isSimple ? StringUtil.upperFirst(beanClassName) : beanClassName);
 	}
 
 	/**
@@ -664,7 +654,7 @@ public class BeanUtil {
 				// 只有String的Field才处理
 				final String val = (String) ReflectUtil.getFieldValue(bean, field);
 				if (null != val) {
-					final String trimVal = StrUtil.trim(val);
+					final String trimVal = StringUtil.trim(val);
 					if (false == val.equals(trimVal)) {
 						// Field Value不为null，且首尾有空格才处理
 						ReflectUtil.setFieldValue(bean, field, trimVal);
@@ -677,16 +667,30 @@ public class BeanUtil {
 	}
 
 	/**
+	 * 判断Bean是否为非空对象，非空对象表示本身不为<code>null</code>或者含有非<code>null</code>属性的对象
+	 *
+	 * @param bean             Bean对象
+	 * @param ignoreFiledNames 忽略检查的字段名
+	 * @return 是否为空，<code>true</code> - 空 / <code>false</code> - 非空
+	 * @since 2.0.3
+	 */
+	public static boolean isNotEmpty(Object bean, String... ignoreFiledNames) {
+		return false == isEmpty(bean, ignoreFiledNames);
+	}
+
+	/**
 	 * 判断Bean是否为空对象，空对象表示本身为<code>null</code>或者所有属性都为<code>null</code>
 	 *
-	 * @param bean Bean对象
+	 * @param bean             Bean对象
+	 * @param ignoreFiledNames 忽略检查的字段名
 	 * @return 是否为空，<code>true</code> - 空 / <code>false</code> - 非空
-	 * @since 4.1.10
+	 * @since 2.0.3
 	 */
-	public static boolean isEmpty(Object bean) {
+	public static boolean isEmpty(Object bean, String... ignoreFiledNames) {
 		if (null != bean) {
 			for (Field field : ReflectUtil.getFields(bean.getClass())) {
-				if (null != ReflectUtil.getFieldValue(bean, field)) {
+				if ((false == ArrayUtil.contains(ignoreFiledNames, field.getName()))
+						&& null != ReflectUtil.getFieldValue(bean, field)) {
 					return false;
 				}
 			}
@@ -698,16 +702,18 @@ public class BeanUtil {
 	 * 判断Bean是否包含值为<code>null</code>的属性<br>
 	 * 对象本身为<code>null</code>也返回true
 	 *
-	 * @param bean Bean对象
+	 * @param bean             Bean对象
+	 * @param ignoreFiledNames 忽略检查的字段名
 	 * @return 是否包含值为<code>null</code>的属性，<code>true</code> - 包含 / <code>false</code> - 不包含
-	 * @since 4.1.10
+	 * @since 2.0.3
 	 */
-	public static boolean hasNullField(Object bean) {
+	public static boolean hasNullField(Object bean, String... ignoreFiledNames) {
 		if (null == bean) {
 			return true;
 		}
 		for (Field field : ReflectUtil.getFields(bean.getClass())) {
-			if (null == ReflectUtil.getFieldValue(bean, field)) {
+			if ((false == ArrayUtil.contains(ignoreFiledNames, field.getName()))//
+					&& null == ReflectUtil.getFieldValue(bean, field)) {
 				return true;
 			}
 		}

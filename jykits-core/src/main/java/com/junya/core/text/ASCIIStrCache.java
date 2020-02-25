@@ -3,8 +3,8 @@ package com.junya.core.text;
 /**
  * ASCII字符对应的字符串缓存
  * 
- * @author looly
- * @since 4.0.1
+ * @author zhangchao
+ * @since 2.0.3
  *
  */
 public class ASCIIStrCache {

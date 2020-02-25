@@ -2,11 +2,11 @@ package com.junya.core.date;
 
 import java.io.Serializable;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 时长格式化器
- * @author Looly
+ * @author zhangchao
  *
  */
 public class BetweenFormater implements Serializable{
@@ -81,7 +81,7 @@ public class BetweenFormater implements Serializable{
 			}
 		}
 		
-		if(StrUtil.isEmpty(sb)) {
+		if(StringUtil.isEmpty(sb)) {
 			sb.append(0).append(this.level.name);
 		}
 		
@@ -123,7 +123,7 @@ public class BetweenFormater implements Serializable{
 	/**
 	 * 格式化等级枚举
 	 * 
-	 * @author Looly
+	 * @author zhangchao
 	 */
 	public enum Level {
 

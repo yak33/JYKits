@@ -49,7 +49,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
      * </p>
      *
-     * @since 3.0
+     * @since 2.0.3
      */
     private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = new ThreadLocal<Set<Pair<IDKey, IDKey>>>();
 
@@ -60,7 +60,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * </p>
      *
      * @return Set the registry of objects being traversed
-     * @since 3.0
+     * @since 2.0.3
      */
     static Set<Pair<IDKey, IDKey>> getRegistry() {
         return REGISTRY.get();
@@ -93,7 +93,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param lhs <code>this</code> object to lookup in registry
      * @param rhs the other object to lookup on registry
      * @return boolean <code>true</code> if the registry contains the given object.
-     * @since 3.0
+     * @since 2.0.3
      */
     static boolean isRegistered(final Object lhs, final Object rhs) {
         final Set<Pair<IDKey, IDKey>> registry = getRegistry();
@@ -135,7 +135,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs <code>this</code> object to unregister
      * @param rhs the other object to unregister
-     * @since 3.0
+     * @since 2.0.3
      */
     static void unregister(final Object lhs, final Object rhs) {
         Set<Pair<IDKey, IDKey>> registry = getRegistry();
@@ -841,7 +841,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return <code>true</code> if all of the fields that have been checked
      *         are equal, <code>false</code> otherwise.
      *
-     * @since 3.0
+     * @since 2.0.3
      */
     @Override
     public Boolean build() {

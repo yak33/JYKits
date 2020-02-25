@@ -12,8 +12,8 @@ package com.junya.core.io.file;
  * @see #MAC
  * @see #LINUX
  * @see #WINDOWS
- * @author Looly
- * @since 3.1.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public enum LineSeparator {
 	/** Mac系统换行符："\r" */

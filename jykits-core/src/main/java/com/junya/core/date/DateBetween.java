@@ -5,12 +5,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.junya.core.lang.Assert;
-import com.junya.core.lang.Console;
 
 /**
  * 日期间隔
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class DateBetween implements Serializable{
@@ -28,7 +27,7 @@ public class DateBetween implements Serializable{
 	 * @param begin 起始时间
 	 * @param end 结束时间
 	 * @return {@link DateBetween}
-	 * @since 3.2.3
+	 * @since 2.0.3
 	 */
 	public static DateBetween create(Date begin, Date end) {
 		return new DateBetween(begin, end);
@@ -42,7 +41,7 @@ public class DateBetween implements Serializable{
 	 * @param end 结束时间
 	 * @param isAbs 日期间隔是否只保留绝对值正数
 	 * @return {@link DateBetween}
-	 * @since 3.2.3
+	 * @since 2.0.3
 	 */
 	public static DateBetween create(Date begin, Date end, boolean isAbs) {
 		return new DateBetween(begin, end, isAbs);
@@ -66,7 +65,7 @@ public class DateBetween implements Serializable{
 	 * @param begin 起始时间
 	 * @param end 结束时间
 	 * @param isAbs 日期间隔是否只保留绝对值正数
-	 * @since 3.1.1
+	 * @since 2.0.3
 	 */
 	public DateBetween(Date begin, Date end, boolean isAbs) {
 		Assert.notNull(begin, "Begin date is null !");
@@ -100,7 +99,7 @@ public class DateBetween implements Serializable{
 	 * 
 	 * @param isReset 是否重置时间为起始时间（重置天时分秒）
 	 * @return 相差月数
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public long betweenMonth(boolean isReset) {
 		final Calendar beginCal = DateUtil.calendar(begin);
@@ -127,7 +126,7 @@ public class DateBetween implements Serializable{
 	 * 
 	 * @param isReset 是否重置时间为起始时间（重置月天时分秒）
 	 * @return 相差年数
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public long betweenYear(boolean isReset) {
 		final Calendar beginCal = DateUtil.calendar(begin);

@@ -4,8 +4,8 @@ package com.junya.core.codec;
  * RotN（rotate by N places），回转N位密码，是一种简易的替换式密码，也是过去在古罗马开发的凯撒加密的一种变体。<br>
  * 代码来自：https://github.com/orclight/jencrypt
  * 
- * @author looly,shuzhilong
- * @since 4.4.1
+ * @author zhangchao,shuzhilong
+ * @since 2.0.3
  */
 public class Rot {
 

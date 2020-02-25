@@ -6,21 +6,21 @@
 
 	<packaging>pom</packaging>
 
-	<groupId>com.junya</groupId>
+	<groupId>com.gitee.smiletou</groupId>
 	<artifactId>JYKits</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>2.1.4</version>
 	<name>JYKits</name>
+	<description>Java工具集</description>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
 	<modules>
+		<module>jykits-all</module>
 		<module>jykits-cache</module>
 		<module>jykits-core</module>
 		<module>jykits-http</module>
-		<module>jykits-json</module>
 		<module>jykits-poi</module>
-		<module>jykits-captcha</module>
-		<module>jykits-all</module>
+		<module>jykits-secure</module>
 	</modules>
 
 	<properties>
@@ -30,6 +30,8 @@
 		<!-- versions -->
 		<compile.version>8</compile.version>
 		<lombok.version>1.18.10</lombok.version>
+		<!-- versions -->
+		<poi.version>4.1.1</poi.version>
 	</properties>
 
 	<dependencies>
@@ -39,7 +41,32 @@
 			<version>${lombok.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>zhangchao</name>
+			<email>vuanne1@gmail.com</email>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git@gitee.com:smiletou/JYKits.git</connection>
+		<developerConnection>scm:git@gitee.com:smiletou/JYKits.git</developerConnection>
+		<url>git@gitee.com:smiletou/JYKits.git</url>
+	</scm>
 
 	<build>
 		<plugins>
@@ -54,5 +81,75 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<!-- Source -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- Javadoc -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9.1</version>
+						<configuration>
+							<show>private</show>
+							<nohelp>true</nohelp>
+							<charset>UTF-8</charset>
+							<encoding>UTF-8</encoding>
+							<docencoding>UTF-8</docencoding>
+							<additionalparam>-Xdoclint:none</additionalparam>  <!-- TODO 临时解决不规范的javadoc生成报错,后面要规范化后把这行去掉 -->
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- GPG -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>oss</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+				</snapshotRepository>
+				<repository>
+					<id>oss</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+	</profiles>
 
 </project>

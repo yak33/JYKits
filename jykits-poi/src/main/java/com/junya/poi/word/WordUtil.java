@@ -5,8 +5,8 @@ import java.io.File;
 /**
  * Word工具类
  * 
- * @author Looly
- * @since 4.5.16
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class WordUtil {
 	/**

@@ -2,7 +2,7 @@ package com.junya.core.text;
 
 import com.junya.core.convert.Convert;
 import com.junya.core.util.ArrayUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -10,8 +10,8 @@ import java.util.Arrays;
 /**
  * 可复用的字符串生成器，非线程安全
  *
- * @author Looly
- * @since 4.0.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class StrBuilder implements CharSequence, Appendable, Serializable {
 	private static final long serialVersionUID = 6341229705927508451L;
@@ -54,7 +54,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
 	 *
 	 * @param strs 初始字符串
 	 * @return {@link StrBuilder}
-	 * @since 4.0.1
+	 * @since 2.0.3
 	 */
 	public static StrBuilder create(CharSequence... strs) {
 		return new StrBuilder(strs);
@@ -82,7 +82,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
 	 * 构造
 	 *
 	 * @param strs 初始字符串
-	 * @since 4.0.1
+	 * @since 2.0.3
 	 */
 	public StrBuilder(CharSequence... strs) {
 		this(ArrayUtil.isEmpty(strs) ? DEFAULT_CAPACITY : (totalLength(strs) + DEFAULT_CAPACITY));
@@ -434,7 +434,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
 			}
 			return s;
 		}
-		return StrUtil.EMPTY;
+		return StringUtil.EMPTY;
 	}
 
 	/**
@@ -508,7 +508,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
 			System.arraycopy(this.value, index, this.value, index + length, this.position - index);
 		} else if (index > this.position) {
 			// 插入位置超出范围，则当前位置到index清除为空格
-			Arrays.fill(this.value, this.position, index, StrUtil.C_SPACE);
+			Arrays.fill(this.value, this.position, index, StringUtil.C_SPACE);
 		}
 		// 不位移
 	}
@@ -551,7 +551,7 @@ public class StrBuilder implements CharSequence, Appendable, Serializable {
 	 *
 	 * @param strs 字符串数组
 	 * @return 总长度
-	 * @since 4.0.1
+	 * @since 2.0.3
 	 */
 	private static int totalLength(CharSequence... strs) {
 		int totalLength = 0;

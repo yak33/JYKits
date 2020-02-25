@@ -1,11 +1,11 @@
 package com.junya.core.comparator;
 
 import com.junya.core.exceptions.ExceptionUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 比较异常
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class ComparatorException extends RuntimeException{
 	private static final long serialVersionUID = 4475602435485521971L;
@@ -19,7 +19,7 @@ public class ComparatorException extends RuntimeException{
 	}
 	
 	public ComparatorException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 	
 	public ComparatorException(String message, Throwable throwable) {
@@ -27,6 +27,6 @@ public class ComparatorException extends RuntimeException{
 	}
 	
 	public ComparatorException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 }

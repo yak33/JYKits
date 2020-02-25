@@ -5,8 +5,8 @@ import com.junya.core.convert.Convert;
 /**
  * Boolean类型相关工具类
  * 
- * @author looly
- * @since 4.1.16
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class BooleanUtil {
 
@@ -75,7 +75,7 @@ public class BooleanUtil {
 	 * @return boolean值
 	 */
 	public static boolean toBoolean(String valueStr) {
-		if (StrUtil.isNotBlank(valueStr)) {
+		if (StringUtil.isNotBlank(valueStr)) {
 			valueStr = valueStr.trim().toLowerCase();
 			return ArrayUtil.contains(TRUE_ARRAY, valueStr);
 		}
@@ -437,7 +437,7 @@ public class BooleanUtil {
 	 * 
 	 * @param clazz 类
 	 * @return 是否为Boolean或者boolean
-	 * @since 4.5.2
+	 * @since 2.0.3
 	 */
 	public static boolean isBoolean(Class<?> clazz) {
 		return (clazz == Boolean.class || clazz == boolean.class);

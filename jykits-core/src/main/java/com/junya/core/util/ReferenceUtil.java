@@ -15,8 +15,8 @@ import java.lang.ref.WeakReference;
  * 3. {@link PhantomReference} 虚引用，在GC时发现虚引用对象，会将{@link PhantomReference}插入{@link ReferenceQueue}。 此时对象未被真正回收，要等到{@link ReferenceQueue}被真正处理后才会被回收。
  * </pre>
  * 
- * @author looly
- * @since 3.1.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class ReferenceUtil {
 	
@@ -57,7 +57,7 @@ public class ReferenceUtil {
 	/**
 	 * 引用类型
 	 * 
-	 * @author looly
+	 * @author zhangchao
 	 *
 	 */
 	public enum ReferenceType {

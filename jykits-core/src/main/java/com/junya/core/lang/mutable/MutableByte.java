@@ -6,7 +6,7 @@ import com.junya.core.util.NumberUtil;
  * 可变 <code>byte</code> 类型
  * 
  * @see Byte
- * @since 3.0.1
+ * @since 2.0.3
  */
 public class MutableByte extends Number implements Comparable<MutableByte>, Mutable<Number> {
 	private static final long serialVersionUID = 1L;

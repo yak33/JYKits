@@ -22,7 +22,7 @@ import com.junya.core.lang.func.Func1;
  * 正则相关工具类<br>
  * 常用正则请见 {@link Validator}
  * 
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class ReUtil {
 
@@ -40,7 +40,7 @@ public class ReUtil {
 	 * @param regex 匹配的正则
 	 * @param content 被匹配的内容
 	 * @return 匹配后得到的字符串，未匹配返回null
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static String getGroup0(String regex, CharSequence content) {
 		return get(regex, content, 0);
@@ -52,7 +52,7 @@ public class ReUtil {
 	 * @param regex 匹配的正则
 	 * @param content 被匹配的内容
 	 * @return 匹配后得到的字符串，未匹配返回null
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static String getGroup1(String regex, CharSequence content) {
 		return get(regex, content, 1);
@@ -82,7 +82,7 @@ public class ReUtil {
 	 * @param pattern 编译后的正则模式
 	 * @param content 被匹配的内容
 	 * @return 匹配后得到的字符串，未匹配返回null
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static String getGroup0(Pattern pattern, CharSequence content) {
 		return get(pattern, content, 0);
@@ -94,7 +94,7 @@ public class ReUtil {
 	 * @param pattern 编译后的正则模式
 	 * @param content 被匹配的内容
 	 * @return 匹配后得到的字符串，未匹配返回null
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static String getGroup1(Pattern pattern, CharSequence content) {
 		return get(pattern, content, 1);
@@ -126,7 +126,7 @@ public class ReUtil {
 	 * @param pattern 编译后的正则模式
 	 * @param content 被匹配的内容
 	 * @return 匹配后得到的字符串数组，按照分组顺序依次列出，未匹配到返回空列表，任何一个参数为null返回null
-	 * @since 3.1.0
+	 * @since 2.0.3
 	 */
 	public static List<String> getAllGroups(Pattern pattern, CharSequence content) {
 		return getAllGroups(pattern, content, true);
@@ -139,7 +139,7 @@ public class ReUtil {
 	 * @param content 被匹配的内容
 	 * @param withGroup0 是否包括分组0，此分组表示全匹配的信息
 	 * @return 匹配后得到的字符串数组，按照分组顺序依次列出，未匹配到返回空列表，任何一个参数为null返回null
-	 * @since 4.0.13
+	 * @since 2.0.3
 	 */
 	public static List<String> getAllGroups(Pattern pattern, CharSequence content, boolean withGroup0) {
 		if (null == content || null == pattern) {
@@ -241,7 +241,7 @@ public class ReUtil {
 				int group = Integer.parseInt(var);
 				template = template.replace("$" + var, matcher.group(group));
 			}
-			contentHolder.set(StrUtil.sub(content, matcher.end(), content.length()));
+			contentHolder.set(StringUtil.sub(content, matcher.end(), content.length()));
 			return template;
 		}
 		return null;
@@ -275,8 +275,8 @@ public class ReUtil {
 	 * @return 删除后剩余的内容
 	 */
 	public static String delFirst(String regex, CharSequence content) {
-		if (StrUtil.hasBlank(regex, content)) {
-			return StrUtil.str(content);
+		if (StringUtil.hasBlank(regex, content)) {
+			return StringUtil.str(content);
 		}
 
 		// Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
@@ -292,11 +292,11 @@ public class ReUtil {
 	 * @return 删除后剩余的内容
 	 */
 	public static String delFirst(Pattern pattern, CharSequence content) {
-		if (null == pattern || StrUtil.isBlank(content)) {
-			return StrUtil.str(content);
+		if (null == pattern || StringUtil.isBlank(content)) {
+			return StringUtil.str(content);
 		}
 
-		return pattern.matcher(content).replaceFirst(StrUtil.EMPTY);
+		return pattern.matcher(content).replaceFirst(StringUtil.EMPTY);
 	}
 
 	/**
@@ -307,8 +307,8 @@ public class ReUtil {
 	 * @return 删除后剩余的内容
 	 */
 	public static String delAll(String regex, CharSequence content) {
-		if (StrUtil.hasBlank(regex, content)) {
-			return StrUtil.str(content);
+		if (StringUtil.hasBlank(regex, content)) {
+			return StringUtil.str(content);
 		}
 
 		// Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
@@ -324,11 +324,11 @@ public class ReUtil {
 	 * @return 删除后剩余的内容
 	 */
 	public static String delAll(Pattern pattern, CharSequence content) {
-		if (null == pattern || StrUtil.isBlank(content)) {
-			return StrUtil.str(content);
+		if (null == pattern || StringUtil.isBlank(content)) {
+			return StringUtil.str(content);
 		}
 
-		return pattern.matcher(content).replaceAll(StrUtil.EMPTY);
+		return pattern.matcher(content).replaceAll(StringUtil.EMPTY);
 	}
 
 	/**
@@ -340,16 +340,16 @@ public class ReUtil {
 	 */
 	public static String delPre(String regex, CharSequence content) {
 		if (null == content || null == regex) {
-			return StrUtil.str(content);
+			return StringUtil.str(content);
 		}
 
 		// Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
 		final Pattern pattern = PatternPool.get(regex, Pattern.DOTALL);
 		Matcher matcher = pattern.matcher(content);
 		if (matcher.find()) {
-			return StrUtil.sub(content, matcher.end(), content.length());
+			return StringUtil.sub(content, matcher.end(), content.length());
 		}
-		return StrUtil.str(content);
+		return StringUtil.str(content);
 	}
 
 	/**
@@ -358,7 +358,7 @@ public class ReUtil {
 	 * @param regex 正则
 	 * @param content 被查找的内容
 	 * @return 结果列表
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static List<String> findAllGroup0(String regex, CharSequence content) {
 		return findAll(regex, content, 0);
@@ -370,7 +370,7 @@ public class ReUtil {
 	 * @param regex 正则
 	 * @param content 被查找的内容
 	 * @return 结果列表
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static List<String> findAllGroup1(String regex, CharSequence content) {
 		return findAll(regex, content, 1);
@@ -383,7 +383,7 @@ public class ReUtil {
 	 * @param content 被查找的内容
 	 * @param group 正则的分组
 	 * @return 结果列表
-	 * @since 3.0.6
+	 * @since 2.0.3
 	 */
 	public static List<String> findAll(String regex, CharSequence content, int group) {
 		return findAll(regex, content, group, new ArrayList<String>());
@@ -413,7 +413,7 @@ public class ReUtil {
 	 * @param pattern 编译后的正则模式
 	 * @param content 被查找的内容
 	 * @return 结果列表
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static List<String> findAllGroup0(Pattern pattern, CharSequence content) {
 		return findAll(pattern, content, 0);
@@ -425,7 +425,7 @@ public class ReUtil {
 	 * @param pattern 编译后的正则模式
 	 * @param content 被查找的内容
 	 * @return 结果列表
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static List<String> findAllGroup1(Pattern pattern, CharSequence content) {
 		return findAll(pattern, content, 1);
@@ -438,7 +438,7 @@ public class ReUtil {
 	 * @param content 被查找的内容
 	 * @param group 正则的分组
 	 * @return 结果列表
-	 * @since 3.0.6
+	 * @since 2.0.3
 	 */
 	public static List<String> findAll(Pattern pattern, CharSequence content, int group) {
 		return findAll(pattern, content, group, new ArrayList<String>());
@@ -514,7 +514,7 @@ public class ReUtil {
 	 * @param regex 正则表达式
 	 * @param content 被查找的内容
 	 * @return 指定内容中是否有表达式匹配的内容
-	 * @since 3.3.1
+	 * @since 2.0.3
 	 */
 	public static boolean contains(String regex, CharSequence content) {
 		if (null == regex || null == content) {
@@ -531,7 +531,7 @@ public class ReUtil {
 	 * @param pattern 编译后的正则模式
 	 * @param content 被查找的内容
 	 * @return 指定内容中是否有表达式匹配的内容
-	 * @since 3.3.1
+	 * @since 2.0.3
 	 */
 	public static boolean contains(Pattern pattern, CharSequence content) {
 		if (null == pattern || null == content) {
@@ -563,7 +563,7 @@ public class ReUtil {
 			return false;
 		}
 
-		if (StrUtil.isEmpty(regex)) {
+		if (StringUtil.isEmpty(regex)) {
 			// 正则不存在则为全匹配
 			return true;
 		}
@@ -619,11 +619,11 @@ public class ReUtil {
 	 * @param pattern {@link Pattern}
 	 * @param replacementTemplate 替换的文本模板，可以使用$1类似的变量提取正则匹配出的内容
 	 * @return 处理后的文本
-	 * @since 3.0.4
+	 * @since 2.0.3
 	 */
 	public static String replaceAll(CharSequence content, Pattern pattern, String replacementTemplate) {
-		if (StrUtil.isEmpty(content)) {
-			return StrUtil.str(content);
+		if (StringUtil.isEmpty(content)) {
+			return StringUtil.str(content);
 		}
 
 		final Matcher matcher = pattern.matcher(content);
@@ -643,7 +643,7 @@ public class ReUtil {
 			matcher.appendTail(sb);
 			return sb.toString();
 		}
-		return StrUtil.str(content);
+		return StringUtil.str(content);
 	}
 	
 	/**
@@ -653,7 +653,7 @@ public class ReUtil {
 	 * @param regex 用于匹配的正则式
 	 * @param replaceFun 决定如何替换的函数
 	 * @return 替换后的文本
-	 * @since 4.2.2
+	 * @since 2.0.3
 	 */
 	public static String replaceAll(CharSequence str, String regex, Func1<Matcher, String> replaceFun) {
 		return replaceAll(str, Pattern.compile(regex), replaceFun);
@@ -666,11 +666,11 @@ public class ReUtil {
 	 * @param pattern 用于匹配的正则式
 	 * @param replaceFun 决定如何替换的函数,可能被多次调用（当有多个匹配时）
 	 * @return 替换后的字符串
-	 * @since 4.2.2
+	 * @since 2.0.3
 	 */
 	public static String replaceAll(CharSequence str, Pattern pattern, Func1<Matcher, String> replaceFun){
-		if (StrUtil.isEmpty(str)) {
-			return StrUtil.str(str);
+		if (StringUtil.isEmpty(str)) {
+			return StringUtil.str(str);
 		}
 
 		final Matcher matcher = pattern.matcher(str);
@@ -708,8 +708,8 @@ public class ReUtil {
 	 * @return 转义后的文本
 	 */
 	public static String escape(CharSequence content) {
-		if (StrUtil.isBlank(content)) {
-			return StrUtil.str(content);
+		if (StringUtil.isBlank(content)) {
+			return StringUtil.str(content);
 		}
 
 		final StringBuilder builder = new StringBuilder();

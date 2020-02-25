@@ -4,7 +4,7 @@ import com.junya.core.bean.BeanUtil;
 import com.junya.core.convert.AbstractConverter;
 import com.junya.core.convert.ConverterRegistry;
 import com.junya.core.map.MapUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.core.util.TypeUtil;
 
 import java.lang.reflect.Type;
@@ -15,8 +15,8 @@ import java.util.Objects;
 /**
  * {@link Map} 转换器
  * 
- * @author Looly
- * @since 3.0.8
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class MapConverter extends AbstractConverter<Map<?, ?>> {
 	private static final long serialVersionUID = 1L;
@@ -70,7 +70,7 @@ public class MapConverter extends AbstractConverter<Map<?, ?>> {
 			// 二次转换，转换键值类型
 			map = convertInternal(map);
 		} else {
-			throw new UnsupportedOperationException(StrUtil.format("Unsupport toMap value type: {}", value.getClass().getName()));
+			throw new UnsupportedOperationException(StringUtil.format("Unsupport toMap value type: {}", value.getClass().getName()));
 		}
 		return map;
 	}

@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Sax方式读取Excel行处理器
- * @author looly
+ * @author zhangchao
  *
  */
 @FunctionalInterface

@@ -3,13 +3,13 @@ package com.junya.core.codec;
 import java.nio.charset.Charset;
 
 import com.junya.core.util.CharsetUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * Base64编码
  * 
- * @author looly
- * @since 3.2.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class Base64Encoder {
 
@@ -55,7 +55,7 @@ public class Base64Encoder {
 	 * @param arr 被编码的数组
 	 * @param lineSep 在76个char之后是CRLF还是EOF
 	 * @return 编码后的bytes
-	 * @since 3.0.6
+	 * @since 2.0.3
 	 */
 	public static byte[] encodeUrlSafe(byte[] arr, boolean lineSep) {
 		return encode(arr, lineSep, true);
@@ -76,7 +76,7 @@ public class Base64Encoder {
 	 * 
 	 * @param source 被编码的base64字符串
 	 * @return 被加密后的字符串
-	 * @since 3.0.6
+	 * @since 2.0.3
 	 */
 	public static String encodeUrlSafe(CharSequence source) {
 		return encodeUrlSafe(source, DEFAULT_CHARSET);
@@ -90,7 +90,7 @@ public class Base64Encoder {
 	 * @return 被加密后的字符串
 	 */
 	public static String encode(CharSequence source, Charset charset) {
-		return encode(StrUtil.bytes(source, charset));
+		return encode(StringUtil.bytes(source, charset));
 	}
 
 	/**
@@ -99,10 +99,10 @@ public class Base64Encoder {
 	 * @param source 被编码的base64字符串
 	 * @param charset 字符集
 	 * @return 被加密后的字符串
-	 * @since 3.0.6
+	 * @since 2.0.3
 	 */
 	public static String encodeUrlSafe(CharSequence source, Charset charset) {
-		return encodeUrlSafe(StrUtil.bytes(source, charset));
+		return encodeUrlSafe(StringUtil.bytes(source, charset));
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class Base64Encoder {
 	 * @return 被加密后的字符串
 	 */
 	public static String encode(byte[] source) {
-		return StrUtil.str(encode(source, false), DEFAULT_CHARSET);
+		return StringUtil.str(encode(source, false), DEFAULT_CHARSET);
 	}
 
 	/**
@@ -120,10 +120,10 @@ public class Base64Encoder {
 	 * 
 	 * @param source 被编码的base64字符串
 	 * @return 被加密后的字符串
-	 * @since 3.0.6
+	 * @since 2.0.3
 	 */
 	public static String encodeUrlSafe(byte[] source) {
-		return StrUtil.str(encodeUrlSafe(source, false), DEFAULT_CHARSET);
+		return StringUtil.str(encodeUrlSafe(source, false), DEFAULT_CHARSET);
 	}
 
 	/**

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * CSV读取配置项
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class CsvReadConfig extends CsvConfig implements Serializable {

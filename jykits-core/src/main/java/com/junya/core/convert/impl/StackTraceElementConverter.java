@@ -10,8 +10,8 @@ import com.junya.core.util.ObjectUtil;
  * {@link StackTraceElement} 转换器<br>
  * 只支持Map方式转换
  * 
- * @author Looly
- * @since 3.0.8
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class StackTraceElementConverter extends AbstractConverter<StackTraceElement> {
 	private static final long serialVersionUID = 1L;

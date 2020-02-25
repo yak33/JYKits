@@ -10,7 +10,7 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.Collection;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.convert.Convert;
 import com.junya.core.io.FileUtil;
 import com.junya.core.io.IORuntimeException;
@@ -23,8 +23,8 @@ import com.junya.core.util.ObjectUtil;
 /**
  * CSV数据写出器
  *
- * @author Looly
- * @since 4.0.5
+ * @author zhangchao
+ * @since 2.0.3
  */
 public final class CsvWriter implements Closeable, Flushable, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -189,7 +189,7 @@ public final class CsvWriter implements Closeable, Flushable, Serializable {
 	 * @throws IORuntimeException IO异常
 	 */
 	public CsvWriter write(Collection<?> lines) throws IORuntimeException {
-		if (CollUtil.isNotEmpty(lines)) {
+		if (CollectionUtil.isNotEmpty(lines)) {
 			for (Object values : lines) {
 				appendLine(Convert.toStrArray(values));
 			}

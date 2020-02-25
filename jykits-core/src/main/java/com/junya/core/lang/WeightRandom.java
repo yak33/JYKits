@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.map.MapUtil;
 import com.junya.core.util.RandomUtil;
 
@@ -25,8 +25,8 @@ import com.junya.core.util.RandomUtil;
  * <p>
  * 
  * @param <T> 权重随机获取的对象类型
- * @author looly
- * @since 3.3.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class WeightRandom<T> implements Serializable {
 	private static final long serialVersionUID = -8244697995702786499L;
@@ -72,7 +72,7 @@ public class WeightRandom<T> implements Serializable {
 	 */
 	public WeightRandom(Iterable<WeightObj<T>> weightObjs) {
 		this();
-		if(CollUtil.isNotEmpty(weightObjs)) {
+		if(CollectionUtil.isNotEmpty(weightObjs)) {
 			for (WeightObj<T> weightObj : weightObjs) {
 				add(weightObj);
 			}
@@ -149,7 +149,7 @@ public class WeightRandom<T> implements Serializable {
 	/**
 	 * 带有权重的对象包装
 	 * 
-	 * @author looly
+	 * @author zhangchao
 	 *
 	 * @param <T> 对象类型
 	 */

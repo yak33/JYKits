@@ -7,11 +7,11 @@ import java.util.NoSuchElementException;
 /**
  * {@link com.junya.cache.impl.AbstractCache} 的CacheObj迭代器.
  * 
- * @author looly
+ * @author zhangchao
  *
  * @param <K> 键类型
  * @param <V> 值类型
- * @since 4.0.10
+ * @since 2.0.1
  */
 public class CacheObjIterator<K, V> implements Iterator<CacheObj<K, V>>, Serializable {
 	private static final long serialVersionUID = 1L;

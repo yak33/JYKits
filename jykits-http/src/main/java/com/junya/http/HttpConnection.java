@@ -21,7 +21,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
 
 import com.junya.core.map.MapUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.core.util.URLUtil;
 import com.junya.http.ssl.AndroidSupportSSLFactory;
 import com.junya.http.ssl.SSLSocketFactoryBuilder;
@@ -30,7 +30,7 @@ import com.junya.http.ssl.TrustAnyHostnameVerifier;
 /**
  * http连接对象，对HttpURLConnection的包装
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class HttpConnection {
@@ -82,7 +82,7 @@ public class HttpConnection {
 	 * 初始化连接相关信息
 	 * 
 	 * @return HttpConnection
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public HttpConnection initConn() {
 		try {
@@ -208,7 +208,7 @@ public class HttpConnection {
 			for (Entry<String, List<String>> entry : headerMap.entrySet()) {
 				name = entry.getKey();
 				for (String value : entry.getValue()) {
-					this.header(name, StrUtil.nullToEmpty(value), isOverride);
+					this.header(name, StringUtil.nullToEmpty(value), isOverride);
 				}
 			}
 		}
@@ -265,7 +265,7 @@ public class HttpConnection {
 			httpsConn.setHostnameVerifier(null != hostnameVerifier ? hostnameVerifier : new TrustAnyHostnameVerifier());
 			if (null == ssf) {
 				try {
-					if (StrUtil.equalsIgnoreCase("dalvik", System.getProperty("java.vm.name"))) {
+					if (StringUtil.equalsIgnoreCase("dalvik", System.getProperty("java.vm.name"))) {
 						// 兼容android低版本SSL连接
 						ssf = new AndroidSupportSSLFactory();
 					} else {
@@ -387,7 +387,7 @@ public class HttpConnection {
 	 * 静默断开连接。不抛出异常
 	 * 
 	 * @return this
-	 * @since 4.6.0
+	 * @since 2.0.3
 	 */
 	public HttpConnection disconnectQuietly() {
 		try {
@@ -480,12 +480,12 @@ public class HttpConnection {
 	 * 从ContentType中获取
 	 * 
 	 * @return {@link Charset}编码
-	 * @since 3.0.9
+	 * @since 2.0.3
 	 */
 	public Charset getCharset() {
 		Charset charset = null;
 		final String charsetName = getCharsetName();
-		if (StrUtil.isNotBlank(charsetName)) {
+		if (StringUtil.isNotBlank(charsetName)) {
 			try {
 				charset = Charset.forName(charsetName);
 			} catch (UnsupportedCharsetException e) {
@@ -497,12 +497,12 @@ public class HttpConnection {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = StrUtil.builder();
-		sb.append("Request URL: ").append(this.url).append(StrUtil.CRLF);
-		sb.append("Request Method: ").append(this.getMethod()).append(StrUtil.CRLF);
-		// sb.append("Request Headers: ").append(StrUtil.CRLF);
+		StringBuilder sb = StringUtil.builder();
+		sb.append("Request URL: ").append(this.url).append(StringUtil.CRLF);
+		sb.append("Request Method: ").append(this.getMethod()).append(StringUtil.CRLF);
+		// sb.append("Request Headers: ").append(StringUtil.CRLF);
 		// for (Entry<String, List<String>> entry : this.conn.getHeaderFields().entrySet()) {
-		// sb.append(" ").append(entry).append(StrUtil.CRLF);
+		// sb.append(" ").append(entry).append(StringUtil.CRLF);
 		// }
 
 		return sb.toString();

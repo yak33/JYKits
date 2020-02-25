@@ -10,7 +10,7 @@ package com.junya.core.lang;
  * </pre>
  * 
  * @param <T> 被编辑对象类型
- * @author Looly
+ * @author zhangchao
  */
 @FunctionalInterface
 public interface Editor<T> {

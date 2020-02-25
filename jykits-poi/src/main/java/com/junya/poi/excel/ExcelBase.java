@@ -20,8 +20,8 @@ import com.junya.poi.excel.style.StyleUtil;
  * Excel基础类，用于抽象ExcelWriter和ExcelReader中共用部分的对象和方法
  * 
  * @param <T> 子类类型，用于返回this
- * @author looly
- * @since 4.1.4
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	/** 是否被关闭 */
@@ -55,7 +55,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 返回工作簿表格数
 	 * 
 	 * @return 工作簿表格数
-	 * @since 4.0.10
+	 * @since 2.0.1
 	 */
 	public int getSheetCount() {
 		return this.workbook.getNumberOfSheets();
@@ -65,7 +65,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 获取此工作簿所有Sheet表
 	 * 
 	 * @return sheet表列表
-	 * @since 4.0.3
+	 * @since 2.0.3
 	 */
 	public List<Sheet> getSheets() {
 		final int totalSheet = getSheetCount();
@@ -80,7 +80,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 获取表名列表
 	 * 
 	 * @return 表名列表
-	 * @since 4.0.3
+	 * @since 2.0.3
 	 */
 	public List<String> getSheetNames() {
 		final int totalSheet = workbook.getNumberOfSheets();
@@ -106,7 +106,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 
 	 * @param sheetName sheet名
 	 * @return this
-	 * @since 4.0.10
+	 * @since 2.0.1
 	 */
 	@SuppressWarnings("unchecked")
 	public T setSheet(String sheetName) {
@@ -123,7 +123,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 
 	 * @param sheetIndex sheet序号，从0开始计数
 	 * @return this
-	 * @since 4.0.10
+	 * @since 2.0.1
 	 */
 	@SuppressWarnings("unchecked")
 	public T setSheet(int sheetIndex) {
@@ -144,7 +144,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * @param x X坐标，从0计数，即列号
 	 * @param y Y坐标，从0计数，即行号
 	 * @return {@link Cell}
-	 * @since 4.0.5
+	 * @since 2.0.1
 	 */
 	public Cell getCell(int x, int y) {
 		return getCell(x, y, false);
@@ -156,7 +156,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * @param x X坐标，从0计数，即列号
 	 * @param y Y坐标，从0计数，即行号
 	 * @return {@link Cell}
-	 * @since 4.0.6
+	 * @since 2.0.1
 	 */
 	public Cell getOrCreateCell(int x, int y) {
 		return getCell(x, y, true);
@@ -169,7 +169,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * @param y Y坐标，从0计数，即行号
 	 * @param isCreateIfNotExist 单元格不存在时是否创建
 	 * @return {@link Cell}
-	 * @since 4.0.6
+	 * @since 2.0.1
 	 */
 	public Cell getCell(int x, int y, boolean isCreateIfNotExist) {
 		final Row row = isCreateIfNotExist ? RowUtil.getOrCreateRow(this.sheet, y) : this.sheet.getRow(y);
@@ -184,7 +184,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 
 	 * @param y Y坐标，从0计数，即行号
 	 * @return {@link Row}
-	 * @since 4.1.4
+	 * @since 2.0.1
 	 */
 	public Row getOrCreateRow(int y) {
 		return RowUtil.getOrCreateRow(this.sheet, y);
@@ -196,7 +196,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * @param x X坐标，从0计数，即列号
 	 * @param y Y坐标，从0计数，即行号
 	 * @return {@link CellStyle}
-	 * @since 4.1.4
+	 * @since 2.0.1
 	 */
 	public CellStyle getOrCreateCellStyle(int x, int y) {
 		final CellStyle cellStyle = getOrCreateCell(x, y).getCellStyle();
@@ -209,7 +209,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * @param x X坐标，从0计数，即列号
 	 * @param y Y坐标，从0计数，即行号
 	 * @return {@link CellStyle}
-	 * @since 4.6.3
+	 * @since 2.0.1
 	 */
 	public CellStyle createCellStyle(int x, int y) {
 		final Cell cell = getOrCreateCell(x, y);
@@ -224,7 +224,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 
 	 * @param y Y坐标，从0计数，即行号
 	 * @return {@link CellStyle}
-	 * @since 4.1.4
+	 * @since 2.0.1
 	 */
 	public CellStyle getOrCreateRowStyle(int y) {
 		CellStyle rowStyle = getOrCreateRow(y).getRowStyle();
@@ -236,7 +236,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 
 	 * @param y Y坐标，从0计数，即行号
 	 * @return {@link CellStyle}
-	 * @since 4.6.3
+	 * @since 2.0.1
 	 */
 	public CellStyle createRowStyle(int y) {
 		final CellStyle rowStyle = this.workbook.createCellStyle();
@@ -250,7 +250,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 
 	 * @param x X坐标，从0计数，即列号
 	 * @return {@link CellStyle}
-	 * @since 4.1.4
+	 * @since 2.0.1
 	 */
 	public CellStyle getOrCreateColumnStyle(int x) {
 		final CellStyle columnStyle = this.sheet.getColumnStyle(x);
@@ -262,7 +262,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 
 	 * @param x X坐标，从0计数，即列号
 	 * @return {@link CellStyle}
-	 * @since 4.6.3
+	 * @since 2.0.1
 	 */
 	public CellStyle createColumnStyle(int x) {
 		final CellStyle columnStyle = this.workbook.createCellStyle();
@@ -278,7 +278,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * </pre>
 	 * 
 	 * @return 行数
-	 * @since 4.5.4
+	 * @since 2.0.3
 	 */
 	public int getRowCount() {
 		return this.sheet.getLastRowNum() + 1;
@@ -292,7 +292,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * </pre>
 	 * 
 	 * @return 行数
-	 * @since 4.5.4
+	 * @since 2.0.3
 	 */
 	public int getPhysicalRowCount() {
 		return this.sheet.getPhysicalNumberOfRows();
@@ -334,7 +334,7 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	 * 判断是否为xlsx格式的Excel表（Excel07格式）
 	 * 
 	 * @return 是否为xlsx格式的Excel表（Excel07格式）
-	 * @since 4.6.2
+	 * @since 2.0.1
 	 */
 	public boolean isXlsx() {
 		return this.sheet instanceof XSSFSheet;

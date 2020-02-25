@@ -1,14 +1,14 @@
 package com.junya.core.text;
 
 import com.junya.core.util.NumberUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 文本相似度计算<br>
  * 工具类提供者：【杭州】fineliving
  * 
  * @author fanqun
- * @since 3.2.3
+ * @since 2.0.3
  **/
 public class TextSimilarity {
 
@@ -60,7 +60,7 @@ public class TextSimilarity {
 	 */
 	private static String removeSign(String str) {
 		int length = str.length();
-		StringBuilder sb = StrUtil.builder(length);
+		StringBuilder sb = StringUtil.builder(length);
 		// 遍历字符串str,如果是汉字数字或字母，则追加到ab上面
 		char c;
 		for (int i = 0; i < length; i++) {

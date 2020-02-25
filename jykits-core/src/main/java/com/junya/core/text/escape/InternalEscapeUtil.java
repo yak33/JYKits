@@ -2,7 +2,7 @@ package com.junya.core.text.escape;
 
 /**
  * 内部Escape工具类
- * @author looly
+ * @author zhangchao
  *
  */
 class InternalEscapeUtil {

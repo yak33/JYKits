@@ -19,8 +19,8 @@ import com.junya.core.map.TableMap;
  * 2. 获取泛型参数类型（包括对象的泛型参数或集合元素的泛型类型）
  * </pre>
  * 
- * @author Looly
- * @since 3.0.8
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class TypeUtil {
 
@@ -71,7 +71,7 @@ public class TypeUtil {
 	 * 
 	 * @param field {@link Field}
 	 * @return 原始类，如果无法获取原始类，返回{@code null}
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static Class<?> getClass(Field field) {
 		return null == field ? null : field.getType();
@@ -84,7 +84,7 @@ public class TypeUtil {
 	 * 
 	 * @param method 方法
 	 * @return {@link Type}，可能为{@code null}
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static Type getFirstParamType(Method method) {
 		return getParamType(method, 0);
@@ -95,7 +95,7 @@ public class TypeUtil {
 	 * 
 	 * @param method 方法
 	 * @return 第一个参数类型，可能为{@code null}
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static Class<?> getFirstParamClass(Method method) {
 		return getParamClass(method, 0);
@@ -123,7 +123,7 @@ public class TypeUtil {
 	 * @param method 方法
 	 * @param index 第几个参数的索引，从0开始计数
 	 * @return 参数类，可能为{@code null}
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static Class<?> getParamClass(Method method, int index) {
 		Class<?>[] classes = getParamClasses(method);
@@ -155,7 +155,7 @@ public class TypeUtil {
 	 *
 	 * @see Method#getGenericParameterTypes
 	 * @see Method#getParameterTypes
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static Class<?>[] getParamClasses(Method method) {
 		return null == method ? null : method.getParameterTypes();
@@ -182,7 +182,7 @@ public class TypeUtil {
 	 * @return 返回值类型的类
 	 * @see Method#getGenericReturnType
 	 * @see Method#getReturnType
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static Class<?> getReturnClass(Method method) {
 		return null == method ? null : method.getReturnType();
@@ -250,7 +250,7 @@ public class TypeUtil {
 	 * 
 	 * @param type {@link Type}
 	 * @return {@link ParameterizedType}
-	 * @since 4.5.2
+	 * @since 2.0.3
 	 */
 	public static ParameterizedType toParameterizedType(Type type) {
 		if (type instanceof ParameterizedType) {
@@ -276,7 +276,7 @@ public class TypeUtil {
 	 * @param typeDefineClass 泛型变量声明所在类或接口，此类中定义了泛型类型
 	 * @param typeVariables 泛型变量，需要的实际类型对应的泛型参数
 	 * @return 给定泛型参数对应的实际类型，如果无对应类型，返回null
-	 * @since 4.5.7
+	 * @since 2.0.3
 	 */
 	public static Type[] getActualTypes(Type actualType, Class<?> typeDefineClass, Type... typeVariables) {
 		if (false == typeDefineClass.isAssignableFrom(getClass(actualType))) {
@@ -321,7 +321,7 @@ public class TypeUtil {
 	 * @param typeDefineClass 泛型变量声明所在类或接口，此类中定义了泛型类型
 	 * @param typeVariable 泛型变量，需要的实际类型对应的泛型参数
 	 * @return 给定泛型参数对应的实际类型
-	 * @since 4.5.2
+	 * @since 2.0.3
 	 */
 	public static Type getActualType(Type actualType, Class<?> typeDefineClass, Type typeVariable) {
 		Type[] types = getActualTypes(actualType, typeDefineClass, typeVariable);
@@ -337,7 +337,7 @@ public class TypeUtil {
 	 * 
 	 * @param type Type类型
 	 * @return 是否未知类型
-	 * @since 4.5.2
+	 * @since 2.0.3
 	 */
 	public static boolean isUnknow(Type type) {
 		return null == type || type instanceof TypeVariable;
@@ -347,7 +347,7 @@ public class TypeUtil {
 	 * 指定泛型数组中是否含有泛型变量
 	 * @param types 泛型数组
 	 * @return 是否含有泛型变量
-	 * @since 4.5.7
+	 * @since 2.0.3
 	 */
 	public static boolean hasTypeVeriable(Type... types) {
 		for (Type type : types) {

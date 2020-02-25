@@ -7,27 +7,24 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.lang.reflect.AnnotatedElement;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.util.ObjectUtil;
 
 /**
  * 组合注解 对JDK的原生注解机制做一个增强，支持类似Spring的组合注解。<br>
  * 核心实现使用了递归获取指定元素上的注解以及注解的注解，以实现复合注解的获取。
  *
- * @author Succy,Looly
- * @since 4.0.9
+ * @author Succy,zhangchao
+ * @since 2.0.3
  **/
 
 public class CombinationAnnotationElement implements AnnotatedElement, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/** 元注解 */
-	private static final Set<Class<? extends Annotation>> META_ANNOTATIONS = CollUtil.newHashSet(Target.class, //
+	private static final Set<Class<? extends Annotation>> META_ANNOTATIONS = CollectionUtil.newHashSet(Target.class, //
 			Retention.class, //
 			Inherited.class, //
 			Documented.class, //
@@ -65,13 +62,13 @@ public class CombinationAnnotationElement implements AnnotatedElement, Serializa
 	@Override
 	public Annotation[] getAnnotations() {
 		final Collection<Annotation> annotations = this.annotationMap.values();
-		return annotations.toArray(new Annotation[annotations.size()]);
+		return annotations.toArray(new Annotation[0]);
 	}
 
 	@Override
 	public Annotation[] getDeclaredAnnotations() {
 		final Collection<Annotation> annotations = this.declaredAnnotationMap.values();
-		return annotations.toArray(new Annotation[annotations.size()]);
+		return annotations.toArray(new Annotation[0]);
 	}
 	
 	/**
@@ -85,7 +82,7 @@ public class CombinationAnnotationElement implements AnnotatedElement, Serializa
 		parseDeclared(declaredAnnotations);
 		
 		final Annotation[] annotations = element.getAnnotations();
-		if(ObjectUtil.equal(declaredAnnotations, annotations)) {
+		if(Arrays.equals(declaredAnnotations, annotations)) {
 			this.annotationMap = this.declaredAnnotationMap;
 		}else {
 			this.annotationMap = new HashMap<>();

@@ -37,13 +37,13 @@ import com.junya.core.io.resource.Resource;
 import com.junya.core.lang.Assert;
 import com.junya.core.util.NumberUtil;
 import com.junya.core.util.ObjectUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 图像编辑器
  *
- * @author looly
- * @since 4.1.5
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class Img implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -53,7 +53,7 @@ public class Img implements Serializable {
 	/**
 	 * 目标图片文件格式，用于写出
 	 */
-	private String targetImageType = ImgUtil.IMAGE_TYPE_JPG;
+	private String targetImageType;
 	/**
 	 * 计算x,y坐标的时候是否从中心做为原始坐标开始计算
 	 */
@@ -88,7 +88,7 @@ public class Img implements Serializable {
 	 *
 	 * @param resource 图片资源对象
 	 * @return {@link Img}
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static Img from(Resource resource) {
 		return from(resource.getStream());
@@ -140,7 +140,22 @@ public class Img implements Serializable {
 	 * @param srcImage 来源图片
 	 */
 	public Img(BufferedImage srcImage) {
+		this(srcImage, null);
+	}
+
+	/**
+	 * 构造
+	 *
+	 * @param srcImage 来源图片
+	 * @param targetImageType 目标图片类型
+	 * @since 2.0.3
+	 */
+	public Img(BufferedImage srcImage, String targetImageType) {
 		this.srcImage = srcImage;
+		if(null == targetImageType){
+			targetImageType = ImgUtil.IMAGE_TYPE_JPG;
+		}
+		this.targetImageType = targetImageType;
 	}
 
 	/**
@@ -161,7 +176,7 @@ public class Img implements Serializable {
 	 *
 	 * @param positionBaseCentre 是否从中心做为原始坐标开始计算
 	 * @return this
-	 * @since 4.1.15
+	 * @since 2.0.3
 	 */
 	public Img setPositionBaseCentre(boolean positionBaseCentre) {
 		this.positionBaseCentre = positionBaseCentre;
@@ -173,7 +188,7 @@ public class Img implements Serializable {
 	 *
 	 * @param quality 质量，数字为0~1（不包括0和1）表示质量压缩比，除此数字外设置表示不压缩
 	 * @return this
-	 * @since 4.3.2
+	 * @since 2.0.3
 	 */
 	public Img setQuality(double quality) {
 		return setQuality((float) quality);
@@ -184,7 +199,7 @@ public class Img implements Serializable {
 	 *
 	 * @param quality 质量，数字为0~1（不包括0和1）表示质量压缩比，除此数字外设置表示不压缩
 	 * @return this
-	 * @since 4.3.2
+	 * @since 2.0.3
 	 */
 	public Img setQuality(float quality) {
 		if (quality > 0 && quality < 1) {
@@ -294,15 +309,14 @@ public class Img implements Serializable {
 		srcHeight = srcImage.getHeight(null);
 		srcWidth = srcImage.getWidth(null);
 
-		if (null == fixedColor) {// 补白
-			fixedColor = Color.WHITE;
-		}
 		final BufferedImage image = new BufferedImage(width, height, getTypeInt());
 		Graphics2D g = image.createGraphics();
 
 		// 设置背景
-		g.setBackground(fixedColor);
-		g.clearRect(0, 0, width, height);
+		if(null != fixedColor){
+			g.setBackground(fixedColor);
+			g.clearRect(0, 0, width, height);
+		}
 
 		// 在中间贴图
 		g.drawImage(srcImage, (width - srcWidth) / 2, (height - srcHeight) / 2, srcWidth, srcHeight, fixedColor, null);
@@ -334,7 +348,7 @@ public class Img implements Serializable {
 	 * @param x 原图的x坐标起始位置
 	 * @param y 原图的y坐标起始位置
 	 * @return this
-	 * @since 4.1.15
+	 * @since 2.0.3
 	 */
 	public Img cut(int x, int y) {
 		return cut(x, y, -1);
@@ -347,7 +361,7 @@ public class Img implements Serializable {
 	 * @param y      原图的y坐标起始位置
 	 * @param radius 半径，小于0表示填充满整个图片（直径取长宽最小值）
 	 * @return this
-	 * @since 4.1.15
+	 * @since 2.0.3
 	 */
 	public Img cut(int x, int y, int radius) {
 		final Image srcImage = getValidSrcImg();
@@ -375,7 +389,7 @@ public class Img implements Serializable {
 	 *
 	 * @param arc 圆角弧度，0~1，为长宽占比
 	 * @return this
-	 * @since 4.5.3
+	 * @since 2.0.3
 	 */
 	public Img round(double arc) {
 		final Image srcImage = getValidSrcImg();
@@ -480,7 +494,7 @@ public class Img implements Serializable {
 	 * @param rectangle 矩形对象，表示矩形区域的x，y，width，height，x,y从背景图片中心计算
 	 * @param alpha     透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
 	 * @return this
-	 * @since 4.1.14
+	 * @since 2.0.3
 	 */
 	public Img pressImage(Image pressImg, Rectangle rectangle, float alpha) {
 		final Image targetImg = getValidSrcImg();
@@ -496,7 +510,7 @@ public class Img implements Serializable {
 	 *
 	 * @param degree 旋转角度
 	 * @return 旋转后的图片
-	 * @since 3.2.2
+	 * @since 2.0.3
 	 */
 	public Img rotate(int degree) {
 		final Image image = getValidSrcImg();
@@ -581,11 +595,12 @@ public class Img implements Serializable {
 	 */
 	public boolean write(File targetFile) throws IORuntimeException {
 		final String formatName = FileUtil.extName(targetFile);
-		if (StrUtil.isNotBlank(formatName)) {
+		if (StringUtil.isNotBlank(formatName)) {
 			this.targetImageType = formatName;
 		}
 
 		if (targetFile.exists()) {
+			//noinspection ResultOfMethodCallIgnored
 			targetFile.delete();
 		}
 
@@ -624,6 +639,7 @@ public class Img implements Serializable {
 	 * @see BufferedImage#TYPE_INT_RGB
 	 */
 	private int getTypeInt() {
+		//noinspection SwitchStatementWithTooFewBranches
 		switch (this.targetImageType) {
 			case ImgUtil.IMAGE_TYPE_PNG:
 				return BufferedImage.TYPE_INT_ARGB;
@@ -648,7 +664,7 @@ public class Img implements Serializable {
 	 * @param baseWidth  参考宽
 	 * @param baseHeight 参考高
 	 * @return 修正后的{@link Rectangle}
-	 * @since 4.1.15
+	 * @since 2.0.3
 	 */
 	private Rectangle fixRectangle(Rectangle rectangle, int baseWidth, int baseHeight) {
 		if (this.positionBaseCentre) {
@@ -668,7 +684,7 @@ public class Img implements Serializable {
 	 * @param height 高度
 	 * @param degree 旋转角度
 	 * @return 计算后目标尺寸
-	 * @since 4.1.20
+	 * @since 2.0.3
 	 */
 	private static Rectangle calcRotatedSize(int width, int height, int degree) {
 		if (degree < 0) {
@@ -678,6 +694,7 @@ public class Img implements Serializable {
 		if (degree >= 90) {
 			if (degree / 90 % 2 == 1) {
 				int temp = height;
+				//noinspection SuspiciousNameCombination
 				height = width;
 				width = temp;
 			}

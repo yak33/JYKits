@@ -80,8 +80,8 @@ import com.junya.core.util.ArrayUtil;
  *
  * TODO 待整理
  * 来自于Apache-Commons-Lang3
- * @author looly，Apache-Commons
- * @since 4.2.2
+ * @author zhangchao，Apache-Commons
+ * @since 2.0.3
  */
 public class HashCodeBuilder implements Builder<Integer> {
 	private static final long serialVersionUID = 1L;
@@ -934,7 +934,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *
      * @return <code>hashCode</code> based on the fields appended
      *
-     * @since 3.0
+     * @since 2.0.3
      */
     @Override
     public Integer build() {

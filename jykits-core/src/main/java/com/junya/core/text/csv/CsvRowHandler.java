@@ -3,8 +3,8 @@ package com.junya.core.text.csv;
 /**
  * CSV的行处理器，实现此接口用于按照行处理数据
  *
- * @author Looly
- * @since 5.0.4
+ * @author zhangchao
+ * @since 2.0.3
  */
 @FunctionalInterface
 public interface CsvRowHandler {

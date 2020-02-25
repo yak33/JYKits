@@ -2,13 +2,13 @@ package com.junya.core.text;
 
 import com.junya.core.util.CharUtil;
 import com.junya.core.util.HexUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 提供Unicode字符串和普通字符串之间的转换
  *
- * @author 兜兜毛毛, looly
- * @since 4.0.0
+ * @author 兜兜毛毛,zhangchao
+ * @since 2.0.3
  */
 public class UnicodeUtil {
 
@@ -20,7 +20,7 @@ public class UnicodeUtil {
 	 * @return 普通字符串
 	 */
 	public static String toString(String unicode) {
-		if (StrUtil.isBlank(unicode)) {
+		if (StringUtil.isBlank(unicode)) {
 			return unicode;
 		}
 
@@ -28,7 +28,7 @@ public class UnicodeUtil {
 		StrBuilder sb = StrBuilder.create(len);
 		int i;
 		int pos = 0;
-		while ((i = StrUtil.indexOfIgnoreCase(unicode, "\\u", pos)) != -1) {
+		while ((i = StringUtil.indexOfIgnoreCase(unicode, "\\u", pos)) != -1) {
 			sb.append(unicode, pos, i);//写入Unicode符之前的部分
 			pos = i;
 			if (i + 5 < len) {
@@ -72,7 +72,7 @@ public class UnicodeUtil {
 	 * @return Unicode字符串
 	 */
 	public static String toUnicode(String str, boolean isSkipAscii) {
-		if (StrUtil.isEmpty(str)) {
+		if (StringUtil.isEmpty(str)) {
 			return str;
 		}
 

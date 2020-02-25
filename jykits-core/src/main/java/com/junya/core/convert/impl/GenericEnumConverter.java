@@ -6,8 +6,8 @@ import com.junya.core.convert.AbstractConverter;
  * 泛型枚举转换器
  * 
  * @param <E> 枚举类类型
- * @author Looly
- * @since 4.0.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class GenericEnumConverter<E extends Enum<E>> extends AbstractConverter<E> {
 	private static final long serialVersionUID = 1L;

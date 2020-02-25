@@ -14,13 +14,13 @@ import com.junya.core.io.FileUtil;
 import com.junya.core.io.IORuntimeException;
 import com.junya.core.util.CharsetUtil;
 import com.junya.core.util.ClassLoaderUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.core.util.URLUtil;
 
 /**
  * ClassPath资源工具类
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class ResourceUtil {
@@ -30,7 +30,7 @@ public class ResourceUtil {
 	 * 
 	 * @param resource 资源路径，使用相对ClassPath的路径
 	 * @return 资源内容
-	 * @since 3.1.1
+	 * @since 2.0.3
 	 */
 	public static String readUtf8Str(String resource) {
 		return readStr(resource, CharsetUtil.CHARSET_UTF_8);
@@ -42,7 +42,7 @@ public class ResourceUtil {
 	 * @param resource 可以是绝对路径，也可以是相对路径（相对ClassPath）
 	 * @param charset 编码
 	 * @return 资源内容
-	 * @since 3.1.1
+	 * @since 2.0.3
 	 */
 	public static String readStr(String resource, Charset charset) {
 		return getResourceObj(resource).readStr(charset);
@@ -53,7 +53,7 @@ public class ResourceUtil {
 	 * 
 	 * @param resource 可以是绝对路径，也可以是相对路径（相对ClassPath）
 	 * @return 资源内容
-	 * @since 4.5.19
+	 * @since 2.0.3
 	 */
 	public static byte[] readBytes(String resource) {
 		return getResourceObj(resource).readBytes();
@@ -65,7 +65,7 @@ public class ResourceUtil {
 	 * @param resurce ClassPath资源
 	 * @return {@link InputStream}
 	 * @throws NoResourceException 资源不存在异常
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static InputStream getStream(String resurce) throws NoResourceException {
 		return getResourceObj(resurce).getStream();
@@ -76,7 +76,7 @@ public class ResourceUtil {
 	 * 
 	 * @param resurce ClassPath资源
 	 * @return {@link InputStream}
-	 * @since 4.0.3
+	 * @since 2.0.3
 	 */
 	public static InputStream getStreamSafe(String resurce) {
 		try {
@@ -93,7 +93,7 @@ public class ResourceUtil {
 	 * @param resurce ClassPath资源
 	 * @param charset 编码
 	 * @return {@link InputStream}
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static BufferedReader getReader(String resurce, Charset charset) {
 		return getResourceObj(resurce).getReader(charset);
@@ -148,7 +148,7 @@ public class ResourceUtil {
 	 * 
 	 * @param resource 资源路径
 	 * @return 资源列表
-	 * @since 4.1.5
+	 * @since 2.0.3
 	 */
 	public static EnumerationIter<URL> getResourceIter(String resource) {
 		final Enumeration<URL> resources;
@@ -177,10 +177,10 @@ public class ResourceUtil {
 	 * 
 	 * @param path 路径，可以是绝对路径，也可以是相对路径（相对ClassPath）
 	 * @return {@link Resource} 资源对象
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static Resource getResourceObj(String path) {
-		if(StrUtil.isNotBlank(path)) {
+		if(StringUtil.isNotBlank(path)) {
 			if(path.startsWith(URLUtil.FILE_URL_PREFIX) || FileUtil.isAbsolutePath(path)) {
 				return new FileResource(path);
 			}

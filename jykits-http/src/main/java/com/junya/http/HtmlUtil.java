@@ -2,7 +2,7 @@ package com.junya.http;
 
 import com.junya.core.util.EscapeUtil;
 import com.junya.core.util.ReUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * HTML工具类
@@ -11,17 +11,17 @@ import com.junya.core.util.StrUtil;
  * 比如我们在使用爬虫爬取HTML页面后，需要对返回页面的HTML内容做一定处理，<br>
  * 比如去掉指定标签（例如广告栏等）、去除JS、去掉样式等等，这些操作都可以使用此工具类完成。
  * 
- * @author xiaoleilu
+ * @author zhangchao
  * 
  */
 public class HtmlUtil {
 
-	public static final String NBSP = StrUtil.HTML_NBSP;
-	public static final String AMP = StrUtil.HTML_AMP;
-	public static final String QUOTE = StrUtil.HTML_QUOTE;
-	public static final String APOS = StrUtil.HTML_APOS;
-	public static final String LT = StrUtil.HTML_LT;
-	public static final String GT = StrUtil.HTML_GT;
+	public static final String NBSP = StringUtil.HTML_NBSP;
+	public static final String AMP = StringUtil.HTML_AMP;
+	public static final String QUOTE = StringUtil.HTML_QUOTE;
+	public static final String APOS = StringUtil.HTML_APOS;
+	public static final String LT = StringUtil.HTML_LT;
+	public static final String GT = StringUtil.HTML_GT;
 
 	public static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";
 	public static final String RE_SCRIPT = "<[\\s]*?script[^>]*?>.*?<[\\s]*?\\/[\\s]*?script[\\s]*?>";
@@ -65,7 +65,7 @@ public class HtmlUtil {
 	 * @return 转换后的字符串
 	 */
 	public static String unescape(String htmlStr) {
-		if (StrUtil.isBlank(htmlStr)) {
+		if (StringUtil.isBlank(htmlStr)) {
 			return htmlStr;
 		}
 
@@ -120,17 +120,17 @@ public class HtmlUtil {
 	public static String removeHtmlTag(String content, boolean withTagContent, String... tagNames) {
 		String regex;
 		for (String tagName : tagNames) {
-			if (StrUtil.isBlank(tagName)) {
+			if (StringUtil.isBlank(tagName)) {
 				continue;
 			}
 			tagName = tagName.trim();
 			// (?i)表示其后面的表达式忽略大小写
 			if (withTagContent) {
 				// 标签及其包含内容
-				regex = StrUtil.format("(?i)<{}\\s*?[^>]*?/?>(.*?</{}>)?", tagName, tagName);
+				regex = StringUtil.format("(?i)<{}\\s*?[^>]*?/?>(.*?</{}>)?", tagName, tagName);
 			} else {
 				// 标签不包含内容
-				regex = StrUtil.format("(?i)<{}\\s*?[^>]*?>|</{}>", tagName, tagName);
+				regex = StringUtil.format("(?i)<{}\\s*?[^>]*?>|</{}>", tagName, tagName);
 			}
 
 			content = ReUtil.delAll(regex, content); // 非自闭标签小写
@@ -153,8 +153,8 @@ public class HtmlUtil {
 			// [^>]+?   属性值，至少有一个非>的字符，>表示标签结束
 			// \s+(?=>) 表示属性值后跟空格加>，即末尾的属性，此时去掉空格
 			// (?=\s|>) 表示属性值后跟空格（属性后还有别的属性）或者跟>（最后一个属性）
-			regex = StrUtil.format("(?i)(\\s*{}\\s*=[^>]+?\\s+(?=>))|(\\s*{}\\s*=[^>]+?(?=\\s|>))", attr, attr);
-			content = content.replaceAll(regex, StrUtil.EMPTY);
+			regex = StringUtil.format("(?i)(\\s*{}\\s*=[^>]+?\\s+(?=>))|(\\s*{}\\s*=[^>]+?(?=\\s|>))", attr, attr);
+			content = content.replaceAll(regex, StringUtil.EMPTY);
 		}
 		return content;
 	}
@@ -169,8 +169,8 @@ public class HtmlUtil {
 	public static String removeAllHtmlAttr(String content, String... tagNames) {
 		String regex;
 		for (String tagName : tagNames) {
-			regex = StrUtil.format("(?i)<{}[^>]*?>", tagName);
-			content = content.replaceAll(regex, StrUtil.format("<{}>", tagName));
+			regex = StringUtil.format("(?i)<{}[^>]*?>", tagName);
+			content = content.replaceAll(regex, StringUtil.format("<{}>", tagName));
 		}
 		return content;
 	}
@@ -184,7 +184,7 @@ public class HtmlUtil {
 	private static String encode(String text) {
 		int len;
 		if ((text == null) || ((len = text.length()) == 0)) {
-			return StrUtil.EMPTY;
+			return StringUtil.EMPTY;
 		}
 		StringBuilder buffer = new StringBuilder(len + (len >> 2));
 		char c;

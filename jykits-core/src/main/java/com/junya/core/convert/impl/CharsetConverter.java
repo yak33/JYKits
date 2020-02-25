@@ -7,7 +7,7 @@ import com.junya.core.util.CharsetUtil;
 
 /**
  * 编码对象转换器
- * @author Looly
+ * @author zhangchao
  *
  */
 public class CharsetConverter extends AbstractConverter<Charset>{

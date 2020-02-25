@@ -5,7 +5,7 @@ import javax.xml.soap.SOAPConstants;
 /**
  * SOAP协议版本枚举
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public enum SoapProtocol {

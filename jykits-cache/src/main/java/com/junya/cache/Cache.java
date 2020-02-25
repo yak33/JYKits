@@ -9,7 +9,7 @@ import com.junya.core.lang.func.Func0;
 /**
  * 缓存接口
  * 
- * @author Looly,jodd
+ * @author zhangchao
  *
  * @param <K> 键类型
  * @param <V> 值类型
@@ -87,7 +87,7 @@ public interface Cache<K, V> extends Iterable<V>, Serializable {
 	 * 返回包含键和值得迭代器
 	 * 
 	 * @return 缓存对象迭代器
-	 * @since 4.0.10
+	 * @since 2.0.1
 	 */
 	Iterator<CacheObj<K, V>> cacheObjIterator();
 

@@ -3,15 +3,15 @@ package com.junya.core.convert.impl;
 import java.util.Locale;
 
 import com.junya.core.convert.AbstractConverter;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 
  * {@link Locale}对象转换器<br>
  * 只提供String转换支持
  * 
- * @author Looly
- * @since 4.5.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class LocaleConverter extends AbstractConverter<Locale> {
 	private static final long serialVersionUID = 1L;
@@ -20,7 +20,7 @@ public class LocaleConverter extends AbstractConverter<Locale> {
 	protected Locale convertInternal(Object value) {
 		try {
 			String str = convertToStr(value);
-			if (StrUtil.isEmpty(str)) {
+			if (StringUtil.isEmpty(str)) {
 				return null;
 			}
 

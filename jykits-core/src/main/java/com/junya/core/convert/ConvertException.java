@@ -1,11 +1,11 @@
 package com.junya.core.convert;
 
 import com.junya.core.exceptions.ExceptionUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 转换异常
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class ConvertException extends RuntimeException{
 	private static final long serialVersionUID = 4730597402855274362L;
@@ -19,7 +19,7 @@ public class ConvertException extends RuntimeException{
 	}
 	
 	public ConvertException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 	
 	public ConvertException(String message, Throwable throwable) {
@@ -27,6 +27,6 @@ public class ConvertException extends RuntimeException{
 	}
 	
 	public ConvertException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 }

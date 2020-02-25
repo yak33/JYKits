@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 文件类型判断工具类
@@ -16,7 +16,7 @@ import com.junya.core.util.StrUtil;
  *
  * <p>需要注意的是，xlsx、docx等Office2007格式，全部识别为zip，因为新版采用了OpenXML格式，这些格式本质上是XML文件打包为zip</p>
  *
- * @author Looly
+ * @author zhangchao
  */
 public class FileTypeUtil {
 
@@ -42,7 +42,8 @@ public class FileTypeUtil {
 		fileTypeMap.put("255044462d312e", "pdf"); // Adobe Acrobat (pdf)
 		fileTypeMap.put("2e524d46000000120001", "rmvb"); // rmvb/rm相同
 		fileTypeMap.put("464c5601050000000900", "flv"); // flv与f4v相同
-		fileTypeMap.put("00000020667479706d70", "mp4");
+		fileTypeMap.put("00000020667479706", "mp4");
+		fileTypeMap.put("00000018667479706D70", "mp4");
 		fileTypeMap.put("49443303000000002176", "mp3");
 		fileTypeMap.put("000001ba210001000180", "mpg"); //
 		fileTypeMap.put("3026b2758e66cf11a6d9", "wmv"); // wmv与asf相同
@@ -105,7 +106,7 @@ public class FileTypeUtil {
 	 */
 	public static String getType(String fileStreamHexHead) {
 		for (Entry<String, String> fileTypeEntry : fileTypeMap.entrySet()) {
-			if (StrUtil.startWithIgnoreCase(fileStreamHexHead, fileTypeEntry.getKey())) {
+			if (StringUtil.startWithIgnoreCase(fileStreamHexHead, fileTypeEntry.getKey())) {
 				return fileTypeEntry.getValue();
 			}
 		}

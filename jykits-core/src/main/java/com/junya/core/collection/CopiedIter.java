@@ -18,8 +18,8 @@ import java.util.List;
  * 
  *
  * @param <E> 元素类型
- * @author Looly
- * @since 3.0.7
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class CopiedIter<E> implements Iterator<E>, Iterable<E>, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +35,7 @@ public class CopiedIter<E> implements Iterator<E>, Iterable<E>, Serializable {
 	 * @param iterator 被复制的Iterator
 	 */
 	public CopiedIter(Iterator<E> iterator) {
-		final List<E> eleList = CollUtil.newArrayList(iterator);
+		final List<E> eleList = CollectionUtil.newArrayList(iterator);
 		this.listIterator = eleList.iterator();
 	}
 

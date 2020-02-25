@@ -18,10 +18,10 @@ import com.junya.core.util.TypeUtil;
  * <p>
  * 此类参考FastJSON的TypeReference实现
  * 
- * @author looly
+ * @author zhangchao
  *
  * @param <T> 需要自定义的参考类型
- * @since 4.2.2
+ * @since 2.0.3
  */
 public abstract class TypeReference<T> implements Type {
 

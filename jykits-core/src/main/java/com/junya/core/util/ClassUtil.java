@@ -8,6 +8,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URL;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -28,7 +29,7 @@ import com.junya.core.lang.Singleton;
 /**
  * 类工具类 <br>
  *
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class ClassUtil {
 
@@ -50,7 +51,7 @@ public class ClassUtil {
 	 *
 	 * @param clazz 类
 	 * @return 外围类
-	 * @since 4.5.7
+	 * @since 2.0.3
 	 */
 	public static Class<?> getEnclosingClass(Class<?> clazz) {
 		return null == clazz ? null : clazz.getEnclosingClass();
@@ -61,7 +62,7 @@ public class ClassUtil {
 	 *
 	 * @param clazz 类
 	 * @return 是否为顶层类
-	 * @since 4.5.7
+	 * @since 2.0.3
 	 */
 	public static boolean isTopLevelClass(Class<?> clazz) {
 		if (null == clazz) {
@@ -76,7 +77,7 @@ public class ClassUtil {
 	 * @param obj      获取类名对象
 	 * @param isSimple 是否简单类名，如果为true，返回不带包名的类名
 	 * @return 类名
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public static String getClassName(Object obj, boolean isSimple) {
 		if (null == obj) {
@@ -92,14 +93,14 @@ public class ClassUtil {
 	 * 例如：ClassUtil这个类<br>
 	 *
 	 * <pre>
-	 * isSimple为false: "com.xiaoleilu.hutool.util.ClassUtil"
+	 * isSimple为false: "com.junya.core.util.ClassUtil"
 	 * isSimple为true: "ClassUtil"
 	 * </pre>
 	 *
 	 * @param clazz    类
 	 * @param isSimple 是否简单类名，如果为true，返回不带包名的类名
 	 * @return 类名
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public static String getClassName(Class<?> clazz, boolean isSimple) {
 		if (null == clazz) {
@@ -110,20 +111,20 @@ public class ClassUtil {
 
 	/**
 	 * 获取完整类名的短格式如：<br>
-	 * com.junya.core.util.StrUtil -》c.h.c.u.StrUtil
+	 * com.junya.core.util.StringUtil -》c.h.c.u.StringUtil
 	 *
 	 * @param className 类名
 	 * @return 短格式类名
-	 * @since 4.1.9
+	 * @since 2.0.3
 	 */
 	public static String getShortClassName(String className) {
-		final List<String> packages = StrUtil.split(className, CharUtil.DOT);
+		final List<String> packages = StringUtil.split(className, CharUtil.DOT);
 		if (null == packages || packages.size() < 2) {
 			return className;
 		}
 
 		final int size = packages.size();
-		final StringBuilder result = StrUtil.builder();
+		final StringBuilder result = StringUtil.builder();
 		result.append(packages.get(0).charAt(0));
 		for (int i = 1; i < size - 1; i++) {
 			result.append(CharUtil.DOT).append(packages.get(i).charAt(0));
@@ -155,10 +156,10 @@ public class ClassUtil {
 	 * @param className  类名，可以是全类名（包含包名），也可以是简单类名（不包含包名）
 	 * @param ignoreCase 是否忽略大小写
 	 * @return 指定类是否与给定的类名相同
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public static boolean equals(Class<?> clazz, String className, boolean ignoreCase) {
-		if (null == clazz || StrUtil.isBlank(className)) {
+		if (null == clazz || StringUtil.isBlank(className)) {
 			return false;
 		}
 		if (ignoreCase) {
@@ -355,7 +356,7 @@ public class ClassUtil {
 	 * @throws SecurityException 安全异常
 	 */
 	public static Field getDeclaredField(Class<?> clazz, String fieldName) throws SecurityException {
-		if (null == clazz || StrUtil.isBlank(fieldName)) {
+		if (null == clazz || StringUtil.isBlank(fieldName)) {
 			return null;
 		}
 		try {
@@ -396,10 +397,10 @@ public class ClassUtil {
 	 *
 	 * @param isDecode 是否解码路径中的特殊字符（例如空格和中文）
 	 * @return ClassPath集合
-	 * @since 4.0.11
+	 * @since 2.0.3
 	 */
 	public static Set<String> getClassPathResources(boolean isDecode) {
-		return getClassPaths(StrUtil.EMPTY, isDecode);
+		return getClassPaths(StringUtil.EMPTY, isDecode);
 	}
 
 	/**
@@ -418,10 +419,10 @@ public class ClassUtil {
 	 * @param packageName 包名称
 	 * @param isDecode    是否解码路径中的特殊字符（例如空格和中文）
 	 * @return ClassPath路径字符串集合
-	 * @since 4.0.11
+	 * @since 2.0.3
 	 */
 	public static Set<String> getClassPaths(String packageName, boolean isDecode) {
-		String packagePath = packageName.replace(StrUtil.DOT, StrUtil.SLASH);
+		String packagePath = packageName.replace(StringUtil.DOT, StringUtil.SLASH);
 		Enumeration<URL> resources;
 		try {
 			resources = getClassLoader().getResources(packagePath);
@@ -452,7 +453,7 @@ public class ClassUtil {
 	 *
 	 * @param isEncoded 是否编码路径中的中文
 	 * @return ClassPath
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static String getClassPath(boolean isEncoded) {
 		final URL classPathURL = getClassPathURL();
@@ -466,7 +467,7 @@ public class ClassUtil {
 	 * @return ClassPath URL
 	 */
 	public static URL getClassPathURL() {
-		return getResourceURL(StrUtil.EMPTY);
+		return getResourceURL(StringUtil.EMPTY);
 	}
 
 	/**
@@ -617,7 +618,7 @@ public class ClassUtil {
 	 * 非单例模式，如果是非静态方法，每次创建一个新对象
 	 *
 	 * @param <T>                     对象类型
-	 * @param classNameWithMethodName 类名和方法名表达式，类名与方法名用<code>.</code>或<code>#</code>连接 例如：com.xiaoleilu.hutool.StrUtil.isEmpty 或 com.xiaoleilu.hutool.StrUtil#isEmpty
+	 * @param classNameWithMethodName 类名和方法名表达式，类名与方法名用<code>.</code>或<code>#</code>连接 例如：com.junya.core.util.StringUtil.isEmpty 或 com.junya.core.util.StringUtil#isEmpty
 	 * @param args                    参数，必须严格对应指定方法的参数类型和数量
 	 * @return 返回结果
 	 */
@@ -631,13 +632,13 @@ public class ClassUtil {
 	 * 执行非static方法时，必须满足对象有默认构造方法<br>
 	 *
 	 * @param <T>                     对象类型
-	 * @param classNameWithMethodName 类名和方法名表达式，例如：com.xiaoleilu.hutool.StrUtil#isEmpty或com.xiaoleilu.hutool.StrUtil.isEmpty
+	 * @param classNameWithMethodName 类名和方法名表达式，例如：com.junya.core.util.StringUtil#isEmpty或com.junya.core.util.StringUtil.isEmpty
 	 * @param isSingleton             是否为单例对象，如果此参数为false，每次执行方法时创建一个新对象
 	 * @param args                    参数，必须严格对应指定方法的参数类型和数量
 	 * @return 返回结果
 	 */
 	public static <T> T invoke(String classNameWithMethodName, boolean isSingleton, Object... args) {
-		if (StrUtil.isBlank(classNameWithMethodName)) {
+		if (StringUtil.isBlank(classNameWithMethodName)) {
 			throw new UtilException("Blank classNameDotMethodName!");
 		}
 
@@ -688,7 +689,7 @@ public class ClassUtil {
 		try {
 			final Method method = getDeclaredMethod(clazz, methodName, getClasses(args));
 			if (null == method) {
-				throw new NoSuchMethodException(StrUtil.format("No such method: [{}]", methodName));
+				throw new NoSuchMethodException(StringUtil.format("No such method: [{}]", methodName));
 			}
 			if (isStatic(method)) {
 				return ReflectUtil.invoke(null, method, args);
@@ -744,7 +745,17 @@ public class ClassUtil {
 
 	/**
 	 * 是否为简单值类型<br>
-	 * 包括：原始类型,、String、other CharSequence, a Number, a Date, a URI, a URL, a Locale or a Class.
+	 * 包括：
+	 * <pre>
+	 *     原始类型
+	 *     String、other CharSequence
+	 *     Number
+	 *     Date
+	 *     URI
+	 *     URL
+	 *     Locale
+	 *     Class
+	 * </pre>
 	 *
 	 * @param clazz 类
 	 * @return 是否为简单值类型
@@ -758,7 +769,9 @@ public class ClassUtil {
 				|| clazz.equals(URI.class) //
 				|| clazz.equals(URL.class) //
 				|| clazz.equals(Locale.class) //
-				|| clazz.equals(Class.class);//
+				|| clazz.equals(Class.class)//
+				// jdk8 date object
+				|| TemporalAccessor.class.isAssignableFrom(clazz); //
 	}
 
 	/**
@@ -904,7 +917,7 @@ public class ClassUtil {
 	 *
 	 * @param clazz 类
 	 * @return 是否为枚举类型
-	 * @since 3.2.0
+	 * @since 2.0.3
 	 */
 	public static boolean isEnum(Class<?> clazz) {
 		return null != clazz && clazz.isEnum();
@@ -938,19 +951,19 @@ public class ClassUtil {
 	/**
 	 * 获得给定类所在包的名称<br>
 	 * 例如：<br>
-	 * com.xiaoleilu.hutool.util.ClassUtil =》 com.xiaoleilu.hutool.util
+	 * com.junya.core.util.ClassUtil =》 com.junya.core.util
 	 *
 	 * @param clazz 类
 	 * @return 包名
 	 */
 	public static String getPackage(Class<?> clazz) {
 		if (clazz == null) {
-			return StrUtil.EMPTY;
+			return StringUtil.EMPTY;
 		}
 		final String className = clazz.getName();
-		int packageEndIndex = className.lastIndexOf(StrUtil.DOT);
+		int packageEndIndex = className.lastIndexOf(StringUtil.DOT);
 		if (packageEndIndex == -1) {
-			return StrUtil.EMPTY;
+			return StringUtil.EMPTY;
 		}
 		return className.substring(0, packageEndIndex);
 	}
@@ -958,13 +971,13 @@ public class ClassUtil {
 	/**
 	 * 获得给定类所在包的路径<br>
 	 * 例如：<br>
-	 * com.xiaoleilu.hutool.util.ClassUtil =》 com/xiaoleilu/hutool/util
+	 * com.junya.core.util.ClassUtil =》 com/junya/core/util
 	 *
 	 * @param clazz 类
 	 * @return 包名
 	 */
 	public static String getPackagePath(Class<?> clazz) {
-		return getPackage(clazz).replace(StrUtil.C_DOT, StrUtil.C_SLASH);
+		return getPackage(clazz).replace(StringUtil.C_DOT, StringUtil.C_SLASH);
 	}
 
 	/**
@@ -978,7 +991,7 @@ public class ClassUtil {
 	 *
 	 * @param clazz 类
 	 * @return 默认值
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static Object getDefaultValue(Class<?> clazz) {
 		if (clazz.isPrimitive()) {
@@ -1009,7 +1022,7 @@ public class ClassUtil {
 	 *
 	 * @param classes 值类型
 	 * @return 默认值列表
-	 * @since 3.0.9
+	 * @since 2.0.3
 	 */
 	public static Object[] getDefaultValues(Class<?>... classes) {
 		final Object[] values = new Object[classes.length];
@@ -1029,7 +1042,7 @@ public class ClassUtil {
 	 *
 	 * @param clazz 被检查的类
 	 * @return 是否为JDK中定义的类或接口
-	 * @since 4.6.5
+	 * @since 2.0.3
 	 */
 	public static boolean isJdkClass(Class<?> clazz) {
 		final Package objectPackage = clazz.getPackage();

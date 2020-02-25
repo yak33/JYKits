@@ -4,17 +4,17 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.map.MapWrapper;
 
 /**
  * 值作为集合的Map实现，通过调用putValue可以在相同key时加入多个值，多个值用集合表示
  * 
- * @author looly
+ * @author zhangchao
  *
  * @param <K> 键类型
  * @param <V> 值类型
- * @since 4.3.3
+ * @since 2.0.3
  */
 public abstract class CollectionValueMap<K, V> extends MapWrapper<K, Collection<V>> {
 
@@ -96,7 +96,7 @@ public abstract class CollectionValueMap<K, V> extends MapWrapper<K, Collection<
 	 */
 	public V get(K key, int index) {
 		final Collection<V> collection = get(key);
-		return CollUtil.get(collection, index);
+		return CollectionUtil.get(collection, index);
 	}
 
 	/**

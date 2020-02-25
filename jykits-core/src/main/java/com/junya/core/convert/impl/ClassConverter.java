@@ -6,7 +6,7 @@ import com.junya.core.util.ClassUtil;
 /**
  * 类转换器<br>
  * 将类名转换为类
- * @author Looly
+ * @author zhangchao
  *
  */
 public class ClassConverter extends AbstractConverter<Class<?>>{

@@ -18,7 +18,7 @@ import com.junya.cache.Cache;
  * <li>实现 <code>prune</code> 策略</li>
  * </ul>
  * 
- * @author Looly,jodd
+ * @author zhangchao
  *
  * @param <K> 键类型
  * @param <V> 值类型
@@ -68,7 +68,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
 	 * @param key 键
 	 * @param object 值
 	 * @param timeout 超时时长
-	 * @since 4.5.16
+	 * @since 2.0.1
 	 */
 	private void putWithoutLock(K key, V object, long timeout) {
 		CacheObj<K, V> co = new CacheObj<>(key, object, timeout);

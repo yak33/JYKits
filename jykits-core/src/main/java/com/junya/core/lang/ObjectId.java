@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.junya.core.date.DateUtil;
 import com.junya.core.util.ClassLoaderUtil;
 import com.junya.core.util.RandomUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * MongoDB ID生成策略实现<br>
@@ -24,8 +24,8 @@ import com.junya.core.util.StrUtil;
  * 
  * 参考：http://blog.csdn.net/qxc1281/article/details/54021882
  * 
- * @author looly
- * @since 4.0.0
+ * @author zhangchao
+ * @since 2.0.3
  *
  */
 public class ObjectId {
@@ -45,7 +45,7 @@ public class ObjectId {
 		if (s == null) {
 			return false;
 		}
-		s = StrUtil.removeAll(s, "-");
+		s = StringUtil.removeAll(s, "-");
 		final int len = s.length();
 		if (len != 24) {
 			return false;
@@ -72,7 +72,7 @@ public class ObjectId {
 	 * 获取一个objectId的bytes表现形式
 	 * 
 	 * @return objectId
-	 * @since 4.1.15
+	 * @since 2.0.3
 	 */
 	public static byte[] nextBytes() {
 		final ByteBuffer bb = ByteBuffer.wrap(new byte[12]);

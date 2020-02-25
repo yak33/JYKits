@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 计时器<br>
  * 计算某个过程花费的时间，精确到毫秒
  *
- * @author Looly
+ * @author zhangchao
  */
 public class TimeInterval implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -45,7 +45,7 @@ public class TimeInterval implements Serializable {
 	 * 重新开始计算时间（重置开始时间）
 	 *
 	 * @return this
-	 * @since 3.0.1
+	 * @since 2.0.3
 	 */
 	public TimeInterval restart() {
 		time = DateUtil.current(isNano);
@@ -68,7 +68,7 @@ public class TimeInterval implements Serializable {
 	 * 从开始到当前的间隔时间（毫秒数），返回XX天XX小时XX分XX秒XX毫秒
 	 *
 	 * @return 从开始到当前的间隔时间（毫秒数）
-	 * @since 4.6.7
+	 * @since 2.0.3
 	 */
 	public String intervalPretty() {
 		return DateUtil.formatBetween(intervalMs());

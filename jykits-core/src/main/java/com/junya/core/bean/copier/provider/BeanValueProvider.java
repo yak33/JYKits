@@ -8,12 +8,12 @@ import com.junya.core.bean.BeanDesc.PropDesc;
 import com.junya.core.bean.BeanUtil;
 import com.junya.core.bean.copier.ValueProvider;
 import com.junya.core.exceptions.UtilException;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * Bean的值提供者
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class BeanValueProvider implements ValueProvider<String> {
@@ -40,7 +40,7 @@ public class BeanValueProvider implements ValueProvider<String> {
 		PropDesc sourcePd = sourcePdMap.get(key);
 		if(null == sourcePd && (Boolean.class == valueType || boolean.class == valueType)) {
 			//boolean类型字段字段名支持两种方式
-			sourcePd = sourcePdMap.get(StrUtil.upperFirstAndAddPre(key, "is"));
+			sourcePd = sourcePdMap.get(StringUtil.upperFirstAndAddPre(key, "is"));
 		}
 		
 		if (null != sourcePd) {
@@ -60,7 +60,7 @@ public class BeanValueProvider implements ValueProvider<String> {
 
 	@Override
 	public boolean containsKey(String key) {
-		return sourcePdMap.containsKey(key) || sourcePdMap.containsKey(StrUtil.upperFirstAndAddPre(key, "is"));
+		return sourcePdMap.containsKey(key) || sourcePdMap.containsKey(StringUtil.upperFirstAndAddPre(key, "is"));
 	}
 
 }

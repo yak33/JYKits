@@ -2,7 +2,7 @@ package com.junya.http;
 
 /**
  * Http方法枚举
- * @author Looly
+ * @author zhangchao
  *
  */
 public enum Method {

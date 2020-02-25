@@ -2,7 +2,7 @@ package com.junya.core.io;
 
 /**
  * Stream进度条
- * @author Looly
+ * @author zhangchao
  *
  */
 public interface StreamProgress {

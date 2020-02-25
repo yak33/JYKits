@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * 对象工具类，包括判空、克隆、序列化等操作
  *
- * @author Looly
+ * @author zhangchao
  */
 public class ObjectUtil {
 
@@ -47,7 +47,7 @@ public class ObjectUtil {
 	 * @param obj1 对象1
 	 * @param obj2 对象2
 	 * @return 是否不等
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public static boolean notEqual(Object obj1, Object obj2) {
 		return false == equal(obj1, obj2);
@@ -184,6 +184,7 @@ public class ObjectUtil {
 	 * @return 是否为null
 	 */
 	public static boolean isNull(Object obj) {
+		//noinspection ConstantConditions
 		return null == obj || obj.equals(null);
 	}
 
@@ -194,6 +195,7 @@ public class ObjectUtil {
 	 * @return 是否为null
 	 */
 	public static boolean isNotNull(Object obj) {
+		//noinspection ConstantConditions
 		return null != obj && false == obj.equals(null);
 	}
 
@@ -210,7 +212,7 @@ public class ObjectUtil {
 	 *
 	 * @param obj 被判断的对象
 	 * @return 是否为空，如果类型不支持，返回false
-	 * @since 4.5.7
+	 * @since 2.0.3
 	 */
 	@SuppressWarnings("rawtypes")
 	public static boolean isEmpty(Object obj) {
@@ -219,7 +221,7 @@ public class ObjectUtil {
 		}
 
 		if (obj instanceof CharSequence) {
-			return StrUtil.isEmpty((CharSequence) obj);
+			return StringUtil.isEmpty((CharSequence) obj);
 		} else if (obj instanceof Map) {
 			return MapUtil.isEmpty((Map) obj);
 		} else if (obj instanceof Iterable) {
@@ -246,7 +248,7 @@ public class ObjectUtil {
 	 *
 	 * @param obj 被判断的对象
 	 * @return 是否为空，如果类型不支持，返回true
-	 * @since 4.5.7
+	 * @since 2.0.3
 	 */
 	public static boolean isNotEmpty(Object obj) {
 		return false == isEmpty(obj);
@@ -267,7 +269,7 @@ public class ObjectUtil {
 	 * @param object       被检查对象，可能为{@code null}
 	 * @param defaultValue 被检查对象为{@code null}返回的默认值，可以为{@code null}
 	 * @return 被检查对象为{@code null}返回默认值，否则返回原值
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public static <T> T defaultIfNull(final T object, final T defaultValue) {
 		return (null != object) ? object : defaultValue;
@@ -435,7 +437,7 @@ public class ObjectUtil {
 	 * @param c2  对象2，可以为{@code null}
 	 * @return 比较结果，如果c1 &lt; c2，返回数小于0，c1==c2返回0，c1 &gt; c2 大于0
 	 * @see java.util.Comparator#compare(Object, Object)
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public static <T extends Comparable<? super T>> int compare(T c1, T c2) {
 		return CompareUtil.compare(c1, c2);
@@ -450,7 +452,7 @@ public class ObjectUtil {
 	 * @param nullGreater 当被比较对象为null时是否排在前面
 	 * @return 比较结果，如果c1 &lt; c2，返回数小于0，c1==c2返回0，c1 &gt; c2 大于0
 	 * @see java.util.Comparator#compare(Object, Object)
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public static <T extends Comparable<? super T>> int compare(T c1, T c2, boolean nullGreater) {
 		return CompareUtil.compare(c1, c2, nullGreater);
@@ -461,7 +463,7 @@ public class ObjectUtil {
 	 *
 	 * @param obj 被检查的对象
 	 * @return {@link Class}
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static Class<?> getTypeArgument(Object obj) {
 		return getTypeArgument(obj, 0);
@@ -473,7 +475,7 @@ public class ObjectUtil {
 	 * @param obj   被检查的对象
 	 * @param index 泛型类型的索引号，即第几个泛型类型
 	 * @return {@link Class}
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static Class<?> getTypeArgument(Object obj, int index) {
 		return ClassUtil.getTypeArgument(obj.getClass(), index);
@@ -489,11 +491,11 @@ public class ObjectUtil {
 	 *
 	 * @param obj Bean对象
 	 * @return Bean所有字段转为Map后的字符串
-	 * @since 3.2.0
+	 * @since 2.0.3
 	 */
 	public static String toString(Object obj) {
 		if (null == obj) {
-			return StrUtil.NULL;
+			return StringUtil.NULL;
 		}
 		if (obj instanceof Map) {
 			return obj.toString();

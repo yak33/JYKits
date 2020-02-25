@@ -20,7 +20,7 @@ import com.junya.core.util.HexUtil;
  * 4.在每个 name=value 对之间放置 &amp; 符号。
  * </pre>
  * 
- * @author looly,
+ * @author zhangchao,
  *
  */
 public class URLEncoder implements Serializable{

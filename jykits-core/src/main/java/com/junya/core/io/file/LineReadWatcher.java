@@ -14,8 +14,8 @@ import com.junya.core.io.watch.SimpleWatcher;
 /**
  * 行处理的Watcher实现
  * 
- * @author looly
- * @since 4.5.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class LineReadWatcher extends SimpleWatcher implements Runnable {
 

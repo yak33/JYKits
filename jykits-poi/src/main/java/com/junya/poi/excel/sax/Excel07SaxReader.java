@@ -2,7 +2,7 @@ package com.junya.poi.excel.sax;
 
 import com.junya.core.exceptions.DependencyException;
 import com.junya.core.io.IoUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.poi.excel.sax.handler.RowHandler;
 import com.junya.poi.exceptions.POIException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -30,8 +30,8 @@ import java.util.List;
  * Sax方式读取Excel文件<br>
  * Excel2007格式说明见：http://www.cnblogs.com/wangmingshun/p/6654143.html
  *
- * @author Looly
- * @since 3.1.2
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class Excel07SaxReader extends AbstractExcelSaxReader<Excel07SaxReader> implements ContentHandler {
 
@@ -247,7 +247,7 @@ public class Excel07SaxReader extends AbstractExcelSaxReader<Excel07SaxReader> i
 	 */
 	@Override
 	public void endElement(String uri, String localName, String qName) {
-		final String contentStr = StrUtil.trim(lastContent);
+		final String contentStr = StringUtil.trim(lastContent);
 
 //		if (T_ELEMENT.equals(qName)) {
 //			// type标签

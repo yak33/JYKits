@@ -3,8 +3,8 @@ package com.junya.http.useragent;
 /**
  * User-Agent信息对象
  * 
- * @author looly
- * @since 4.2.1
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class UserAgent {
 

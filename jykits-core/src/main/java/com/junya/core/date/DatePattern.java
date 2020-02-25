@@ -8,7 +8,7 @@ import com.junya.core.date.format.FastDateFormat;
 /**
  * 日期格式化类，提供常用的日期格式化对象
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class DatePattern {

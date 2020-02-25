@@ -7,8 +7,8 @@ import com.junya.core.io.FileUtil;
 /**
  * Web root资源访问对象
  * 
- * @author looly
- * @since 4.1.11
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class WebAppResource extends FileResource {
 	private static final long serialVersionUID = 1L;

@@ -15,8 +15,8 @@ import com.junya.core.util.CharsetUtil;
 /**
  * 字符串资源，字符串做为资源
  * 
- * @author looly
- * @since 4.1.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class StringResource implements Resource, Serializable {
 	private static final long serialVersionUID = 1L;

@@ -3,15 +3,16 @@ package com.junya.core.convert.impl;
 import com.junya.core.convert.AbstractConverter;
 import com.junya.core.date.DateTime;
 import com.junya.core.date.DateUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 日期转换器
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class DateConverter extends AbstractConverter<java.util.Date> {
@@ -65,18 +66,24 @@ public class DateConverter extends AbstractConverter<java.util.Date> {
 		if (value instanceof Calendar) {
 			// Handle Calendar
 			mills = ((Calendar) value).getTimeInMillis();
-		} else if (value instanceof Long) {
-			// Handle Long
-			mills = (Long) value;
+		} else if (value instanceof Number) {
+			// Handle Number
+			mills = ((Number) value).longValue();
 		}else if (value instanceof TemporalAccessor) {
 			return DateUtil.date((TemporalAccessor) value);
 		} else {
 			// 统一按照字符串处理
 			final String valueStr = convertToStr(value);
+			Date date = null;
 			try {
-				mills = StrUtil.isBlank(this.format) ? DateUtil.parse(valueStr).getTime() : DateUtil.parse(valueStr, this.format).getTime();
+				date = StringUtil.isBlank(this.format) //
+						? DateUtil.parse(valueStr) //
+						: DateUtil.parse(valueStr, this.format);
 			} catch (Exception e) {
 				// Ignore Exception
+			}
+			if(null != date){
+				mills = date.getTime();
 			}
 		}
 
@@ -98,7 +105,7 @@ public class DateConverter extends AbstractConverter<java.util.Date> {
 			return new java.sql.Timestamp(mills);
 		}
 
-		throw new UnsupportedOperationException(StrUtil.format("Unsupport Date type: {}", this.targetType.getName()));
+		throw new UnsupportedOperationException(StringUtil.format("Unsupport Date type: {}", this.targetType.getName()));
 	}
 
 }

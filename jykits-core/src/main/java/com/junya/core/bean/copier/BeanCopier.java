@@ -13,7 +13,7 @@ import com.junya.core.bean.BeanDesc.PropDesc;
 import com.junya.core.bean.BeanUtil;
 import com.junya.core.bean.copier.provider.BeanValueProvider;
 import com.junya.core.bean.copier.provider.MapValueProvider;
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.convert.Convert;
 import com.junya.core.exceptions.UtilException;
 import com.junya.core.lang.ParameterizedTypeImpl;
@@ -21,16 +21,16 @@ import com.junya.core.lang.copier.Copier;
 import com.junya.core.map.MapUtil;
 import com.junya.core.util.ArrayUtil;
 import com.junya.core.util.ObjectUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.core.util.TypeUtil;
 
 /**
  * Bean拷贝
  * 
- * @author looly
+ * @author zhangchao
  *
  * @param <T> 目标对象类型
- * @since 3.2.3
+ * @since 2.0.3
  */
 public class BeanCopier<T> implements Copier<T>, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -148,12 +148,12 @@ public class BeanCopier<T> implements Copier<T>, Serializable {
 	 * 
 	 * @param bean bean对象
 	 * @param targetMap 目标的Map
-	 * @since 4.1.22
+	 * @since 2.0.3
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void beanToMap(Object bean, Map targetMap) {
 		final Collection<PropDesc> props = BeanUtil.getBeanDesc(bean.getClass()).getProps();
-		final HashSet<String> ignoreSet = (null != copyOptions.ignoreProperties) ? CollUtil.newHashSet(copyOptions.ignoreProperties) : null;
+		final HashSet<String> ignoreSet = (null != copyOptions.ignoreProperties) ? CollectionUtil.newHashSet(copyOptions.ignoreProperties) : null;
 		final CopyOptions copyOptions = this.copyOptions;
 
 		String key;
@@ -175,7 +175,7 @@ public class BeanCopier<T> implements Copier<T>, Serializable {
 						throw new UtilException(e, "Get value of [{}] error!", prop.getFieldName());
 					}
 				}
-				if (CollUtil.contains(ignoreSet, key)) {
+				if (CollectionUtil.contains(ignoreSet, key)) {
 					// 目标属性值被忽略或值提供者无此key时跳过
 					continue;
 				}
@@ -206,11 +206,11 @@ public class BeanCopier<T> implements Copier<T>, Serializable {
 		if (null != copyOptions.editable) {
 			// 检查限制类是否为target的父类或接口
 			if (false == copyOptions.editable.isInstance(bean)) {
-				throw new IllegalArgumentException(StrUtil.format("Target class [{}] not assignable to Editable class [{}]", bean.getClass().getName(), copyOptions.editable.getName()));
+				throw new IllegalArgumentException(StringUtil.format("Target class [{}] not assignable to Editable class [{}]", bean.getClass().getName(), copyOptions.editable.getName()));
 			}
 			actualEditable = copyOptions.editable;
 		}
-		final HashSet<String> ignoreSet = (null != copyOptions.ignoreProperties) ? CollUtil.newHashSet(copyOptions.ignoreProperties) : null;
+		final HashSet<String> ignoreSet = (null != copyOptions.ignoreProperties) ? CollectionUtil.newHashSet(copyOptions.ignoreProperties) : null;
 		final Map<String, String> fieldReverseMapping = copyOptions.getReversedMapping();
 
 		final Collection<PropDesc> props = BeanUtil.getBeanDesc(actualEditable).getProps();
@@ -221,7 +221,7 @@ public class BeanCopier<T> implements Copier<T>, Serializable {
 		for (PropDesc prop : props) {
 			// 获取值
 			fieldName = prop.getFieldName();
-			if (CollUtil.contains(ignoreSet, fieldName)) {
+			if (CollectionUtil.contains(ignoreSet, fieldName)) {
 				// 目标属性值被忽略或值提供者无此key时跳过
 				continue;
 			}
@@ -289,7 +289,7 @@ public class BeanCopier<T> implements Copier<T>, Serializable {
 	 * @param mapping 反向映射Map
 	 * @param fieldName 字段名
 	 * @return 映射值，无对应值返回字段名
-	 * @since 4.1.10
+	 * @since 2.0.3
 	 */
 	private static String mappingKey(Map<String, String> mapping, String fieldName) {
 		if (MapUtil.isEmpty(mapping)) {

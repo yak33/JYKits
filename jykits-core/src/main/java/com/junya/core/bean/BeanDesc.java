@@ -14,7 +14,7 @@ import com.junya.core.util.BooleanUtil;
 import com.junya.core.util.ClassUtil;
 import com.junya.core.util.ModifierUtil;
 import com.junya.core.util.ReflectUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.core.util.TypeUtil;
 
 /**
@@ -28,8 +28,8 @@ import com.junya.core.util.TypeUtil;
  * 4. Setter忽略参数值与字段值不匹配的情况，因此有多个参数类型的重载时，会调用首次匹配的
  * </pre>
  * 
- * @author looly
- * @since 3.1.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class BeanDesc implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -160,7 +160,7 @@ public class BeanDesc implements Serializable{
 	 * 
 	 * @param field 字段
 	 * @return {@link PropDesc}
-	 * @since 4.0.2
+	 * @since 2.0.3
 	 */
 	private PropDesc createProp(Field field) {
 		final String fieldName = field.getName();
@@ -279,7 +279,7 @@ public class BeanDesc implements Serializable{
 		// 针对Boolean类型特殊检查
 		if (isBooeanField && fieldName.startsWith("is")) {
 			// 字段是is开头
-			if (methodName.equals("set" + StrUtil.removePrefix(fieldName, "is"))// isName -》 setName
+			if (methodName.equals("set" + StringUtil.removePrefix(fieldName, "is"))// isName -》 setName
 					|| methodName.equals("set" + fieldName)// isName -》 setIsName
 			) {
 				return true;
@@ -294,7 +294,7 @@ public class BeanDesc implements Serializable{
 	/**
 	 * 属性描述
 	 * 
-	 * @author looly
+	 * @author zhangchao
 	 *
 	 */
 	public static class PropDesc {
@@ -388,7 +388,7 @@ public class BeanDesc implements Serializable{
 		 * 
 		 * @param bean Bean对象
 		 * @return 字段值
-		 * @since 4.0.5
+		 * @since 2.0.3
 		 */
 		public Object getValue(Object bean) {
 			if(null != this.getter) {
@@ -406,7 +406,7 @@ public class BeanDesc implements Serializable{
 		 * @param bean Bean对象
 		 * @param value 值
 		 * @return this
-		 * @since 4.0.5
+		 * @since 2.0.3
 		 */
 		public PropDesc setValue(Object bean, Object value) {
 			if(null != this.setter) {

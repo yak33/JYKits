@@ -10,6 +10,7 @@ import com.junya.core.lang.Validator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 身份证相关工具类<br>
@@ -20,8 +21,8 @@ import java.util.Map;
  * http://www.mca.gov.cn/article/sj/xzqh/2018/201804-12/20181011221630.html
  * </p>
  *
- * @author Looly
- * @since 3.0.4
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class IdcardUtil {
 
@@ -148,7 +149,7 @@ public class IdcardUtil {
 				// 2000年之后不存在15位身份证号，此处用于修复此问题的判断
 				sYear -= 100;
 			}
-			idCard18 = StrUtil.builder().append(idCard, 0, 6).append(sYear).append(idCard.substring(8));
+			idCard18 = StringUtil.builder().append(idCard, 0, 6).append(sYear).append(idCard.substring(8));
 			// 获取校验位
 			char sVal = getCheckCode18(idCard18.toString());
 			idCard18.append(sVal);
@@ -268,7 +269,7 @@ public class IdcardUtil {
 	 * </p>
 	 */
 	public static String[] isValidCard10(String idCard) {
-		if (StrUtil.isBlank(idCard)) {
+		if (StringUtil.isBlank(idCard)) {
 			return null;
 		}
 		String[] info = new String[3];
@@ -309,7 +310,7 @@ public class IdcardUtil {
 	 * @return 验证码是否符合
 	 */
 	public static boolean isValidTWCard(String idCard) {
-		if (StrUtil.isEmpty(idCard)) {
+		if (StringUtil.isEmpty(idCard)) {
 			return false;
 		}
 		String start = idCard.substring(0, 1);
@@ -323,10 +324,10 @@ public class IdcardUtil {
 		final char[] chars = mid.toCharArray();
 		int iflag = 8;
 		for (char c : chars) {
-			sum += Integer.valueOf(String.valueOf(c)) * iflag;
+			sum += Integer.parseInt(String.valueOf(c)) * iflag;
 			iflag--;
 		}
-		return (sum % 10 == 0 ? 0 : (10 - sum % 10)) == Integer.valueOf(end);
+		return (sum % 10 == 0 ? 0 : (10 - sum % 10)) == Integer.parseInt(end);
 	}
 
 	/**
@@ -360,7 +361,7 @@ public class IdcardUtil {
 		char[] chars = mid.toCharArray();
 		int iflag = 7;
 		for (char c : chars) {
-			sum = sum + Integer.valueOf(String.valueOf(c)) * iflag;
+			sum = sum + Integer.parseInt(String.valueOf(c)) * iflag;
 			iflag--;
 		}
 		if ("A".equals(end.toUpperCase())) {
@@ -389,13 +390,15 @@ public class IdcardUtil {
 	 * @return 生日(yyyyMMdd)
 	 */
 	public static String getBirth(String idCard) {
+		Assert.notBlank(idCard, "id card must be not blank!");
 		final int len = idCard.length();
 		if (len < CHINA_ID_MIN_LENGTH) {
 			return null;
 		} else if (len == CHINA_ID_MIN_LENGTH) {
 			idCard = convert15To18(idCard);
 		}
-		return idCard.substring(6, 14);
+
+		return Objects.requireNonNull(idCard).substring(6, 14);
 	}
 
 	/**
@@ -444,7 +447,7 @@ public class IdcardUtil {
 		} else if (len == CHINA_ID_MIN_LENGTH) {
 			idCard = convert15To18(idCard);
 		}
-		return Short.valueOf(idCard.substring(6, 10));
+		return Short.valueOf(Objects.requireNonNull(idCard).substring(6, 10));
 	}
 
 	/**
@@ -460,7 +463,7 @@ public class IdcardUtil {
 		} else if (len == CHINA_ID_MIN_LENGTH) {
 			idCard = convert15To18(idCard);
 		}
-		return Short.valueOf(idCard.substring(10, 12));
+		return Short.valueOf(Objects.requireNonNull(idCard).substring(10, 12));
 	}
 
 	/**
@@ -476,7 +479,7 @@ public class IdcardUtil {
 		} else if (len == CHINA_ID_MIN_LENGTH) {
 			idCard = convert15To18(idCard);
 		}
-		return Short.valueOf(idCard.substring(12, 14));
+		return Short.valueOf(Objects.requireNonNull(idCard).substring(12, 14));
 	}
 
 	/**
@@ -495,7 +498,7 @@ public class IdcardUtil {
 		if (len == CHINA_ID_MIN_LENGTH) {
 			idCard = convert15To18(idCard);
 		}
-		char sCardChar = idCard.charAt(16);
+		char sCardChar = Objects.requireNonNull(idCard).charAt(16);
 		return (sCardChar % 2 != 0) ? 1 : 0;
 	}
 
@@ -521,11 +524,11 @@ public class IdcardUtil {
 	 * @param startInclude 开始位置（包含）
 	 * @param endExclude   结束位置（不包含）
 	 * @return 隐藏后的身份证号码
-	 * @see StrUtil#hide(CharSequence, int, int)
-	 * @since 3.2.2
+	 * @see StringUtil#hide(CharSequence, int, int)
+	 * @since 2.0.3
 	 */
 	public static String hide(String idCard, int startInclude, int endExclude) {
-		return StrUtil.hide(idCard, startInclude, endExclude);
+		return StringUtil.hide(idCard, startInclude, endExclude);
 	}
 
 	// ----------------------------------------------------------------------------------- Private method start
@@ -572,7 +575,7 @@ public class IdcardUtil {
 			case 0:
 				return '1';
 			default:
-				return StrUtil.C_SPACE;
+				return StringUtil.C_SPACE;
 		}
 	}
 
@@ -586,7 +589,7 @@ public class IdcardUtil {
 		int iSum = 0;
 		if (power.length == iArr.length) {
 			for (int i = 0; i < iArr.length; i++) {
-				iSum += Integer.valueOf(String.valueOf(iArr[i])) * power[i];
+				iSum += Integer.parseInt(String.valueOf(iArr[i])) * power[i];
 			}
 		}
 		return iSum;

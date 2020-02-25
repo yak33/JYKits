@@ -7,7 +7,7 @@ import com.junya.core.util.CharUtil;
 /**
  * CSV写出配置项
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class CsvWriteConfig extends CsvConfig implements Serializable {

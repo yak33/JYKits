@@ -32,8 +32,8 @@ import java.util.Date;
  * java.time.OffsetTime
  * </pre>
  *
- * @author looly
- * @since 5.0.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class TemporalAccessorConverter extends AbstractConverter<TemporalAccessor> {
 	private static final long serialVersionUID = 1L;

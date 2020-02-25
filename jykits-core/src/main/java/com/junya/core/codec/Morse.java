@@ -6,14 +6,14 @@ import java.util.Map;
 
 import com.junya.core.lang.Assert;
 import com.junya.core.util.CharUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 莫尔斯电码的编码和解码实现<br>
  * 参考：https://github.com/TakWolf/Java-MorseCoder
  * 
- * @author looly, TakWolf
- * @since 4.4.1
+ * @author zhangchao, TakWolf
+ * @since 2.0.3
  */
 public class Morse {
 
@@ -150,14 +150,14 @@ public class Morse {
 		final char dit = this.dit;
 		final char dah = this.dah;
 		final char split = this.split;
-		if (false == StrUtil.containsOnly(morse, dit, dah, split)) {
+		if (false == StringUtil.containsOnly(morse, dit, dah, split)) {
 			throw new IllegalArgumentException("Incorrect morse.");
 		}
-		final List<String> words = StrUtil.split(morse, split);
+		final List<String> words = StringUtil.split(morse, split);
 		final StringBuilder textBuilder = new StringBuilder();
 		Integer codePoint;
 		for (String word : words) {
-			if(StrUtil.isEmpty(word)){
+			if(StringUtil.isEmpty(word)){
 				continue;
 			}
 			word = word.replace(dit, '0').replace(dah, '1');

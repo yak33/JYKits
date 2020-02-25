@@ -13,8 +13,8 @@ import com.junya.core.util.ObjectUtil;
 /**
  * 剪贴板监听
  * 
- * @author looly
- * @since 4.5.6
+ * @author zhangchao
+ * @since 2.0.3
  */
 public enum ClipboardMonitor implements ClipboardOwner, Runnable, Closeable {
 	INSTANCE;

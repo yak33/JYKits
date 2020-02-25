@@ -14,8 +14,8 @@ import com.junya.poi.exceptions.POIException;
 /**
  * Word Document工具
  * 
- * @author looly
- * @since 4.4.1
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class DocUtil {
 

@@ -20,8 +20,8 @@ import com.junya.core.util.ArrayUtil;
 /**
  * Word生成器
  * 
- * @author looly
- * @since 4.4.1
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class Word07Writer implements Closeable {
 
@@ -132,7 +132,7 @@ public class Word07Writer implements Closeable {
 	 * 
 	 * @param data 表格数据，多行数据。元素表示一行数据，当为集合或者数组时，为一行；当为Map或者Bean时key表示标题，values为数据
 	 * @return this
-	 * @since 4.5.16
+	 * @since 2.0.1
 	 */
 	public Word07Writer addTable(Iterable<?> data) {
 		TableUtil.createTable(this.doc, data);

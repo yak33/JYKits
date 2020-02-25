@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.junya.core.collection.CollectionUtil;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFPicture;
 import org.apache.poi.hssf.usermodel.HSSFPictureData;
@@ -20,15 +21,14 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTMarker;
 
-import com.junya.core.collection.CollectionUtil;
 import com.junya.core.lang.Assert;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * Excel图片工具类
  * 
- * @author looly
- * @since 4.0.7
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class ExcelPicUtil {
 	/**
@@ -49,7 +49,7 @@ public class ExcelPicUtil {
 		} else if (workbook instanceof XSSFWorkbook) {
 			return getPicMapXlsx((XSSFWorkbook) workbook, sheetIndex);
 		} else {
-			throw new IllegalArgumentException(StrUtil.format("Workbook type [{}] is not supported!", workbook.getClass()));
+			throw new IllegalArgumentException(StringUtil.format("Workbook type [{}] is not supported!", workbook.getClass()));
 		}
 	}
 
@@ -72,7 +72,7 @@ public class ExcelPicUtil {
 				if (shape instanceof HSSFPicture) {
 					pictureIndex = ((HSSFPicture) shape).getPictureIndex() - 1;
 					anchor = (HSSFClientAnchor) shape.getAnchor();
-					picMap.put(StrUtil.format("{}_{}", anchor.getRow1(), anchor.getCol1()), pictures.get(pictureIndex));
+					picMap.put(StringUtil.format("{}_{}", anchor.getRow1(), anchor.getCol1()), pictures.get(pictureIndex));
 				}
 			}
 		}
@@ -99,7 +99,7 @@ public class ExcelPicUtil {
 				for (XSSFShape shape : shapes) {
 					pic = (XSSFPicture) shape;
 					ctMarker = pic.getPreferredSize().getFrom();
-					sheetIndexPicMap.put(StrUtil.format("{}_{}", ctMarker.getRow(), ctMarker.getCol()), pic.getPictureData());
+					sheetIndexPicMap.put(StringUtil.format("{}_{}", ctMarker.getRow(), ctMarker.getCol()), pic.getPictureData());
 				}
 			}
 		}

@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * CSV中一行的表示
  *
- * @author Looly
+ * @author zhangchao
  */
 public final class CsvRow implements List<String> {
 

@@ -1,11 +1,11 @@
 package com.junya.core.exceptions;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 验证异常
  * 
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class ValidateException extends StatefulException {
 	private static final long serialVersionUID = 6057602589533840889L;
@@ -18,7 +18,7 @@ public class ValidateException extends StatefulException {
 	}
 	
 	public ValidateException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 
 	public ValidateException(Throwable throwable) {

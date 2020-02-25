@@ -7,8 +7,8 @@ import java.util.concurrent.locks.Lock;
 /**
  * 无锁实现
  * 
- * @author looly
- *@since 4.3.1
+ * @author zhangchao
+ *@since 2.0.3
  */
 public class NoLock implements Lock{
 

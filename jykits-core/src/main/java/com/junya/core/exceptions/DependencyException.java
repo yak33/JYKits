@@ -1,12 +1,12 @@
 package com.junya.core.exceptions;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 依赖异常
  * 
- * @author xiaoleilu
- * @since 4.0.10
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class DependencyException extends RuntimeException {
 	private static final long serialVersionUID = 8247610319171014183L;
@@ -20,7 +20,7 @@ public class DependencyException extends RuntimeException {
 	}
 
 	public DependencyException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 
 	public DependencyException(String message, Throwable throwable) {
@@ -28,6 +28,6 @@ public class DependencyException extends RuntimeException {
 	}
 
 	public DependencyException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 }

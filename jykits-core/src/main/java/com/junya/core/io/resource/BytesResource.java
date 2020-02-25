@@ -10,14 +10,14 @@ import java.nio.charset.Charset;
 
 import com.junya.core.io.IORuntimeException;
 import com.junya.core.util.CharsetUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 基于byte[]的资源获取器<br>
  * 注意：此对象中getUrl方法始终返回null
  * 
- * @author looly
- * @since 4.0.9
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class BytesResource implements Resource, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -67,7 +67,7 @@ public class BytesResource implements Resource, Serializable {
 
 	@Override
 	public String readStr(Charset charset) throws IORuntimeException {
-		return StrUtil.str(this.bytes, charset);
+		return StringUtil.str(this.bytes, charset);
 	}
 
 	@Override

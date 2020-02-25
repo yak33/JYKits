@@ -7,8 +7,8 @@ import com.junya.core.util.ReUtil;
 /**
  * User-agent信息
  * 
- * @author looly
- * @since 4.2.1
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class UserAgentInfo {
 

@@ -9,8 +9,8 @@ import java.time.temporal.TemporalAmount;
  * 
  * {@link Period}对象转换器
  * 
- * @author Looly
- * @since 5.0.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class PeriodConverter extends AbstractConverter<Period> {
 	private static final long serialVersionUID = 1L;

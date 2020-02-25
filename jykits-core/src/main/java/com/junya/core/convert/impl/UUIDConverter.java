@@ -7,8 +7,8 @@ import com.junya.core.convert.AbstractConverter;
 /**
  * UUID对象转换器转换器
  * 
- * @author Looly
- * @since 4.0.10
+ * @author zhangchao
+ * @since 2.0.3
  *
  */
 public class UUIDConverter extends AbstractConverter<UUID> {

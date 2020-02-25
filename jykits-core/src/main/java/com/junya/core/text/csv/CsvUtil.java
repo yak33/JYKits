@@ -7,8 +7,8 @@ import java.nio.charset.Charset;
 /**
  * CSV工具
  *
- * @author looly
- * @since 4.0.5
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class CsvUtil {
 

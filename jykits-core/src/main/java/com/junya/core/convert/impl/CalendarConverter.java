@@ -5,12 +5,12 @@ import java.util.Date;
 
 import com.junya.core.convert.AbstractConverter;
 import com.junya.core.date.DateUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 日期转换器
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class CalendarConverter extends AbstractConverter<Calendar> {
@@ -51,7 +51,7 @@ public class CalendarConverter extends AbstractConverter<Calendar> {
 		}
 
 		final String valueStr = convertToStr(value);
-		return DateUtil.calendar(StrUtil.isBlank(format) ? DateUtil.parse(valueStr) : DateUtil.parse(valueStr, format));
+		return DateUtil.calendar(StringUtil.isBlank(format) ? DateUtil.parse(valueStr) : DateUtil.parse(valueStr, format));
 	}
 
 }

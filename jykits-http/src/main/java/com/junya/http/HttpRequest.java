@@ -11,7 +11,7 @@ import com.junya.core.map.MapUtil;
 import com.junya.core.util.*;
 import com.junya.http.cookie.GlobalCookieManager;
 import com.junya.http.ssl.SSLSocketFactoryBuilder;
-import com.junya.json.JSON;
+import com.junya.http.json.JSON;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
@@ -30,12 +30,12 @@ import java.util.Map.Entry;
  * http请求类<br>
  * Http请求类用于构建Http请求并同步获取结果，此类通过CookieManager持有域名对应的Cookie值，再次请求时会自动附带Cookie信息
  *
- * @author Looly
+ * @author zhangchao
  */
 public class HttpRequest extends HttpBase<HttpRequest> {
 
-	private static final String BOUNDARY = "--------------------Hutool_" + RandomUtil.randomString(16);
-	private static final byte[] BOUNDARY_END = StrUtil.format("--{}--\r\n", BOUNDARY).getBytes();
+	private static final String BOUNDARY = "--------------------JYKits_" + RandomUtil.randomString(16);
+	private static final byte[] BOUNDARY_END = StringUtil.format("--{}--\r\n", BOUNDARY).getBytes();
 	private static final String CONTENT_DISPOSITION_TEMPLATE = "Content-Disposition: form-data; name=\"{}\"\r\n\r\n";
 	private static final String CONTENT_DISPOSITION_FILE_TEMPLATE = "Content-Disposition: form-data; name=\"{}\"; filename=\"{}\"\r\n";
 
@@ -47,7 +47,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * @param customTimeout 超时时长
 	 * @see HttpGlobalConfig#setTimeout(int)
-	 * @since 4.6.2
+	 * @since 2.0.3
 	 */
 	public static void setGlobalTimeout(int customTimeout) {
 		HttpGlobalConfig.setTimeout(customTimeout);
@@ -58,7 +58,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * @return {@link CookieManager}
 	 * @see GlobalCookieManager#getCookieManager()
-	 * @since 4.1.0
+	 * @since 2.0.3
 	 */
 	public static CookieManager getCookieManager() {
 		return GlobalCookieManager.getCookieManager();
@@ -69,7 +69,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * @param customCookieManager 自定义的{@link CookieManager}
 	 * @see GlobalCookieManager#setCookieManager(CookieManager)
-	 * @since 4.5.14
+	 * @since 2.0.3
 	 */
 	public static void setCookieManager(CookieManager customCookieManager) {
 		GlobalCookieManager.setCookieManager(customCookieManager);
@@ -79,7 +79,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * 关闭Cookie
 	 *
 	 * @see GlobalCookieManager#setCookieManager(CookieManager)
-	 * @since 4.1.9
+	 * @since 2.0.3
 	 */
 	public static void closeCookie() {
 		GlobalCookieManager.setCookieManager(null);
@@ -220,7 +220,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * @param url URL
 	 * @return HttpRequest
-	 * @since 3.0.9
+	 * @since 2.0.3
 	 */
 	public static HttpRequest patch(String url) {
 		return new HttpRequest(url).method(Method.PATCH);
@@ -251,7 +251,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * 获取请求URL
 	 *
 	 * @return URL字符串
-	 * @since 4.1.8
+	 * @since 2.0.3
 	 */
 	public String getUrl() {
 		return url;
@@ -262,7 +262,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * @param url url字符串
 	 * @return this
-	 * @since 4.1.8
+	 * @since 2.0.3
 	 */
 	public HttpRequest setUrl(String url) {
 		this.url = url;
@@ -276,11 +276,10 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * 它会验证 SSL 服务器在数字证书中返回的主机名是否与用于连接 SSL 服务器的 URL 主机名相匹配。如果主机名不匹配，则删除此连接。<br>
 	 * 因此weblogic不支持https的sni协议的主机名验证，此时需要将此值设置为sun.net.www.protocol.https.Handler对象。
 	 * <p>
-	 * 相关issue见：https://gitee.com/loolly/hutool/issues/IMD1X
 	 *
 	 * @param urlHandler {@link URLStreamHandler}
 	 * @return this
-	 * @since 4.1.9
+	 * @since 2.0.3
 	 */
 	public HttpRequest setUrlHandler(URLStreamHandler urlHandler) {
 		this.urlHandler = urlHandler;
@@ -291,7 +290,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * 获取Http请求方法
 	 *
 	 * @return {@link Method}
-	 * @since 4.1.8
+	 * @since 2.0.3
 	 */
 	public Method getMethod() {
 		return this.method;
@@ -303,7 +302,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * @param method HTTP方法
 	 * @return HttpRequest
 	 * @see #method(Method)
-	 * @since 4.1.8
+	 * @since 2.0.3
 	 */
 	public HttpRequest setMethod(Method method) {
 		return method(method);
@@ -314,7 +313,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * 在{@link #execute()} 执行前此对象为null
 	 *
 	 * @return {@link HttpConnection}
-	 * @since 4.2.2
+	 * @since 2.0.3
 	 */
 	public HttpConnection getConnection() {
 		return this.httpConnection;
@@ -395,11 +394,11 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 
 	/**
 	 * 设置Cookie<br>
-	 * 自定义Cookie后会覆盖Hutool的默认Cookie行为
+	 * 自定义Cookie后会覆盖JYKits的默认Cookie行为
 	 *
 	 * @param cookies Cookie值数组，如果为{@code null}则设置无效，使用默认Cookie行为
 	 * @return this
-	 * @since 3.1.1
+	 * @since 2.0.3
 	 */
 	public HttpRequest cookie(HttpCookie... cookies) {
 		if (ArrayUtil.isEmpty(cookies)) {
@@ -410,11 +409,11 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 
 	/**
 	 * 设置Cookie<br>
-	 * 自定义Cookie后会覆盖Hutool的默认Cookie行为
+	 * 自定义Cookie后会覆盖JYKits的默认Cookie行为
 	 *
 	 * @param cookie Cookie值，如果为{@code null}则设置无效，使用默认Cookie行为
 	 * @return this
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public HttpRequest cookie(String cookie) {
 		this.cookie = cookie;
@@ -427,10 +426,10 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * 如果想启动默认的Cookie行为（自动回填服务器传回的Cookie），则调用{@link #enableDefaultCookie()}
 	 *
 	 * @return this
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public HttpRequest disableCookie() {
-		return cookie(StrUtil.EMPTY);
+		return cookie(StringUtil.EMPTY);
 	}
 
 	/**
@@ -453,7 +452,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * @return this
 	 */
 	public HttpRequest form(String name, Object value) {
-		if (StrUtil.isBlank(name) || ObjectUtil.isNull(value)) {
+		if (StringUtil.isBlank(name) || ObjectUtil.isNull(value)) {
 			return this; // 忽略非法的form表单项内容;
 		}
 
@@ -575,7 +574,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * @param fileBytes 需要上传的文件
 	 * @param fileName  文件名
 	 * @return this
-	 * @since 4.1.0
+	 * @since 2.0.3
 	 */
 	public HttpRequest form(String name, byte[] fileBytes, String fileName) {
 		if (null != fileBytes) {
@@ -591,7 +590,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * @param name     名
 	 * @param resource 数据源，文件可以使用{@link FileResource}包装使用
 	 * @return this
-	 * @since 4.0.9
+	 * @since 2.0.3
 	 */
 	public HttpRequest form(String name, Resource resource) {
 		if (null != resource) {
@@ -621,7 +620,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * 获取文件表单数据
 	 *
 	 * @return 文件表单Map
-	 * @since 3.3.0
+	 * @since 2.0.3
 	 */
 	public Map<String, Resource> fileForm() {
 		return this.fileForm;
@@ -636,7 +635,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * <pre>
 	 * 1. 标准参数，例如 a=1&amp;b=2 这种格式
-	 * 2. Rest模式，此时body需要传入一个JSON或者XML字符串，Hutool会自动绑定其对应的Content-Type
+	 * 2. Rest模式，此时body需要传入一个JSON或者XML字符串，JYKits会自动绑定其对应的Content-Type
 	 * </pre>
 	 *
 	 * @param body 请求体
@@ -652,7 +651,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * <pre>
 	 * 1. 标准参数，例如 a=1&amp;b=2 这种格式
-	 * 2. Rest模式，此时body需要传入一个JSON或者XML字符串，Hutool会自动绑定其对应的Content-Type
+	 * 2. Rest模式，此时body需要传入一个JSON或者XML字符串，JYKits会自动绑定其对应的Content-Type
 	 * </pre>
 	 *
 	 * @param body        请求体
@@ -660,7 +659,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * @return this
 	 */
 	public HttpRequest body(String body, String contentType) {
-		byte[] bytes = StrUtil.bytes(body, this.charset);
+		byte[] bytes = StringUtil.bytes(body, this.charset);
 		body(bytes);
 		this.form = null; // 当使用body时，停止form的使用
 		contentLength(bytes.length);
@@ -681,23 +680,10 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 		}
 
 		// 判断是否为rest请求
-		if (StrUtil.containsAnyIgnoreCase(contentType, "json", "xml")) {
+		if (StringUtil.containsAnyIgnoreCase(contentType, "json", "xml")) {
 			this.isRest = true;
 		}
 		return this;
-	}
-
-	/**
-	 * 设置JSON内容主体<br>
-	 * 设置默认的Content-Type为 application/json 需在此方法调用前使用charset方法设置编码，否则使用默认编码UTF-8
-	 *
-	 * @param json JSON请求体
-	 * @return this
-	 * @deprecated 未来可能去除此方法，使用{@link #body(String)} 传入JSON字符串即可
-	 */
-	@Deprecated
-	public HttpRequest body(JSON json) {
-		return this.body(json.toString());
 	}
 
 	/**
@@ -740,7 +726,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * @param milliseconds 超时毫秒数
 	 * @return this
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public HttpRequest setConnectionTimeout(int milliseconds) {
 		this.connectionTimeout = milliseconds;
@@ -752,7 +738,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * @param milliseconds 超时毫秒数
 	 * @return this
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public HttpRequest setReadTimeout(int milliseconds) {
 		this.readTimeout = milliseconds;
@@ -774,7 +760,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * @param isEncodeUrlParams 是否对URL中的参数进行编码
 	 * @return this
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public HttpRequest setEncodeUrlParams(boolean isEncodeUrlParams) {
 		this.encodeUrlParams = isEncodeUrlParams;
@@ -798,7 +784,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * @param maxRedirectCount 最大重定向次数
 	 * @return this
-	 * @since 3.3.0
+	 * @since 2.0.3
 	 */
 	public HttpRequest setMaxRedirectCount(int maxRedirectCount) {
 		this.maxRedirectCount = Math.max(maxRedirectCount, 0);
@@ -871,10 +857,11 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 
 	/**
 	 * 设置是否rest模式
+	 * rest模式下get请求不会把参数附加到URL之后
 	 *
 	 * @param isRest 是否rest模式
 	 * @return this
-	 * @since 4.5.0
+	 * @since 2.0.3
 	 */
 	public HttpRequest setRest(boolean isRest) {
 		this.isRest = isRest;
@@ -887,7 +874,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 *
 	 * @param blockSize 块大小（bytes数），0或小于0表示不设置Chuncked模式
 	 * @return this
-	 * @since 4.6.5
+	 * @since 2.0.3
 	 */
 	public HttpRequest setChunkedStreamingMode(int blockSize) {
 		this.blockSize = blockSize;
@@ -1007,7 +994,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 		if (Method.GET.equals(method) && false == this.isRest) {
 			// 优先使用body形式的参数，不存在使用form
 			if (ArrayUtil.isNotEmpty(this.bodyBytes)) {
-				this.url = HttpUtil.urlWithForm(this.url, StrUtil.str(this.bodyBytes, this.charset), this.charset, false);
+				this.url = HttpUtil.urlWithForm(this.url, StringUtil.str(this.bodyBytes, this.charset), this.charset, false);
 			} else {
 				this.url = HttpUtil.urlWithForm(this.url, this.form, this.charset, false);
 			}
@@ -1055,7 +1042,10 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 */
 	private void send() throws IORuntimeException {
 		try {
-			if (Method.POST.equals(this.method) || Method.PUT.equals(this.method) || Method.DELETE.equals(this.method) || this.isRest) {
+			if (Method.POST.equals(this.method)
+					|| Method.PUT.equals(this.method)
+					|| Method.DELETE.equals(this.method)
+					|| this.isRest) {
 				if (CollectionUtil.isEmpty(this.fileForm)) {
 					sendFormUrlEncoded();// 普通表单
 				} else {
@@ -1078,7 +1068,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * @throws IOException IO异常
 	 */
 	private void sendFormUrlEncoded() throws IOException {
-		if (StrUtil.isBlank(this.header(Header.CONTENT_TYPE))) {
+		if (StringUtil.isBlank(this.header(Header.CONTENT_TYPE))) {
 			// 如果未自定义Content-Type，使用默认的application/x-www-form-urlencoded
 			this.httpConnection.header(Header.CONTENT_TYPE, ContentType.FORM_URLENCODED.toString(this.charset), true);
 		}
@@ -1117,11 +1107,11 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 */
 	private void writeForm(OutputStream out) {
 		if (CollectionUtil.isNotEmpty(this.form)) {
-			StringBuilder builder = StrUtil.builder();
+			StringBuilder builder = StringUtil.builder();
 			for (Entry<String, Object> entry : this.form.entrySet()) {
-				builder.append("--").append(BOUNDARY).append(StrUtil.CRLF);
-				builder.append(StrUtil.format(CONTENT_DISPOSITION_TEMPLATE, entry.getKey()));
-				builder.append(entry.getValue()).append(StrUtil.CRLF);
+				builder.append("--").append(BOUNDARY).append(StringUtil.CRLF);
+				builder.append(StringUtil.format(CONTENT_DISPOSITION_TEMPLATE, entry.getKey()));
+				builder.append(entry.getValue()).append(StringUtil.CRLF);
 			}
 			IoUtil.write(out, this.charset, false, builder);
 		}
@@ -1144,7 +1134,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * @param formFieldName 表单名
 	 * @param resource      资源，可以是文件等
 	 * @param out           Http流
-	 * @since 4.1.0
+	 * @since 2.0.3
 	 */
 	private void appendPart(String formFieldName, Resource resource, OutputStream out) {
 		if (resource instanceof MultiResource) {
@@ -1154,11 +1144,11 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 			}
 		} else {
 			// 普通资源
-			final StringBuilder builder = StrUtil.builder().append("--").append(BOUNDARY).append(StrUtil.CRLF);
+			final StringBuilder builder = StringUtil.builder().append("--").append(BOUNDARY).append(StringUtil.CRLF);
 			final String fileName = resource.getName();
-			builder.append(StrUtil.format(CONTENT_DISPOSITION_FILE_TEMPLATE, formFieldName, ObjectUtil.defaultIfNull(fileName, formFieldName)));
+			builder.append(StringUtil.format(CONTENT_DISPOSITION_FILE_TEMPLATE, formFieldName, ObjectUtil.defaultIfNull(fileName, formFieldName)));
 			// 根据name的扩展名指定互联网媒体类型，默认二进制流数据
-			builder.append(StrUtil.format(CONTENT_TYPE_FILE_TEMPLATE, HttpUtil.getMimeType(fileName, "application/octet-stream")));
+			builder.append(StringUtil.format(CONTENT_TYPE_FILE_TEMPLATE, HttpUtil.getMimeType(fileName, "application/octet-stream")));
 			IoUtil.write(out, this.charset, false, builder);
 			InputStream in = null;
 			try {
@@ -1167,7 +1157,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 			} finally {
 				IoUtil.close(in);
 			}
-			IoUtil.write(out, this.charset, false, StrUtil.CRLF);
+			IoUtil.write(out, this.charset, false, StringUtil.CRLF);
 		}
 
 	}
@@ -1197,7 +1187,7 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	 * HEAD、CONNECT、OPTIONS、TRACE方法将不读取响应体
 	 *
 	 * @return 是否需要忽略响应body部分
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	private boolean isIgnoreResponseBody() {
 		return Method.HEAD == this.method //

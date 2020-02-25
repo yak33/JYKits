@@ -33,8 +33,8 @@ import com.junya.core.lang.Assert;
  * 
  * 此类来自于Apache Commons io
  *
- * @author looly
- * @since 4.1.1
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class LineIter implements Iterator<String>, Iterable<String>, Closeable, Serializable {
 	private static final long serialVersionUID = 1L;

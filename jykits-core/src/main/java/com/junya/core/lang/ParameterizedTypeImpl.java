@@ -5,13 +5,13 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import com.junya.core.util.ArrayUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * {@link ParameterizedType} 接口实现，用于重新定义泛型类型
  * 
- * @author looly
- * @since 4.5.7
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class ParameterizedTypeImpl implements ParameterizedType, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -91,7 +91,7 @@ public class ParameterizedTypeImpl implements ParameterizedType, Serializable {
 				if(type instanceof Class) {
 					typeStr = ((Class<?>)type).getName();
 				}else {
-					typeStr = StrUtil.toString(type);
+					typeStr = StringUtil.toString(type);
 				}
 				
 				buf.append(typeStr);

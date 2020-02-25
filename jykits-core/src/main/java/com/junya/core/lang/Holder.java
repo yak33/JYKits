@@ -4,7 +4,7 @@ import com.junya.core.lang.mutable.MutableObj;
 
 /**
  * 为不可变的对象引用提供一个可变的包装，在java中支持引用传递。
- * @author Looly
+ * @author zhangchao
  *
  * @param <T> 所持有值类型
  */

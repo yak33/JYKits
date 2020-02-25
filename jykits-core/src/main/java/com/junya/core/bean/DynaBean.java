@@ -13,8 +13,8 @@ import com.junya.core.util.ReflectUtil;
  * 动态Bean，通过反射对Bean的相关方法做操作<br>
  * 支持Map和普通Bean
  * 
- * @author Looly
- * @since 3.0.7
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class DynaBean extends CloneSupport<DynaBean> implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -94,7 +94,7 @@ public class DynaBean extends CloneSupport<DynaBean> implements Serializable{
 	 * @param <T> 属性值类型
 	 * @param fieldName 字段名
 	 * @return 字段值
-	 * @since 3.1.1
+	 * @since 2.0.3
 	 */
 	public <T> T safeGet(String fieldName){
 		try {

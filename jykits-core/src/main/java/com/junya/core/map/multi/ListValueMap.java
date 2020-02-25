@@ -9,11 +9,11 @@ import java.util.Map;
 /**
  * 值作为集合List的Map实现，通过调用putValue可以在相同key时加入多个值，多个值用集合表示
  * 
- * @author looly
+ * @author zhangchao
  *
  * @param <K> 键类型
  * @param <V> 值类型
- * @since 4.3.3
+ * @since 2.0.3
  */
 public class ListValueMap<K, V> extends CollectionValueMap<K, V> {
 	private static final long serialVersionUID = 6044017508487827899L;

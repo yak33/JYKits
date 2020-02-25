@@ -2,12 +2,12 @@ package com.junya.core.convert.impl;
 
 import com.junya.core.convert.AbstractConverter;
 import com.junya.core.util.BooleanUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 字符转换器
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class CharacterConverter extends AbstractConverter<Character> {
@@ -23,7 +23,7 @@ public class CharacterConverter extends AbstractConverter<Character> {
 			return BooleanUtil.toCharacter((boolean) value);
 		} else {
 			final String valueStr = convertToStr(value);
-			if (StrUtil.isNotBlank(valueStr)) {
+			if (StringUtil.isNotBlank(valueStr)) {
 				return Character.valueOf(valueStr.charAt(0));
 			}
 		}

@@ -3,8 +3,8 @@ package com.junya.poi.excel.cell;
 /**
  * 公式类型的值
  * 
- * @author looly
- * @since 4.0.11
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class FormulaCellValue implements CellValue<String> {
 

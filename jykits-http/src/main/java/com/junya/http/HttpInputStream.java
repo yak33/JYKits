@@ -8,12 +8,12 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * HTTP输入流，此流用于包装Http请求响应内容的流，用于解析各种压缩、分段的响应流内容
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class HttpInputStream extends InputStream {
@@ -88,7 +88,7 @@ public class HttpInputStream extends InputStream {
 		
 		// 在一些情况下，返回的流为null，此时提供状态码说明
 		if (null == this.in) {
-			this.in = new ByteArrayInputStream(StrUtil.format("Error request, response status: {}", response.status).getBytes());
+			this.in = new ByteArrayInputStream(StringUtil.format("Error request, response status: {}", response.status).getBytes());
 			return;
 		}
 		

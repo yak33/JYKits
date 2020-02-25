@@ -11,7 +11,7 @@ import com.junya.core.io.FileUtil;
 import com.junya.core.io.IORuntimeException;
 import com.junya.core.lang.Assert;
 import com.junya.core.lang.copier.SrcToDestCopier;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 文件拷贝器<br>
@@ -23,8 +23,8 @@ import com.junya.core.util.StrUtil;
  * 4、目录下的文件和目录复制到另一个目录
  * </pre>
  * 
- * @author Looly
- * @since 3.0.9
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class FileCopier extends SrcToDestCopier<File, FileCopier>{
 	private static final long serialVersionUID = 1L;
@@ -129,7 +129,7 @@ public class FileCopier extends SrcToDestCopier<File, FileCopier>{
 	 * 当拷贝来源是目录时是否只拷贝文件而忽略子目录
 	 * 
 	 * @return 当拷贝来源是目录时是否只拷贝文件而忽略子目录
-	 * @since 4.1.5
+	 * @since 2.0.3
 	 */
 	public boolean isOnlyCopyFile() {
 		return isOnlyCopyFile;
@@ -140,7 +140,7 @@ public class FileCopier extends SrcToDestCopier<File, FileCopier>{
 	 * 
 	 * @param isOnlyCopyFile 当拷贝来源是目录时是否只拷贝文件而忽略子目录
 	 * @return this
-	 * @since 4.1.5
+	 * @since 2.0.3
 	 */
 	public FileCopier setOnlyCopyFile(boolean isOnlyCopyFile) {
 		this.isOnlyCopyFile = isOnlyCopyFile;
@@ -214,7 +214,7 @@ public class FileCopier extends SrcToDestCopier<File, FileCopier>{
 			//目标为不存在路径，创建为目录
 			dest.mkdirs();
 		} else if (false == dest.isDirectory()) {
-			throw new IORuntimeException(StrUtil.format("Src [{}] is a directory but dest [{}] is a file!", src.getPath(), dest.getPath()));
+			throw new IORuntimeException(StringUtil.format("Src [{}] is a directory but dest [{}] is a file!", src.getPath(), dest.getPath()));
 		}
 		
 		final String[] files = src.list();

@@ -10,11 +10,11 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
 import com.junya.core.util.ArrayUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * SSLSocketFactory构建器
- * @author Looly
+ * @author zhangchao
  *
  */
 public class SSLSocketFactoryBuilder{
@@ -55,7 +55,7 @@ public class SSLSocketFactoryBuilder{
 	 * @return 自身
 	 */
 	public SSLSocketFactoryBuilder setProtocol(String protocol){
-		if(StrUtil.isNotBlank(protocol)){
+		if(StringUtil.isNotBlank(protocol)){
 			this.protocol = protocol;
 		}
 		return this;

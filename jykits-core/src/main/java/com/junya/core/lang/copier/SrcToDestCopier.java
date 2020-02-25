@@ -8,11 +8,11 @@ import com.junya.core.lang.Filter;
  * 复制器抽象类<br>
  * 抽象复制器抽象了一个对象复制到另一个对象，通过实现{@link #copy()}方法实现复制逻辑。<br>
  * 
- * @author Looly
+ * @author zhangchao
  *
  * @param <T> 拷贝的对象
  * @param <C> 本类的类型。用于set方法返回本对象，方便流式编程
- * @since 3.0.9
+ * @since 2.0.3
  */
 public abstract class SrcToDestCopier<T, C extends SrcToDestCopier<T, C>> implements Copier<T>, Serializable{
 	private static final long serialVersionUID = 1L;

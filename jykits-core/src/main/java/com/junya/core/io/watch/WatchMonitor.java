@@ -5,7 +5,7 @@ import com.junya.core.io.IORuntimeException;
 import com.junya.core.io.IoUtil;
 import com.junya.core.io.watch.watchers.WatcherChain;
 import com.junya.core.util.ArrayUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.core.util.URLUtil;
 
 import java.io.Closeable;
@@ -28,7 +28,7 @@ import java.util.Map;
  * 如果监听的Path不存在，则递归创建空目录然后监听此空目录<br>
  * 递归监听目录时，并不会监听新创建的目录
  *
- * @author Looly
+ * @author zhangchao
  */
 public class WatchMonitor extends Thread implements Closeable, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -351,7 +351,7 @@ public class WatchMonitor extends Thread implements Closeable, Serializable {
 			if (null != lastPathEle) {
 				final String lastPathEleStr = lastPathEle.toString();
 				//带有点表示有扩展名，按照未创建的文件对待。Linux下.d的为目录，排除之
-				if (StrUtil.contains(lastPathEleStr, StrUtil.C_DOT) && false == StrUtil.endWithIgnoreCase(lastPathEleStr, ".d")) {
+				if (StringUtil.contains(lastPathEleStr, StringUtil.C_DOT) && false == StringUtil.endWithIgnoreCase(lastPathEleStr, ".d")) {
 					this.filePath = this.path;
 					this.path = this.filePath.getParent();
 				}

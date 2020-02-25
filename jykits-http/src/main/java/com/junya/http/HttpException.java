@@ -1,10 +1,10 @@
 package com.junya.http;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  *HTTP异常
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class HttpException extends RuntimeException{
 	private static final long serialVersionUID = 8247610319171014183L;
@@ -18,7 +18,7 @@ public class HttpException extends RuntimeException{
 	}
 	
 	public HttpException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 	
 	public HttpException(String message, Throwable throwable) {
@@ -26,6 +26,6 @@ public class HttpException extends RuntimeException{
 	}
 	
 	public HttpException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 }

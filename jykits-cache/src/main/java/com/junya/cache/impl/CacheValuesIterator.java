@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 /**
  *  {@link com.junya.cache.impl.AbstractCache} 的值迭代器.
- * @author looly
+ * @author zhangchao
  *
  * @param <V> 迭代对象类型
  */

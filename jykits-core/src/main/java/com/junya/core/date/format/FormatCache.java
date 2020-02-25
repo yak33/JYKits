@@ -15,7 +15,7 @@ import com.junya.core.lang.Assert;
  * 日期格式化器缓存<br>
  * Thanks to Apache Commons Lang 3.5
  * 
- * @since 2.16.2
+ * @since 2.0.3
  */
 abstract class FormatCache<F extends Format> {
 

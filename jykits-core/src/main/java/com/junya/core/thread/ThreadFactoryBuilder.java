@@ -6,14 +6,14 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.junya.core.builder.Builder;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * ThreadFactory创建器<br>
  * 参考：Guava的ThreadFactoryBuilder
  * 
- * @author looly
- * @since 4.1.9
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class ThreadFactoryBuilder implements Builder<ThreadFactory>{
 	private static final long serialVersionUID = 1L;
@@ -50,7 +50,7 @@ public class ThreadFactoryBuilder implements Builder<ThreadFactory>{
 	}
 
 	/**
-	 * 设置线程名前缀，例如设置前缀为hutool-thread-，则线程名为hutool-thread-1之类。
+	 * 设置线程名前缀，例如设置前缀为JYKits-thread-，则线程名为jykits-thread-1之类。
 	 * 
 	 * @param namePrefix 线程名前缀
 	 * @return this
@@ -82,10 +82,10 @@ public class ThreadFactoryBuilder implements Builder<ThreadFactory>{
 	 */
 	public ThreadFactoryBuilder setPriority(int priority) {
 		if (priority < Thread.MIN_PRIORITY) {
-			throw new IllegalArgumentException(StrUtil.format("Thread priority ({}) must be >= {}", priority, Thread.MIN_PRIORITY));
+			throw new IllegalArgumentException(StringUtil.format("Thread priority ({}) must be >= {}", priority, Thread.MIN_PRIORITY));
 		}
 		if (priority > Thread.MAX_PRIORITY) {
-			throw new IllegalArgumentException(StrUtil.format("Thread priority ({}) must be <= {}", priority, Thread.MAX_PRIORITY));
+			throw new IllegalArgumentException(StringUtil.format("Thread priority ({}) must be <= {}", priority, Thread.MAX_PRIORITY));
 		}
 		this.priority = priority;
 		return this;

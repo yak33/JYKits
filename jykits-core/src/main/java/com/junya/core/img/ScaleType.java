@@ -5,8 +5,8 @@ import java.awt.Image;
 /**
  * 图片缩略算法类型
  * 
- * @author looly
- * @since 4.5.8
+ * @author zhangchao
+ * @since 2.0.3
  */
 public enum ScaleType {
 

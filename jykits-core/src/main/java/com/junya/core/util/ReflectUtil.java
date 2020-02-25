@@ -6,21 +6,24 @@ import com.junya.core.exceptions.UtilException;
 import com.junya.core.lang.Assert;
 import com.junya.core.lang.Filter;
 import com.junya.core.lang.SimpleCache;
+import com.junya.core.map.MapUtil;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * 反射工具类
  *
- * @author Looly
- * @since 3.0.9
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class ReflectUtil {
 
@@ -107,7 +110,7 @@ public class ReflectUtil {
 	 * @param name      字段名
 	 * @return 是否包含字段
 	 * @throws SecurityException 安全异常
-	 * @since 4.1.21
+	 * @since 2.0.3
 	 */
 	public static boolean hasField(Class<?> beanClass, String name) throws SecurityException {
 		return null != getField(beanClass, name);
@@ -131,6 +134,22 @@ public class ReflectUtil {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * 获取指定类中字段名和字段对应的Map，包括其父类中的字段
+	 *
+	 * @param beanClass 类
+	 * @return 字段名和字段对应的Map
+	 * @since 2.0.3
+	 */
+	public static Map<String, Field> getFieldMap(Class<?> beanClass){
+		final Field[] fields = getFields(beanClass);
+		final HashMap<String, Field> map = MapUtil.newHashMap(fields.length);
+		for (Field field : fields) {
+			map.put(field.getName(), field);
+		}
+		return map;
 	}
 
 	/**
@@ -180,36 +199,53 @@ public class ReflectUtil {
 	/**
 	 * 获取字段值
 	 *
-	 * @param obj       对象
+	 * @param obj       对象，如果static字段，此处为类
 	 * @param fieldName 字段名
 	 * @return 字段值
 	 * @throws UtilException 包装IllegalAccessException异常
 	 */
 	public static Object getFieldValue(Object obj, String fieldName) throws UtilException {
-		if (null == obj || StrUtil.isBlank(fieldName)) {
+		if (null == obj || StringUtil.isBlank(fieldName)) {
 			return null;
 		}
-		return getFieldValue(obj, getField(obj.getClass(), fieldName));
+		return getFieldValue(obj, getField(obj instanceof Class ? (Class<?>)obj : obj.getClass(), fieldName));
+	}
+
+	/**
+	 * 获取静态字段值
+	 *
+	 * @param field 字段
+	 * @return 字段值
+	 * @throws UtilException 包装IllegalAccessException异常
+	 * @since 2.1.2
+	 */
+	public static Object getStaticFieldValue(Field field) throws UtilException {
+		return getFieldValue(null, field);
 	}
 
 	/**
 	 * 获取字段值
 	 *
-	 * @param obj   对象
+	 * @param obj   对象，static字段则此字段为null
 	 * @param field 字段
 	 * @return 字段值
 	 * @throws UtilException 包装IllegalAccessException异常
 	 */
 	public static Object getFieldValue(Object obj, Field field) throws UtilException {
-		if (null == obj || null == field) {
+		if (null == field) {
 			return null;
 		}
+		if(obj instanceof Class){
+			// 静态字段获取时对象为null
+			obj = null;
+		}
+
 		setAccessible(field);
 		Object result;
 		try {
 			result = field.get(obj);
 		} catch (IllegalAccessException e) {
-			throw new UtilException(e, "IllegalAccess for {}.{}", obj.getClass(), field.getName());
+			throw new UtilException(e, "IllegalAccess for {}.{}", field.getDeclaringClass(), field.getName());
 		}
 		return result;
 	}
@@ -217,13 +253,13 @@ public class ReflectUtil {
 	/**
 	 * 获取所有字段的值
 	 *
-	 * @param obj bean对象
+	 * @param obj bean对象，如果是static字段，此处为类class
 	 * @return 字段值数组
 	 * @since 4.1.17
 	 */
 	public static Object[] getFieldsValue(Object obj) {
 		if (null != obj) {
-			final Field[] fields = getFields(obj.getClass());
+			final Field[] fields = getFields(obj instanceof Class ? (Class<?>)obj : obj.getClass());
 			if (null != fields) {
 				final Object[] values = new Object[fields.length];
 				for (int i = 0; i < fields.length; i++) {
@@ -350,12 +386,7 @@ public class ReflectUtil {
 	 */
 	public static List<Method> getPublicMethods(Class<?> clazz, Method... excludeMethods) {
 		final HashSet<Method> excludeMethodSet = CollectionUtil.newHashSet(excludeMethods);
-		return getPublicMethods(clazz, new Filter<Method>() {
-			@Override
-			public boolean accept(Method method) {
-				return false == excludeMethodSet.contains(method);
-			}
-		});
+		return getPublicMethods(clazz, method -> false == excludeMethodSet.contains(method));
 	}
 
 	/**
@@ -367,12 +398,7 @@ public class ReflectUtil {
 	 */
 	public static List<Method> getPublicMethods(Class<?> clazz, String... excludeMethodNames) {
 		final HashSet<String> excludeMethodNameSet = CollectionUtil.newHashSet(excludeMethodNames);
-		return getPublicMethods(clazz, new Filter<Method>() {
-			@Override
-			public boolean accept(Method method) {
-				return false == excludeMethodNameSet.contains(method.getName());
-			}
-		});
+		return getPublicMethods(clazz, method -> false == excludeMethodNameSet.contains(method.getName()));
 	}
 
 	/**
@@ -406,7 +432,7 @@ public class ReflectUtil {
 	 * @throws SecurityException 无访问权限抛出异常
 	 */
 	public static Method getMethodOfObj(Object obj, String methodName, Object... args) throws SecurityException {
-		if (null == obj || StrUtil.isBlank(methodName)) {
+		if (null == obj || StringUtil.isBlank(methodName)) {
 			return null;
 		}
 		return getMethod(obj.getClass(), methodName, ClassUtil.getClasses(args));
@@ -424,7 +450,7 @@ public class ReflectUtil {
 	 * @param paramTypes 参数类型，指定参数类型如果是方法的子类也算
 	 * @return 方法
 	 * @throws SecurityException 无权访问抛出异常
-	 * @since 3.2.0
+	 * @since 2.0.3
 	 */
 	public static Method getMethodIgnoreCase(Class<?> clazz, String methodName, Class<?>... paramTypes) throws SecurityException {
 		return getMethod(clazz, true, methodName, paramTypes);
@@ -460,17 +486,17 @@ public class ReflectUtil {
 	 * @param paramTypes 参数类型，指定参数类型如果是方法的子类也算
 	 * @return 方法
 	 * @throws SecurityException 无权访问抛出异常
-	 * @since 3.2.0
+	 * @since 2.0.3
 	 */
 	public static Method getMethod(Class<?> clazz, boolean ignoreCase, String methodName, Class<?>... paramTypes) throws SecurityException {
-		if (null == clazz || StrUtil.isBlank(methodName)) {
+		if (null == clazz || StringUtil.isBlank(methodName)) {
 			return null;
 		}
 
 		final Method[] methods = getMethods(clazz);
 		if (ArrayUtil.isNotEmpty(methods)) {
 			for (Method method : methods) {
-				if (StrUtil.equals(methodName, method.getName(), ignoreCase)) {
+				if (StringUtil.equals(methodName, method.getName(), ignoreCase)) {
 					if (ClassUtil.isAllAssignableFrom(method.getParameterTypes(), paramTypes)) {
 						return method;
 					}
@@ -491,7 +517,7 @@ public class ReflectUtil {
 	 * @param methodName 方法名，如果为空字符串返回{@code null}
 	 * @return 方法
 	 * @throws SecurityException 无权访问抛出异常
-	 * @since 4.3.2
+	 * @since 2.0.3
 	 */
 	public static Method getMethodByName(Class<?> clazz, String methodName) throws SecurityException {
 		return getMethodByName(clazz, false, methodName);
@@ -508,7 +534,7 @@ public class ReflectUtil {
 	 * @param methodName 方法名，如果为空字符串返回{@code null}
 	 * @return 方法
 	 * @throws SecurityException 无权访问抛出异常
-	 * @since 4.3.2
+	 * @since 2.0.3
 	 */
 	public static Method getMethodByNameIgnoreCase(Class<?> clazz, String methodName) throws SecurityException {
 		return getMethodByName(clazz, true, methodName);
@@ -526,17 +552,17 @@ public class ReflectUtil {
 	 * @param methodName 方法名，如果为空字符串返回{@code null}
 	 * @return 方法
 	 * @throws SecurityException 无权访问抛出异常
-	 * @since 4.3.2
+	 * @since 2.0.3
 	 */
 	public static Method getMethodByName(Class<?> clazz, boolean ignoreCase, String methodName) throws SecurityException {
-		if (null == clazz || StrUtil.isBlank(methodName)) {
+		if (null == clazz || StringUtil.isBlank(methodName)) {
 			return null;
 		}
 
 		final Method[] methods = getMethods(clazz);
 		if (ArrayUtil.isNotEmpty(methods)) {
 			for (Method method : methods) {
-				if (StrUtil.equals(methodName, method.getName(), ignoreCase)) {
+				if (StringUtil.equals(methodName, method.getName(), ignoreCase)) {
 					return method;
 				}
 			}
@@ -770,7 +796,7 @@ public class ReflectUtil {
 	 */
 	public static <T> T invokeWithCheck(Object obj, Method method, Object... args) throws UtilException {
 		final Class<?>[] types = method.getParameterTypes();
-		if (null != types && null != args) {
+		if (null != args) {
 			Assert.isTrue(args.length == types.length, "Params length [{}] is not fit for param length [{}] of method !", args.length, types.length);
 			Class<?> type;
 			for (int i = 0; i < args.length; i++) {
@@ -815,12 +841,12 @@ public class ReflectUtil {
 	 * @param args       参数列表
 	 * @return 执行结果
 	 * @throws UtilException IllegalAccessException包装
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static <T> T invoke(Object obj, String methodName, Object... args) throws UtilException {
 		final Method method = getMethodOfObj(obj, methodName, args);
 		if (null == method) {
-			throw new UtilException(StrUtil.format("No such method: [{}]", methodName));
+			throw new UtilException(StringUtil.format("No such method: [{}]", methodName));
 		}
 		return invoke(obj, method, args);
 	}
@@ -831,7 +857,7 @@ public class ReflectUtil {
 	 * @param <T>              AccessibleObject的子类，比如Class、Method、Field等
 	 * @param accessibleObject 可设置访问权限的对象，比如Class、Method、Field等
 	 * @return 被设置可访问的对象
-	 * @since 4.6.8
+	 * @since 2.0.3
 	 */
 	public static <T extends AccessibleObject> T setAccessible(T accessibleObject) {
 		if (null != accessibleObject && false == accessibleObject.isAccessible()) {

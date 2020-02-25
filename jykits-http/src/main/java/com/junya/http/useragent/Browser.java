@@ -3,14 +3,14 @@ package com.junya.http.useragent;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.util.ReUtil;
 
 /**
  * 浏览器对象
  * 
- * @author looly
- * @since 4.2.1
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class Browser extends UserAgentInfo {
 
@@ -22,7 +22,7 @@ public class Browser extends UserAgentInfo {
 	/**
 	 * 支持的浏览器类型
 	 */
-	public static final List<Browser> browers = CollUtil.newArrayList(//
+	public static final List<Browser> browers = CollectionUtil.newArrayList(//
 			new Browser("MSEdge", "Edge", "edge\\/([\\d\\w\\.\\-]+)"), //
 			new Browser("Chrome", "chrome", "chrome\\/([\\d\\w\\.\\-]+)"), //
 			new Browser("Firefox", "firefox", Other_Version), //

@@ -7,8 +7,8 @@ import java.util.zip.Checksum;
  * CRC8 循环冗余校验码（Cyclic Redundancy Check）实现<br>
  * 代码来自：https://github.com/BBSc0der
  * 
- * @author Bolek,Looly
- * @since 4.4.1
+ * @author Bolek,zhangchao
+ * @since 2.0.3
  */
 public class CRC8 implements Checksum, Serializable {
 	private static final long serialVersionUID = 1L;

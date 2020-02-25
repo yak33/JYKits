@@ -2,7 +2,7 @@ package com.junya.core.lang;
 
 /**
  * 过滤器接口
- * @author Looly
+ * @author zhangchao
  *
  */
 @FunctionalInterface

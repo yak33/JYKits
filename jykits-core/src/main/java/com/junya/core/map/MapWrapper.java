@@ -9,12 +9,12 @@ import java.util.Set;
 /**
  * Map包装类，通过包装一个已有Map实现特定功能。例如自定义Key的规则或Value规则
  * 
- * @author looly
+ * @author zhangchao
  *
  * @param <K> 键类型
  * @param <V> 值类型
- * @author looly
- * @since 4.3.3
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class MapWrapper<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>, Serializable, Cloneable {
 	private static final long serialVersionUID = -7524578042008586382L;
@@ -79,6 +79,7 @@ public class MapWrapper<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>, S
 	}
 
 	@Override
+	@SuppressWarnings("NullableProblems")
 	public void putAll(Map<? extends K, ? extends V> m) {
 		raw.putAll(m);
 	}
@@ -89,23 +90,31 @@ public class MapWrapper<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>>, S
 	}
 
 	@Override
-	public Set<K> keySet() {
-		return raw.keySet();
-	}
-
-	@Override
+	@SuppressWarnings("NullableProblems")
 	public Collection<V> values() {
 		return raw.values();
 	}
 
 	@Override
+	@SuppressWarnings("NullableProblems")
+	public Set<K> keySet() {
+		return raw.keySet();
+	}
+
+	@Override
+	@SuppressWarnings("NullableProblems")
 	public Set<Entry<K, V>> entrySet() {
 		return raw.entrySet();
 	}
 
 	@Override
+	@SuppressWarnings("NullableProblems")
 	public Iterator<Entry<K, V>> iterator() {
 		return this.entrySet().iterator();
 	}
 
+	@Override
+	public String toString() {
+		return raw.toString();
+	}
 }

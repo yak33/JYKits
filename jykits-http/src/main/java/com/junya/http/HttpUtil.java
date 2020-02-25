@@ -1,6 +1,5 @@
 package com.junya.http;
 
-import com.junya.core.collection.CollUtil;
 import com.junya.core.collection.CollectionUtil;
 import com.junya.core.convert.Convert;
 import com.junya.core.io.FastByteArrayOutputStream;
@@ -23,7 +22,7 @@ import java.util.regex.Pattern;
 /**
  * Http请求工具类
  *
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class HttpUtil {
 
@@ -52,7 +51,7 @@ public class HttpUtil {
 	 * @param method 方法枚举{@link Method}
 	 * @param url    请求的URL，可以使HTTP或者HTTPS
 	 * @return {@link HttpRequest}
-	 * @since 3.0.9
+	 * @since 2.0.3
 	 */
 	public static HttpRequest createRequest(Method method, String url) {
 		return new HttpRequest(url).method(method);
@@ -63,7 +62,7 @@ public class HttpUtil {
 	 *
 	 * @param url 请求的URL，可以使HTTP或者HTTPS
 	 * @return {@link HttpRequest}
-	 * @since 3.2.0
+	 * @since 2.0.3
 	 */
 	public static HttpRequest createGet(String url) {
 		return HttpRequest.get(url);
@@ -74,7 +73,7 @@ public class HttpUtil {
 	 *
 	 * @param url 请求的URL，可以使HTTP或者HTTPS
 	 * @return {@link HttpRequest}
-	 * @since 3.2.0
+	 * @since 2.0.3
 	 */
 	public static HttpRequest createPost(String url) {
 		return HttpRequest.post(url);
@@ -107,7 +106,7 @@ public class HttpUtil {
 	 * @param urlString 网址
 	 * @param timeout   超时时长，-1表示默认超时，单位毫秒
 	 * @return 返回内容，如果只检查状态码，正常只返回 ""，不正常返回 null
-	 * @since 3.2.0
+	 * @since 2.0.3
 	 */
 	public static String get(String urlString, int timeout) {
 		return HttpRequest.get(urlString).timeout(timeout).execute().body();
@@ -131,7 +130,7 @@ public class HttpUtil {
 	 * @param paramMap  post表单数据
 	 * @param timeout   超时时长，-1表示默认超时，单位毫秒
 	 * @return 返回数据
-	 * @since 3.3.0
+	 * @since 2.0.3
 	 */
 	public static String get(String urlString, Map<String, Object> paramMap, int timeout) {
 		return HttpRequest.get(urlString).form(paramMap).timeout(timeout).execute().body();
@@ -155,7 +154,7 @@ public class HttpUtil {
 	 * @param paramMap  post表单数据
 	 * @param timeout   超时时长，-1表示默认超时，单位毫秒
 	 * @return 返回数据
-	 * @since 3.2.0
+	 * @since 2.0.3
 	 */
 	public static String post(String urlString, Map<String, Object> paramMap, int timeout) {
 		return HttpRequest.post(urlString).form(paramMap).timeout(timeout).execute().body();
@@ -167,7 +166,7 @@ public class HttpUtil {
 	 *
 	 * <pre>
 	 * 1. 标准参数，例如 a=1&amp;b=2 这种格式
-	 * 2. Rest模式，此时body需要传入一个JSON或者XML字符串，Hutool会自动绑定其对应的Content-Type
+	 * 2. Rest模式，此时body需要传入一个JSON或者XML字符串，JYKits会自动绑定其对应的Content-Type
 	 * </pre>
 	 *
 	 * @param urlString 网址
@@ -184,14 +183,14 @@ public class HttpUtil {
 	 *
 	 * <pre>
 	 * 1. 标准参数，例如 a=1&amp;b=2 这种格式
-	 * 2. Rest模式，此时body需要传入一个JSON或者XML字符串，Hutool会自动绑定其对应的Content-Type
+	 * 2. Rest模式，此时body需要传入一个JSON或者XML字符串，JYKits会自动绑定其对应的Content-Type
 	 * </pre>
 	 *
 	 * @param urlString 网址
 	 * @param body      post表单数据
 	 * @param timeout   超时时长，-1表示默认超时，单位毫秒
 	 * @return 返回数据
-	 * @since 3.2.0
+	 * @since 2.0.3
 	 */
 	public static String post(String urlString, String body, int timeout) {
 		return HttpRequest.post(urlString).timeout(timeout).body(body).execute().body();
@@ -230,7 +229,7 @@ public class HttpUtil {
 	 * @return 文本
 	 */
 	public static String downloadString(String url, Charset customCharset, StreamProgress streamPress) {
-		if (StrUtil.isBlank(url)) {
+		if (StringUtil.isBlank(url)) {
 			throw new NullPointerException("[url] is null!");
 		}
 
@@ -268,7 +267,7 @@ public class HttpUtil {
 	 * @param destFile 目标文件或目录，当为目录时，取URL中的文件名，取不到使用编码后的URL做为文件名
 	 * @param timeout  超时，单位毫秒，-1表示默认超时
 	 * @return 文件大小
-	 * @since 4.0.4
+	 * @since 2.0.3
 	 */
 	public static long downloadFile(String url, File destFile, int timeout) {
 		return downloadFile(url, destFile, timeout, null);
@@ -294,10 +293,10 @@ public class HttpUtil {
 	 * @param timeout        超时，单位毫秒，-1表示默认超时
 	 * @param streamProgress 进度条
 	 * @return 文件大小
-	 * @since 4.0.4
+	 * @since 2.0.3
 	 */
 	public static long downloadFile(String url, File destFile, int timeout, StreamProgress streamProgress) {
-		if (StrUtil.isBlank(url)) {
+		if (StringUtil.isBlank(url)) {
 			throw new NullPointerException("[url] is null!");
 		}
 		if (null == destFile) {
@@ -332,7 +331,7 @@ public class HttpUtil {
 	 * @return 文件大小
 	 */
 	public static long download(String url, OutputStream out, boolean isCloseOut, StreamProgress streamProgress) {
-		if (StrUtil.isBlank(url)) {
+		if (StringUtil.isBlank(url)) {
 			throw new NullPointerException("[url] is null!");
 		}
 		if (null == out) {
@@ -383,7 +382,7 @@ public class HttpUtil {
 	 */
 	public static String toParams(Map<String, ?> paramMap, Charset charset) {
 		if (CollectionUtil.isEmpty(paramMap)) {
-			return StrUtil.EMPTY;
+			return StringUtil.EMPTY;
 		}
 		if (null == charset) {// 默认编码为系统编码
 			charset = CharsetUtil.CHARSET_UTF_8;
@@ -408,9 +407,9 @@ public class HttpUtil {
 				value = CollectionUtil.join((Iterator<?>) value, ",");
 			}
 			valueStr = Convert.toStr(value);
-			if (StrUtil.isNotEmpty(key)) {
+			if (StringUtil.isNotEmpty(key)) {
 				sb.append(URLUtil.encodeAll(key, charset)).append("=");
-				if (StrUtil.isNotEmpty(valueStr)) {
+				if (StringUtil.isNotEmpty(valueStr)) {
 					sb.append(URLUtil.encodeAll(valueStr, charset));
 				}
 			}
@@ -427,11 +426,11 @@ public class HttpUtil {
 	 * @param paramsStr url参数，可以包含url本身
 	 * @param charset   编码
 	 * @return 编码后的url和参数
-	 * @since 4.0.1
+	 * @since 2.0.3
 	 */
 	public static String encodeParams(String paramsStr, Charset charset) {
-		if (StrUtil.isBlank(paramsStr)) {
-			return StrUtil.EMPTY;
+		if (StringUtil.isBlank(paramsStr)) {
+			return StringUtil.EMPTY;
 		}
 
 		String urlPart = null; // url部分，不包括问号
@@ -439,9 +438,9 @@ public class HttpUtil {
 		int pathEndPos = paramsStr.indexOf('?');
 		if (pathEndPos > -1) {
 			// url + 参数
-			urlPart = StrUtil.subPre(paramsStr, pathEndPos);
-			paramPart = StrUtil.subSuf(paramsStr, pathEndPos + 1);
-			if (StrUtil.isBlank(paramPart)) {
+			urlPart = StringUtil.subPre(paramsStr, pathEndPos);
+			paramPart = StringUtil.subSuf(paramsStr, pathEndPos + 1);
+			if (StringUtil.isBlank(paramPart)) {
 				// 无参数，返回url
 				return urlPart;
 			}
@@ -452,7 +451,7 @@ public class HttpUtil {
 
 		paramPart = normalizeParams(paramPart, charset);
 
-		return StrUtil.isBlank(urlPart) ? paramPart : urlPart + "?" + paramPart;
+		return StringUtil.isBlank(urlPart) ? paramPart : urlPart + "?" + paramPart;
 	}
 
 	/**
@@ -463,7 +462,7 @@ public class HttpUtil {
 	 * @param paramPart 参数字符串
 	 * @param charset   编码
 	 * @return 标准化的参数字符串
-	 * @since 4.5.2
+	 * @since 2.0.3
 	 */
 	public static String normalizeParams(String paramPart, Charset charset) {
 		final StrBuilder builder = StrBuilder.create(paramPart.length() + 16);
@@ -477,7 +476,7 @@ public class HttpUtil {
 			if (c == '=') { // 键值对的分界点
 				if (null == name) {
 					// 只有=前未定义name时被当作键值分界符，否则做为普通字符
-					name = (pos == i) ? StrUtil.EMPTY : paramPart.substring(pos, i);
+					name = (pos == i) ? StringUtil.EMPTY : paramPart.substring(pos, i);
 					pos = i + 1;
 				}
 			} else if (c == '&') { // 参数对的分界点
@@ -520,7 +519,7 @@ public class HttpUtil {
 	 * @param paramsStr 参数字符串（或者带参数的Path）
 	 * @param charset   字符集
 	 * @return 参数Map
-	 * @since 4.0.2
+	 * @since 2.0.3
 	 */
 	public static HashMap<String, String> decodeParamMap(String paramsStr, String charset) {
 		final Map<String, List<String>> paramsMap = decodeParams(paramsStr, charset);
@@ -528,7 +527,7 @@ public class HttpUtil {
 		List<String> valueList;
 		for (Entry<String, List<String>> entry : paramsMap.entrySet()) {
 			valueList = entry.getValue();
-			result.put(entry.getKey(), CollUtil.isEmpty(valueList) ? null : valueList.get(0));
+			result.put(entry.getKey(), CollectionUtil.isEmpty(valueList) ? null : valueList.get(0));
 		}
 		return result;
 	}
@@ -541,18 +540,21 @@ public class HttpUtil {
 	 * @return 参数Map
 	 */
 	public static Map<String, List<String>> decodeParams(String paramsStr, String charset) {
-		if (StrUtil.isBlank(paramsStr)) {
+		if (StringUtil.isBlank(paramsStr)) {
 			return Collections.emptyMap();
 		}
 
 		// 去掉Path部分
 		int pathEndPos = paramsStr.indexOf('?');
 		if (pathEndPos > -1) {
-			paramsStr = StrUtil.subSuf(paramsStr, pathEndPos + 1);
+			paramsStr = StringUtil.subSuf(paramsStr, pathEndPos + 1);
+			if (StringUtil.isBlank(paramsStr)) {
+				return Collections.emptyMap();
+			}
 		}
 
-		final Map<String, List<String>> params = new LinkedHashMap<>();
 		final int len = paramsStr.length();
+		final Map<String, List<String>> params = new LinkedHashMap<>();
 		String name = null;
 		int pos = 0; // 未处理字符开始位置
 		int i; // 未处理字符结束位置
@@ -568,7 +570,7 @@ public class HttpUtil {
 			} else if (c == '&') { // 参数对的分界点
 				if (null == name && pos != i) {
 					// 对于像&a&这类无参数值的字符串，我们将name为a的值设为""
-					addParam(params, paramsStr.substring(pos, i), StrUtil.EMPTY, charset);
+					addParam(params, paramsStr.substring(pos, i), StringUtil.EMPTY, charset);
 				} else if (name != null) {
 					addParam(params, name, paramsStr.substring(pos, i), charset);
 					name = null;
@@ -580,12 +582,12 @@ public class HttpUtil {
 		// 处理结尾
 		if (pos != i) {
 			if (name == null) {
-				addParam(params, paramsStr.substring(pos, i), StrUtil.EMPTY, charset);
+				addParam(params, paramsStr.substring(pos, i), StringUtil.EMPTY, charset);
 			} else {
 				addParam(params, name, paramsStr.substring(pos, i), charset);
 			}
 		} else if (name != null) {
-			addParam(params, name, StrUtil.EMPTY, charset);
+			addParam(params, name, StringUtil.EMPTY, charset);
 		}
 
 		return params;
@@ -602,7 +604,7 @@ public class HttpUtil {
 	 * @return 合成后的URL
 	 */
 	public static String urlWithForm(String url, Map<String, Object> form, Charset charset, boolean isEncodeParams) {
-		if (isEncodeParams && StrUtil.contains(url, '?')) {
+		if (isEncodeParams && StringUtil.contains(url, '?')) {
 			// 在需要编码的情况下，如果url中已经有部分参数，则编码之
 			url = encodeParams(url, charset);
 		}
@@ -621,9 +623,9 @@ public class HttpUtil {
 	 * @return 拼接后的字符串
 	 */
 	public static String urlWithForm(String url, String queryString, Charset charset, boolean isEncode) {
-		if (StrUtil.isBlank(queryString)) {
+		if (StringUtil.isBlank(queryString)) {
 			// 无额外参数
-			if (StrUtil.contains(url, '?')) {
+			if (StringUtil.contains(url, '?')) {
 				// url中包含参数
 				return isEncode ? encodeParams(url, charset) : url;
 			}
@@ -636,7 +638,7 @@ public class HttpUtil {
 		if (qmIndex > 0) {
 			// 原URL带参数，则对这部分参数单独编码（如果选项为进行编码）
 			urlBuilder.append(isEncode ? encodeParams(url, charset) : url);
-			if (false == StrUtil.endWith(url, '&')) {
+			if (false == StringUtil.endWith(url, '&')) {
 				// 已经带参数的情况下追加参数
 				urlBuilder.append('&');
 			}
@@ -700,14 +702,14 @@ public class HttpUtil {
 		String content = new String(contentBytes, charset);
 		if (isGetCharsetFromContent) {
 			final String charsetInContentStr = ReUtil.get(META_CHARSET_PATTERN, content, 1);
-			if (StrUtil.isNotBlank(charsetInContentStr)) {
+			if (StringUtil.isNotBlank(charsetInContentStr)) {
 				Charset charsetInContent = null;
 				try {
 					charsetInContent = Charset.forName(charsetInContentStr);
 				} catch (Exception e) {
-					if (StrUtil.containsIgnoreCase(charsetInContentStr, "utf-8") || StrUtil.containsIgnoreCase(charsetInContentStr, "utf8")) {
+					if (StringUtil.containsIgnoreCase(charsetInContentStr, "utf-8") || StringUtil.containsIgnoreCase(charsetInContentStr, "utf8")) {
 						charsetInContent = CharsetUtil.CHARSET_UTF_8;
-					} else if (StrUtil.containsIgnoreCase(charsetInContentStr, "gbk")) {
+					} else if (StringUtil.containsIgnoreCase(charsetInContentStr, "gbk")) {
 						charsetInContent = CharsetUtil.CHARSET_GBK;
 					}
 					// ignore
@@ -727,7 +729,7 @@ public class HttpUtil {
 	 * @param defaultValue 当获取MimeType为null时的默认值
 	 * @return MimeType
 	 * @see FileUtil#getMimeType(String)
-	 * @since 4.6.5
+	 * @since 2.0.3
 	 */
 	public static String getMimeType(String filePath, String defaultValue) {
 		return ObjectUtil.defaultIfNull(getMimeType(filePath), defaultValue);
@@ -755,7 +757,7 @@ public class HttpUtil {
 	 * @param body 请求参数体
 	 * @return Content-Type类型，如果无法判断返回null
 	 * @see ContentType#get(String)
-	 * @since 3.2.0
+	 * @since 2.0.3
 	 */
 	public static String getContentTypeByRequestBody(String body) {
 		final ContentType contentType = ContentType.get(body);

@@ -7,8 +7,8 @@ import com.junya.core.lang.Range;
 /**
  * 日期范围
  * 
- * @author looly
- * @since 4.1.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class DateRange extends Range<DateTime> {
 	private static final long serialVersionUID = 1L;

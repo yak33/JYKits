@@ -9,8 +9,8 @@ import com.junya.cache.impl.WeakCache;
 
 /**
  * 缓存工具类
- * @author Looly
- *@since 3.0.1
+ * @author zhangchao
+ *@since 2.0.1
  */
 public class CacheUtil {
 	
@@ -109,7 +109,7 @@ public class CacheUtil {
 	 * @param <V> Value类型
 	 * @param timeout 过期时长，单位：毫秒
 	 * @return {@link WeakCache}
-	 * @since 3.0.7
+	 * @since 2.0.1
 	 */
 	public static <K, V> WeakCache<K, V> newWeakCache(long timeout){
 		return new WeakCache<>(timeout);

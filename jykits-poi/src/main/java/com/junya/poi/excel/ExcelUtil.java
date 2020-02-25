@@ -9,7 +9,7 @@ import com.junya.core.exceptions.DependencyException;
 import com.junya.core.io.FileUtil;
 import com.junya.core.io.IoUtil;
 import com.junya.core.util.ObjectUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.poi.PoiChecker;
 import com.junya.poi.excel.sax.Excel03SaxReader;
 import com.junya.poi.excel.sax.Excel07SaxReader;
@@ -18,7 +18,7 @@ import com.junya.poi.excel.sax.handler.RowHandler;
 /**
  * Excel工具类
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class ExcelUtil {
@@ -30,7 +30,7 @@ public class ExcelUtil {
 	 * @param path Excel文件路径
 	 * @param sheetIndex sheet序号
 	 * @param rowHandler 行处理器
-	 * @since 3.2.0
+	 * @since 2.0.1
 	 */
 	public static void readBySax(String path, int sheetIndex, RowHandler rowHandler) {
 		BufferedInputStream in = null;
@@ -48,7 +48,7 @@ public class ExcelUtil {
 	 * @param file Excel文件
 	 * @param sheetIndex sheet序号
 	 * @param rowHandler 行处理器
-	 * @since 3.2.0
+	 * @since 2.0.1
 	 */
 	public static void readBySax(File file, int sheetIndex, RowHandler rowHandler) {
 		BufferedInputStream in = null;
@@ -66,7 +66,7 @@ public class ExcelUtil {
 	 * @param in Excel流
 	 * @param sheetIndex sheet序号
 	 * @param rowHandler 行处理器
-	 * @since 3.2.0
+	 * @since 2.0.1
 	 */
 	public static void readBySax(InputStream in, int sheetIndex, RowHandler rowHandler) {
 		in = IoUtil.toMarkSupportStream(in);
@@ -84,7 +84,7 @@ public class ExcelUtil {
 	 * @param sheetIndex Sheet索引，-1表示全部Sheet, 0表示第一个Sheet
 	 * @param rowHandler 行处理器
 	 * @return {@link Excel07SaxReader}
-	 * @since 3.2.0
+	 * @since 2.0.1
 	 */
 	public static Excel07SaxReader read07BySax(InputStream in, int sheetIndex, RowHandler rowHandler) {
 		try {
@@ -101,7 +101,7 @@ public class ExcelUtil {
 	 * @param sheetIndex Sheet索引，-1表示全部Sheet, 0表示第一个Sheet
 	 * @param rowHandler 行处理器
 	 * @return {@link Excel07SaxReader}
-	 * @since 3.2.0
+	 * @since 2.0.1
 	 */
 	public static Excel07SaxReader read07BySax(File file, int sheetIndex, RowHandler rowHandler) {
 		try {
@@ -118,7 +118,7 @@ public class ExcelUtil {
 	 * @param sheetIndex Sheet索引，-1表示全部Sheet, 0表示第一个Sheet
 	 * @param rowHandler 行处理器
 	 * @return {@link Excel07SaxReader}
-	 * @since 3.2.0
+	 * @since 2.0.1
 	 */
 	public static Excel07SaxReader read07BySax(String path, int sheetIndex, RowHandler rowHandler) {
 		try {
@@ -135,7 +135,7 @@ public class ExcelUtil {
 	 * @param sheetIndex Sheet索引，-1表示全部Sheet, 0表示第一个Sheet
 	 * @param rowHandler 行处理器
 	 * @return {@link Excel07SaxReader}
-	 * @since 3.2.0
+	 * @since 2.0.1
 	 */
 	public static Excel03SaxReader read03BySax(InputStream in, int sheetIndex, RowHandler rowHandler) {
 		try {
@@ -152,7 +152,7 @@ public class ExcelUtil {
 	 * @param sheetIndex Sheet索引，-1表示全部Sheet, 0表示第一个Sheet
 	 * @param rowHandler 行处理器
 	 * @return {@link Excel03SaxReader}
-	 * @since 3.2.0
+	 * @since 2.0.1
 	 */
 	public static Excel03SaxReader read03BySax(File file, int sheetIndex, RowHandler rowHandler) {
 		try {
@@ -169,7 +169,7 @@ public class ExcelUtil {
 	 * @param sheetIndex Sheet索引，-1表示全部Sheet, 0表示第一个Sheet
 	 * @param rowHandler 行处理器
 	 * @return {@link Excel03SaxReader}
-	 * @since 3.2.0
+	 * @since 2.0.1
 	 */
 	public static Excel03SaxReader read03BySax(String path, int sheetIndex, RowHandler rowHandler) {
 		try {
@@ -187,7 +187,7 @@ public class ExcelUtil {
 	 * 
 	 * @param bookFilePath Excel文件路径，绝对路径或相对于ClassPath路径
 	 * @return {@link ExcelReader}
-	 * @since 3.1.1
+	 * @since 2.0.1
 	 */
 	public static ExcelReader getReader(String bookFilePath) {
 		return getReader(bookFilePath, 0);
@@ -210,7 +210,7 @@ public class ExcelUtil {
 	 * @param bookFilePath Excel文件路径，绝对路径或相对于ClassPath路径
 	 * @param sheetIndex sheet序号，0表示第一个sheet
 	 * @return {@link ExcelReader}
-	 * @since 3.1.1
+	 * @since 2.0.1
 	 */
 	public static ExcelReader getReader(String bookFilePath, int sheetIndex) {
 		try {
@@ -268,7 +268,7 @@ public class ExcelUtil {
 	 * @param bookStream Excel文件的流
 	 * @param closeAfterRead 读取结束是否关闭流
 	 * @return {@link ExcelReader}
-	 * @since 4.0.3
+	 * @since 2.0.3
 	 */
 	public static ExcelReader getReader(InputStream bookStream, boolean closeAfterRead) {
 		try {
@@ -301,7 +301,7 @@ public class ExcelUtil {
 	 * @param sheetIndex sheet序号，0表示第一个sheet
 	 * @param closeAfterRead 读取结束是否关闭流
 	 * @return {@link ExcelReader}
-	 * @since 4.0.3
+	 * @since 2.0.3
 	 */
 	public static ExcelReader getReader(InputStream bookStream, int sheetIndex, boolean closeAfterRead) {
 		try {
@@ -350,7 +350,7 @@ public class ExcelUtil {
 	 * 若写出到文件，还需调用{@link ExcelWriter#setDestFile(File)}方法自定义写出的文件，然后调用{@link ExcelWriter#flush()}方法写出到文件
 	 * 
 	 * @return {@link ExcelWriter}
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static ExcelWriter getWriter() {
 		try {
@@ -367,7 +367,7 @@ public class ExcelUtil {
 	 * 
 	 * @param isXlsx 是否为xlsx格式
 	 * @return {@link ExcelWriter}
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static ExcelWriter getWriter(boolean isXlsx) {
 		try {
@@ -396,7 +396,7 @@ public class ExcelUtil {
 	 * 
 	 * @param sheetName Sheet名
 	 * @return {@link ExcelWriter}
-	 * @since 4.5.18
+	 * @since 2.0.1
 	 */
 	public static ExcelWriter getWriterWithSheet(String sheetName) {
 		try {
@@ -457,7 +457,7 @@ public class ExcelUtil {
 	 * 若写出到文件，还需调用{@link BigExcelWriter#setDestFile(File)}方法自定义写出的文件，然后调用{@link BigExcelWriter#flush()}方法写出到文件
 	 * 
 	 * @return {@link BigExcelWriter}
-	 * @since 4.1.13
+	 * @since 2.0.1
 	 */
 	public static ExcelWriter getBigWriter() {
 		try {
@@ -474,7 +474,7 @@ public class ExcelUtil {
 	 * 
 	 * @param rowAccessWindowSize 在内存中的行数
 	 * @return {@link BigExcelWriter}
-	 * @since 4.1.13
+	 * @since 2.0.1
 	 */
 	public static ExcelWriter getBigWriter(int rowAccessWindowSize) {
 		try {
@@ -547,13 +547,13 @@ public class ExcelUtil {
 	 * 
 	 * @param index 列号, 从0开始
 	 * @return 0-》A; 1-》B...26-》AA
-	 * @since 4.1.20
+	 * @since 2.0.1
 	 */
 	public static String indexToColName(int index) {
 		if (index < 0) {
 			return null;
 		}
-		final StringBuilder colName = StrUtil.builder();
+		final StringBuilder colName = StringUtil.builder();
 		do {
 			if (colName.length() > 0) {
 				index--;
@@ -570,7 +570,7 @@ public class ExcelUtil {
 	 * 
 	 * @param colName 列名, 从A开始
 	 * @return A1-》0; B1-》1...AA1-》26
-	 * @since 4.1.20
+	 * @since 2.0.1
 	 */
 	public static int colNameToIndex(String colName) {
 		int length = colName.length();

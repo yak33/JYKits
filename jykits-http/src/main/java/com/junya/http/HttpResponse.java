@@ -21,7 +21,7 @@ import com.junya.core.io.IoUtil;
 import com.junya.core.io.StreamProgress;
 import com.junya.core.util.CharsetUtil;
 import com.junya.core.util.ReUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.core.util.URLUtil;
 import com.junya.http.cookie.GlobalCookieManager;
 
@@ -29,7 +29,7 @@ import com.junya.http.cookie.GlobalCookieManager;
  * Http响应类<br>
  * 非线程安全对象
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
@@ -54,7 +54,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * @param charset 编码，从请求编码中获取默认编码
 	 * @param isAsync 是否异步
 	 * @param isIgnoreBody 是否忽略读取响应体
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	protected HttpResponse(HttpConnection httpConnection, Charset charset, boolean isAsync, boolean isIgnoreBody) {
 		this.httpConnection = httpConnection;
@@ -77,7 +77,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * 请求是否成功，判断依据为：状态码范围在200~299内。
 	 * 
 	 * @return 是否成功请求
-	 * @since 4.1.9
+	 * @since 2.0.3
 	 */
 	public boolean isOk() {
 		return this.status >= 200 && this.status < 300;
@@ -87,7 +87,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * 同步<br>
 	 * 如果为异步状态，则暂时不读取服务器中响应的内容，而是持有Http链接的{@link InputStream}。<br>
 	 * 当调用此方法时，异步状态转为同步状态，此时从Http链接流中读取body内容并暂存在内容中。如果已经是同步状态，则不进行任何操作。
-	 * 
+	 * 	 *
 	 * @return this
 	 */
 	public HttpResponse sync() {
@@ -118,7 +118,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * 是否为zlib(Defalte)压缩过的内容
 	 * 
 	 * @return 是否为zlib(Defalte)压缩过的内容
-	 * @since 4.5.7
+	 * @since 2.0.3
 	 */
 	public boolean isDeflate() {
 		final String contentEncoding = contentEncoding();
@@ -129,7 +129,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * 是否为Transfer-Encoding:Chunked的内容
 	 * 
 	 * @return 是否为Transfer-Encoding:Chunked的内容
-	 * @since 4.6.2
+	 * @since 2.0.3
 	 */
 	public boolean isChunked() {
 		final String transferEncoding = header(Header.TRANSFER_ENCODING);
@@ -140,7 +140,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * 获取本次请求服务器返回的Cookie信息
 	 * 
 	 * @return Cookie字符串
-	 * @since 3.1.1
+	 * @since 2.0.3
 	 */
 	public String getCookieStr() {
 		return header(Header.SET_COOKIE);
@@ -150,7 +150,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * 获取Cookie
 	 * 
 	 * @return Cookie列表
-	 * @since 3.1.1
+	 * @since 2.0.3
 	 */
 	public List<HttpCookie> getCookies() {
 		return GlobalCookieManager.getCookies(this.httpConnection);
@@ -161,7 +161,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * 
 	 * @param name Cookie名
 	 * @return {@link HttpCookie}
-	 * @since 4.1.4
+	 * @since 2.0.3
 	 */
 	public HttpCookie getCookie(String name) {
 		List<HttpCookie> cookie = getCookies();
@@ -180,7 +180,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * 
 	 * @param name Cookie名
 	 * @return Cookie值
-	 * @since 4.1.4
+	 * @since 2.0.3
 	 */
 	public String getCookieValue(String name) {
 		HttpCookie cookie = getCookie(name);
@@ -234,7 +234,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * @param isCloseOut 是否关闭输出流
 	 * @param streamProgress 进度显示接口，通过实现此接口显示下载进度
 	 * @return 写出bytes数
-	 * @since 3.3.2
+	 * @since 2.0.3
 	 */
 	public long writeBody(OutputStream out, boolean isCloseOut, StreamProgress streamProgress) {
 		if (null == out) {
@@ -258,7 +258,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * @param destFile 写出到的文件
 	 * @param streamProgress 进度显示接口，通过实现此接口显示下载进度
 	 * @return 写出bytes数
-	 * @since 3.3.2
+	 * @since 2.0.3
 	 */
 	public long writeBody(File destFile, StreamProgress streamProgress) {
 		if (null == destFile) {
@@ -267,11 +267,11 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 		if (destFile.isDirectory()) {
 			// 从头信息中获取文件名
 			String fileName = getFileNameFromDisposition();
-			if (StrUtil.isBlank(fileName)) {
+			if (StringUtil.isBlank(fileName)) {
 				final String path = this.httpConnection.getUrl().getPath();
 				// 从路径中获取文件名
-				fileName = StrUtil.subSuf(path, path.lastIndexOf('/') + 1);
-				if (StrUtil.isBlank(fileName)) {
+				fileName = StringUtil.subSuf(path, path.lastIndexOf('/') + 1);
+				if (StringUtil.isBlank(fileName)) {
 					// 编码后的路径做为文件名
 					fileName = URLUtil.encodeQuery(path, CharsetUtil.CHARSET_UTF_8);
 				}
@@ -289,7 +289,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * 
 	 * @param destFile 写出到的文件
 	 * @return 写出bytes数
-	 * @since 3.3.2
+	 * @since 2.0.3
 	 */
 	public long writeBody(File destFile) {
 		return writeBody(destFile, null);
@@ -302,7 +302,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	 * 
 	 * @param destFilePath 写出到的文件的路径
 	 * @return 写出bytes数
-	 * @since 3.3.2
+	 * @since 2.0.3
 	 */
 	public long writeBody(String destFilePath) {
 		return writeBody(FileUtil.file(destFilePath));
@@ -319,14 +319,14 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = StrUtil.builder();
-		sb.append("Response Headers: ").append(StrUtil.CRLF);
+		StringBuilder sb = StringUtil.builder();
+		sb.append("Response Headers: ").append(StringUtil.CRLF);
 		for (Entry<String, List<String>> entry : this.headers.entrySet()) {
-			sb.append("    ").append(entry).append(StrUtil.CRLF);
+			sb.append("    ").append(entry).append(StringUtil.CRLF);
 		}
 
-		sb.append("Response Body: ").append(StrUtil.CRLF);
-		sb.append("    ").append(this.body()).append(StrUtil.CRLF);
+		sb.append("Response Body: ").append(StringUtil.CRLF);
+		sb.append("    ").append(this.body()).append(StringUtil.CRLF);
 
 		return sb.toString();
 	}
@@ -420,7 +420,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 		try {
 			IoUtil.copy(in, out);
 		} catch (IORuntimeException e) {
-			if (e.getCause() instanceof EOFException || StrUtil.containsIgnoreCase(e.getMessage(), "Premature EOF")) {
+			if (e.getCause() instanceof EOFException || StringUtil.containsIgnoreCase(e.getMessage(), "Premature EOF")) {
 				// 忽略读取HTTP流中的EOF错误
 			} else {
 				throw e;
@@ -469,10 +469,10 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	private String getFileNameFromDisposition() {
 		String fileName = null;
 		final String desposition = header(Header.CONTENT_DISPOSITION);
-		if (StrUtil.isNotBlank(desposition)) {
+		if (StringUtil.isNotBlank(desposition)) {
 			fileName = ReUtil.get("filename=\"(.*?)\"", desposition, 1);
-			if (StrUtil.isBlank(fileName)) {
-				fileName = StrUtil.subAfter(desposition, "filename=", true);
+			if (StringUtil.isBlank(fileName)) {
+				fileName = StringUtil.subAfter(desposition, "filename=", true);
 			}
 		}
 		return fileName;

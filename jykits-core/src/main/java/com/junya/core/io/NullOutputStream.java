@@ -7,8 +7,8 @@ import java.io.OutputStream;
  * 此OutputStream写出数据到<b>/dev/null</b>，即忽略所有数据<br>
  * 来自 Apache Commons io
  * 
- * @author looly
- * @since 4.0.6
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class NullOutputStream extends OutputStream {
 

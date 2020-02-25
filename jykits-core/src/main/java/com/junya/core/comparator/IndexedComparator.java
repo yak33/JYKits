@@ -8,10 +8,10 @@ import com.junya.core.util.ArrayUtil;
  * 按照数组的顺序正序排列，数组的元素位置决定了对象的排序先后<br>
  * 如果参与排序的元素并不在数组中，则排序在前
  * 
- * @author looly
+ * @author zhangchao
  *
  * @param <T> 被排序元素类型
- * @since 4.1.5
+ * @since 2.0.3
  */
 public class IndexedComparator<T> implements Comparator<T> {
 

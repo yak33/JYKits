@@ -9,8 +9,8 @@ import java.io.Serializable;
  * 
  * TODO 待整理
  * 来自于Apache-Commons-Lang3
- * @author looly，Apache-Commons
- * @since 4.2.2
+ * @author zhangchao，Apache-Commons
+ * @since 2.0.3
  */
 final class IDKey implements Serializable{
 	private static final long serialVersionUID = 1L;

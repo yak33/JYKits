@@ -6,12 +6,12 @@ import java.util.Map;
 import com.junya.core.bean.copier.ValueProvider;
 import com.junya.core.convert.Convert;
 import com.junya.core.map.CaseInsensitiveMap;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * Map值提供者
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class MapValueProvider implements ValueProvider<String> {
@@ -39,7 +39,7 @@ public class MapValueProvider implements ValueProvider<String> {
 		Object value = map.get(key);
 		if(null == value) {
 			//检查下划线模式
-			value = map.get(StrUtil.toUnderlineCase(key));
+			value = map.get(StringUtil.toUnderlineCase(key));
 		}
 		
 		return Convert.convert(valueType, value);
@@ -51,7 +51,7 @@ public class MapValueProvider implements ValueProvider<String> {
 		if(map.containsKey(key)) {
 			return true;
 		}else {
-			return map.containsKey(StrUtil.toUnderlineCase(key));
+			return map.containsKey(StringUtil.toUnderlineCase(key));
 		}
 	}
 

@@ -1,6 +1,6 @@
 package com.junya.core.math;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 import java.io.File;
 import java.io.Serializable;
@@ -10,10 +10,6 @@ import java.util.Currency;
 
 /**
  * 单币种货币类，处理货币算术、币种和取整。
- * <p>
- * 感谢提供此方法的用户：https://github.com/looly/hutool/issues/605
- *
- * <p>
  * 货币类中封装了货币金额和币种。目前金额在内部是long类型表示，
  * 单位是所属币种的最小货币单位（对人民币是分）。
  *
@@ -43,7 +39,7 @@ import java.util.Currency;
  * </ul>
  *
  * @author ddatsh
- * @since 5.0.4
+ * @since 2.0.3
  */
 
 public class Money implements Serializable, Comparable<Money> {
@@ -831,7 +827,7 @@ public class Money implements Serializable, Comparable<Money> {
 	 * @return 本对象内部变量的字符串表示。
 	 */
 	public String dump() {
-		return StrUtil.builder()
+		return StringUtil.builder()
 				.append("cent = ")
 				.append(this.cent)
 				.append(File.separatorChar)

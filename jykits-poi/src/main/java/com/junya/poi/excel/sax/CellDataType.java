@@ -3,7 +3,7 @@ package com.junya.poi.excel.sax;
 /**
  * 单元格数据类型枚举
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public enum CellDataType {

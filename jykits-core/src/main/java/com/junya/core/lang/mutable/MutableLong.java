@@ -6,7 +6,7 @@ import com.junya.core.util.NumberUtil;
  * 可变 <code>long</code> 类型
  * 
  * @see Long
- * @since 3.0.1
+ * @since 2.0.3
  */
 public class MutableLong extends Number implements Comparable<MutableLong>, Mutable<Number> {
 	private static final long serialVersionUID = 1L;

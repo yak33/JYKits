@@ -2,7 +2,7 @@ package com.junya.core.lang;
 
 /**
  * 匹配接口
- * @author Looly
+ * @author zhangchao
  *
  * @param <T> 匹配的对象类型
  */

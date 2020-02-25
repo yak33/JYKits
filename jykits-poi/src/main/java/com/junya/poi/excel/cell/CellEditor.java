@@ -4,7 +4,7 @@ import org.apache.poi.ss.usermodel.Cell;
 
 /**
  * 单元格编辑器接口
- * @author Looly
+ * @author zhangchao
  *
  */
 public interface CellEditor {

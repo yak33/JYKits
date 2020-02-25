@@ -11,8 +11,8 @@ import java.util.List;
  * 
  * 见：https://stackoverflow.com/questions/16305486/cookiemanager-for-multiple-threads
  * 
- * @author looly
- * @since 4.1.18
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class ThreadLocalCookieStore implements CookieStore {
 

@@ -16,12 +16,12 @@ import com.junya.core.io.IORuntimeException;
 import com.junya.core.io.IoUtil;
 import com.junya.core.io.LineHandler;
 import com.junya.core.util.CharsetUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 文件读取器
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class FileReader extends FileWrapper {
@@ -123,7 +123,7 @@ public class FileReader extends FileWrapper {
 			in = new FileInputStream(file);
 			readLength = in.read(bytes);
 			if(readLength < len){
-				throw new IOException(StrUtil.format("File length is [{}] but read [{}]!", len, readLength));
+				throw new IOException(StringUtil.format("File length is [{}] but read [{}]!", len, readLength));
 			}
 		} catch (Exception e) {
 			throw new IORuntimeException(e);
@@ -177,7 +177,7 @@ public class FileReader extends FileWrapper {
 	 * 
 	 * @param lineHandler 行处理器
 	 * @throws IORuntimeException IO异常
-	 * @since 3.0.9
+	 * @since 2.0.3
 	 */
 	public void readLines(LineHandler lineHandler) throws IORuntimeException{
 		BufferedReader reader = null;

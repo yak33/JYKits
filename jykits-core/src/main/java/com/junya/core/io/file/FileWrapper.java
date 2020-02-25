@@ -11,7 +11,7 @@ import com.junya.core.util.CharsetUtil;
 /**
  * 文件包装器，扩展文件对象
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class FileWrapper implements Serializable{

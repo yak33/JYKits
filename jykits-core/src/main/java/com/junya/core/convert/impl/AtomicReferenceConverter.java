@@ -10,8 +10,8 @@ import com.junya.core.util.TypeUtil;
 /**
  * {@link AtomicReference}转换器
  * 
- * @author Looly
- * @since 3.0.8
+ * @author zhangchao
+ * @since 2.0.3
  */
 @SuppressWarnings("rawtypes")
 public class AtomicReferenceConverter extends AbstractConverter<AtomicReference> {

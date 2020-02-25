@@ -10,15 +10,15 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.io.IORuntimeException;
 
 /**
  * 多资源组合资源<br>
  * 此资源为一个利用游标自循环资源，只有调用{@link #next()} 方法才会获取下一个资源，使用完毕后调用{@link #reset()}方法重置游标
  * 
- * @author looly
- * @since 4.1.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class MultiResource implements Resource, Iterable<Resource>, Iterator<Resource>, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class MultiResource implements Resource, Iterable<Resource>, Iterator<Res
 	 * @param resources 资源数组
 	 */
 	public MultiResource(Resource... resources) {
-		this(CollUtil.newArrayList(resources));
+		this(CollectionUtil.newArrayList(resources));
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class MultiResource implements Resource, Iterable<Resource>, Iterator<Res
 		if(resources instanceof List) {
 			this.resources = (List<Resource>)resources;
 		}else {
-			this.resources = CollUtil.newArrayList(resources);
+			this.resources = CollectionUtil.newArrayList(resources);
 		}
 	}
 

@@ -10,13 +10,13 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * Excel样式工具类
  * 
- * @author looly
- * @since 4.0.0
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class StyleUtil {
 	
@@ -138,7 +138,7 @@ public class StyleUtil {
 		if(fontSize > 0) {
 			font.setFontHeightInPoints(fontSize);
 		}
-		if(StrUtil.isNotBlank(fontName)) {
+		if(StringUtil.isNotBlank(fontName)) {
 			font.setFontName(fontName);
 		}
 		return font;
@@ -181,7 +181,7 @@ public class StyleUtil {
 	 * @param workbook 工作簿
 	 * @param style 被检查的样式
 	 * @return 是否为null（无样式）或默认样式
-	 * @since 4.6.3
+	 * @since 2.0.1
 	 */
 	public static boolean isNullOrDefaultStyle(Workbook workbook, CellStyle style) {
 		return (null == style) || style.equals(workbook.getCellStyleAt(0));

@@ -7,7 +7,7 @@ import com.junya.core.util.CharUtil;
 /**
  * 形如&#39;的反转义器
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class NumericEntityUnescaper extends StrReplacer {

@@ -16,8 +16,8 @@ import com.junya.core.lang.SimpleCache;
 /**
  * {@link ClassLoader}工具类
  * 
- * @author Looly
- * @since 3.0.9
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class ClassLoaderUtil {
 
@@ -28,7 +28,7 @@ public class ClassLoaderUtil {
 	/** 内部非原始类型类名前缀: "[L" */
 	private static final String NON_PRIMITIVE_ARRAY_PREFIX = "[L";
 	/** 包名分界符: '.' */
-	private static final char PACKAGE_SEPARATOR = StrUtil.C_DOT;
+	private static final char PACKAGE_SEPARATOR = StringUtil.C_DOT;
 	/** 内部类分界符: '$' */
 	private static final char INNER_CLASS_SEPARATOR = '$';
 
@@ -199,7 +199,7 @@ public class ClassLoaderUtil {
 	 */
 	public static Class<?> loadPrimitiveClass(String name) {
 		Class<?> result = null;
-		if (StrUtil.isNotBlank(name)) {
+		if (StringUtil.isNotBlank(name)) {
 			name = name.trim();
 			if (name.length() <= 8) {
 				result = primitiveTypeNameMap.get(name);
@@ -213,7 +213,7 @@ public class ClassLoaderUtil {
 	 * 
 	 * @param jarOrDir jar文件或者包含jar和class文件的目录
 	 * @return {@link JarClassLoader}
-	 * @since 4.4.2
+	 * @since 2.0.3
 	 */
 	public static JarClassLoader getJarClassLoader(File jarOrDir) {
 		return JarClassLoader.load(jarOrDir);
@@ -225,7 +225,7 @@ public class ClassLoaderUtil {
 	 * @param jarOrDir jar文件或者包含jar和class文件的目录
 	 * @param name 类名
 	 * @return 类
-	 * @since 4.4.2
+	 * @since 2.0.3
 	 */
 	public static Class<?> loadClass(File jarOrDir, String name) {
 		try {
@@ -274,7 +274,7 @@ public class ClassLoaderUtil {
 	 * @param classLoader {@link ClassLoader}，{@code null} 则使用系统默认ClassLoader
 	 * @param isInitialized 是否初始化类（调用static模块内容和初始化static属性）
 	 * @return 类名对应的类
-	 * @since 4.1.20
+	 * @since 2.0.3
 	 */
 	private static Class<?> tryLoadInnerClass(String name, ClassLoader classLoader, boolean isInitialized) {
 		// 尝试获取内部类，例如java.lang.Thread.State =》java.lang.Thread$State

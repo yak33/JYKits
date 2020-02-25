@@ -3,13 +3,13 @@ package com.junya.http.useragent;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 
 /**
  * 平台对象
  * 
- * @author looly
- * @since 4.2.1
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class Platform extends UserAgentInfo {
 
@@ -19,7 +19,7 @@ public class Platform extends UserAgentInfo {
 	/**
 	 * 支持的移动平台类型
 	 */
-	public static final List<Platform> mobilePlatforms = CollUtil.newArrayList(//
+	public static final List<Platform> mobilePlatforms = CollectionUtil.newArrayList(//
 			new Platform("Windows Phone", "windows (ce|phone|mobile)( os)?"), //
 			new Platform("iPad", "ipad"), //
 			new Platform("iPod", "ipod"), //
@@ -32,7 +32,7 @@ public class Platform extends UserAgentInfo {
 	/**
 	 * 支持的桌面平台类型
 	 */
-	public static final List<Platform> desktopPlatforms=CollUtil.newArrayList(//
+	public static final List<Platform> desktopPlatforms= CollectionUtil.newArrayList(//
 			new Platform("Windows", "windows"), //
 			new Platform("Mac", "(macintosh|darwin)"), //
 			new Platform("Linux", "linux"), //

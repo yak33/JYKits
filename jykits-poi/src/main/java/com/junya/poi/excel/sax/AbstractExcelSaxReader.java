@@ -9,10 +9,10 @@ import com.junya.poi.exceptions.POIException;
 /**
  * 抽象的Sax方式Excel读取器，提供一些共用方法
  * 
- * @author looly
+ * @author zhangchao
  *
  * @param <T> 子对象类型，用于标记返回值this
- * @since 3.2.0
+ * @since 2.0.1
  */
 public abstract class AbstractExcelSaxReader<T> implements ExcelSaxReader<T> {
 	

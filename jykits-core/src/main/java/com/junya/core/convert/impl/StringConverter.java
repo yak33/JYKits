@@ -4,7 +4,7 @@ import com.junya.core.convert.AbstractConverter;
 
 /**
  * 字符串转换器
- * @author Looly
+ * @author zhangchao
  *
  */
 public class StringConverter extends AbstractConverter<String>{

@@ -2,7 +2,7 @@ package com.junya.http;
 
 /**
  * Http 头域
- * @author Looly
+ * @author zhangchao
  *
  */
 public enum Header {

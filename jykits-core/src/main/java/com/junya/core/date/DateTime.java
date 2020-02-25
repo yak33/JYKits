@@ -18,12 +18,12 @@ import com.junya.core.date.format.DatePrinter;
 import com.junya.core.date.format.FastDateFormat;
 import com.junya.core.lang.Assert;
 import com.junya.core.util.ObjectUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 包装java.util.Date
  *
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class DateTime extends Date {
 	private static final long serialVersionUID = -5395712593979185936L;
@@ -46,7 +46,7 @@ public class DateTime extends Date {
 	 *
 	 * @param timeMillis 时间戳，毫秒数
 	 * @return DateTime
-	 * @since 4.6.3
+	 * @since 2.0.3
 	 */
 	public static DateTime of(long timeMillis) {
 		return new DateTime(timeMillis);
@@ -109,7 +109,7 @@ public class DateTime extends Date {
 	 * 当前时间
 	 *
 	 * @param timeZone 时区
-	 * @since 4.1.2
+	 * @since 2.0.3
 	 */
 	public DateTime(TimeZone timeZone) {
 		this(System.currentTimeMillis(), timeZone);
@@ -132,7 +132,7 @@ public class DateTime extends Date {
 	 *
 	 * @param date     日期
 	 * @param timeZone 时区
-	 * @since 4.1.2
+	 * @since 2.0.3
 	 */
 	public DateTime(Date date, TimeZone timeZone) {
 		this(date.getTime(), timeZone);
@@ -152,7 +152,7 @@ public class DateTime extends Date {
 	 * 给定日期Instant的构造
 	 *
 	 * @param instant {@link Instant} 对象
-	 * @since 5.0.0
+	 * @since 2.0.3
 	 */
 	public DateTime(Instant instant) {
 		this(instant.toEpochMilli());
@@ -163,7 +163,7 @@ public class DateTime extends Date {
 	 *
 	 * @param instant  {@link Instant} 对象
 	 * @param zoneId 时区ID
-	 * @since 5.0.5
+	 * @since 2.0.3
 	 */
 	public DateTime(Instant instant, ZoneId zoneId) {
 		this(instant.toEpochMilli(), TimeZone.getTimeZone(ObjectUtil.defaultIfNull(zoneId, ZoneId.systemDefault())));
@@ -173,7 +173,7 @@ public class DateTime extends Date {
 	 * 给定日期TemporalAccessor的构造
 	 *
 	 * @param temporalAccessor {@link TemporalAccessor} 对象
-	 * @since 5.0.0
+	 * @since 2.0.3
 	 */
 	public DateTime(TemporalAccessor temporalAccessor) {
 		this(DateUtil.toInstant(temporalAccessor));
@@ -183,7 +183,7 @@ public class DateTime extends Date {
 	 * 给定日期ZonedDateTime的构造
 	 *
 	 * @param zonedDateTime {@link ZonedDateTime} 对象
-	 * @since 5.0.5
+	 * @since 2.0.3
 	 */
 	public DateTime(ZonedDateTime zonedDateTime) {
 		this(zonedDateTime.toInstant(), zonedDateTime.getZone());
@@ -193,7 +193,7 @@ public class DateTime extends Date {
 	 * 给定日期毫秒数的构造
 	 *
 	 * @param timeMillis 日期毫秒数
-	 * @since 4.1.2
+	 * @since 2.0.3
 	 */
 	public DateTime(long timeMillis) {
 		this(timeMillis, TimeZone.getDefault());
@@ -204,7 +204,7 @@ public class DateTime extends Date {
 	 *
 	 * @param timeMillis 日期毫秒数
 	 * @param timeZone   时区
-	 * @since 4.1.2
+	 * @since 2.0.3
 	 */
 	public DateTime(long timeMillis, TimeZone timeZone) {
 		super(timeMillis);
@@ -238,7 +238,7 @@ public class DateTime extends Date {
 	 *
 	 * @param dateStr   Date字符串
 	 * @param formatter 格式化器,{@link DateTimeFormatter}
-	 * @since 5.0.0
+	 * @since 2.0.3
 	 */
 	public DateTime(CharSequence dateStr, DateTimeFormatter formatter) {
 		this(Instant.from(formatter.parse(dateStr)), formatter.getZone());
@@ -282,7 +282,7 @@ public class DateTime extends Date {
 	 * @param datePart 调整的部分 {@link DateField}
 	 * @param offset   偏移量，正数为向后偏移，负数为向前偏移
 	 * @return 如果此对象为可变对象，返回自身，否则返回新对象
-	 * @since 3.0.9
+	 * @since 2.0.3
 	 */
 	public DateTime offsetNew(DateField datePart, int offset) {
 		final Calendar cal = toCalendar();
@@ -535,7 +535,7 @@ public class DateTime extends Date {
 	 * 是否为周末，周末指周六或者周日
 	 *
 	 * @return 是否为周末，周末指周六或者周日
-	 * @since 4.1.14
+	 * @since 2.0.3
 	 */
 	public boolean isWeekend() {
 		final int dayOfWeek = dayOfWeek();
@@ -604,7 +604,7 @@ public class DateTime extends Date {
 	 * 考虑到很多框架（例如Hibernate）的兼容性，提供此方法返回JDK原生的Date对象
 	 *
 	 * @return {@link Date}
-	 * @since 3.2.2
+	 * @since 2.0.3
 	 */
 	public Date toJdkDate() {
 		return new Date(this.getTime());
@@ -668,7 +668,7 @@ public class DateTime extends Date {
 	 * @param beginDate 起始日期
 	 * @param endDate   结束日期
 	 * @return 是否在范围内
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public boolean isIn(Date beginDate, Date endDate) {
 		long beginMills = beginDate.getTime();
@@ -683,7 +683,7 @@ public class DateTime extends Date {
 	 *
 	 * @param date 日期
 	 * @return 是否在给定日期之前
-	 * @since 4.1.3
+	 * @since 2.0.3
 	 */
 	public boolean isBefore(Date date) {
 		if (null == date) {
@@ -697,7 +697,7 @@ public class DateTime extends Date {
 	 *
 	 * @param date 日期
 	 * @return 是否在给定日期之前或与给定日期相等
-	 * @since 3.0.9
+	 * @since 2.0.3
 	 */
 	public boolean isBeforeOrEquals(Date date) {
 		if (null == date) {
@@ -711,7 +711,7 @@ public class DateTime extends Date {
 	 *
 	 * @param date 日期
 	 * @return 是否在给定日期之后
-	 * @since 4.1.3
+	 * @since 2.0.3
 	 */
 	public boolean isAfter(Date date) {
 		if (null == date) {
@@ -725,7 +725,7 @@ public class DateTime extends Date {
 	 *
 	 * @param date 日期
 	 * @return 是否在给定日期之后或与给定日期相等
-	 * @since 3.0.9
+	 * @since 2.0.3
 	 */
 	public boolean isAfterOrEquals(Date date) {
 		if (null == date) {
@@ -778,7 +778,7 @@ public class DateTime extends Date {
 
 	/**
 	 * 设置一周的第一天<br>
-	 * JDK的Calendar中默认一周的第一天是周日，Hutool中将此默认值设置为周一<br>
+	 * JDK的Calendar中默认一周的第一天是周日，JYKits中将此默认值设置为周一<br>
 	 * 设置一周的第一天主要影响{@link #weekOfMonth()}和{@link #weekOfYear()} 两个方法
 	 *
 	 * @param firstDayOfWeek 一周的第一天
@@ -795,7 +795,7 @@ public class DateTime extends Date {
 	 * 获取时区
 	 *
 	 * @return 时区
-	 * @since 5.0.5
+	 * @since 2.0.3
 	 */
 	public TimeZone getTimeZone(){
 		return this.timeZone;
@@ -805,7 +805,7 @@ public class DateTime extends Date {
 	 * 获取时区ID
 	 *
 	 * @return 时区ID
-	 * @since 5.0.5
+	 * @since 2.0.3
 	 */
 	public ZoneId getZoneId(){
 		return this.timeZone.toZoneId();
@@ -816,7 +816,7 @@ public class DateTime extends Date {
 	 *
 	 * @param timeZone 时区
 	 * @return this
-	 * @since 4.1.2
+	 * @since 2.0.3
 	 */
 	public DateTime setTimeZone(TimeZone timeZone) {
 		this.timeZone = ObjectUtil.defaultIfNull(timeZone, TimeZone.getDefault());
@@ -841,7 +841,7 @@ public class DateTime extends Date {
 	 * 时区使用当前地区的默认时区
 	 *
 	 * @return "yyyy-MM-dd yyyy-MM-dd HH:mm:ss " 格式字符串
-	 * @since 4.1.14
+	 * @since 2.0.3
 	 */
 	public String toStringDefaultTimeZone() {
 		return toString(TimeZone.getDefault());
@@ -853,7 +853,7 @@ public class DateTime extends Date {
 	 *
 	 * @param timeZone 时区
 	 * @return "yyyy-MM-dd yyyy-MM-dd HH:mm:ss " 格式字符串
-	 * @since 4.1.14
+	 * @since 2.0.3
 	 */
 	public String toString(TimeZone timeZone) {
 		if (null != timeZone) {
@@ -868,7 +868,7 @@ public class DateTime extends Date {
 	 * 转为"yyyy-MM-dd " 格式字符串
 	 *
 	 * @return "yyyy-MM-dd " 格式字符串
-	 * @since 4.0.0
+	 * @since 2.0.3
 	 */
 	public String toDateStr() {
 		if (null != this.timeZone) {
@@ -883,7 +883,7 @@ public class DateTime extends Date {
 	 * 转为"HH:mm:ss" 格式字符串
 	 *
 	 * @return "HH:mm:ss" 格式字符串
-	 * @since 4.1.4
+	 * @since 2.0.3
 	 */
 	public String toTimeStr() {
 		if (null != this.timeZone) {
@@ -955,7 +955,7 @@ public class DateTime extends Date {
 			} else {
 				pattern = dateFormat.toString();
 			}
-			throw new DateException(StrUtil.format("Parse [{}] with format [{}] error!", dateStr, pattern), e);
+			throw new DateException(StringUtil.format("Parse [{}] with format [{}] error!", dateStr, pattern), e);
 		}
 	}
 

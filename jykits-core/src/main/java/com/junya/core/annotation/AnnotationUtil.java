@@ -22,8 +22,8 @@ import com.junya.core.util.ReflectUtil;
  * 注解工具类<br>
  * 快速获取注解对象、注解值等工具封装
  *
- * @author looly
- * @since 4.0.9
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class AnnotationUtil {
 

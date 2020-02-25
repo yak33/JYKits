@@ -8,7 +8,7 @@ import com.junya.core.convert.AbstractConverter;
 
 /**
  * URI对象转换器
- * @author Looly
+ * @author zhangchao
  *
  */
 public class URIConverter extends AbstractConverter<URI>{

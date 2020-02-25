@@ -23,7 +23,6 @@ import java.util.TreeSet;
 
 import javax.net.ServerSocketFactory;
 
-import com.junya.core.collection.CollUtil;
 import com.junya.core.collection.CollectionUtil;
 import com.junya.core.exceptions.UtilException;
 import com.junya.core.io.IORuntimeException;
@@ -31,12 +30,12 @@ import com.junya.core.io.IoUtil;
 import com.junya.core.lang.Filter;
 import com.junya.core.lang.Validator;
 import com.junya.core.util.RandomUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 网络相关工具
  * 
- * @author xiaoleilu
+ * @author zhangchao
  *
  */
 public class NetUtil {
@@ -55,7 +54,7 @@ public class NetUtil {
 	 * @return IP V4 地址
 	 */
 	public static String longToIpv4(long longIP) {
-		final StringBuilder sb = StrUtil.builder();
+		final StringBuilder sb = StringUtil.builder();
 		// 直接右移24位
 		sb.append((longIP >>> 24));
 		sb.append(".");
@@ -129,7 +128,7 @@ public class NetUtil {
 	 * 来自org.springframework.util.SocketUtils
 	 * 
 	 * @return 可用的端口
-	 * @since 4.5.4
+	 * @since 2.0.3
 	 */
 	public static int getUsableLocalPort() {
 		return getUsableLocalPort(PORT_RANGE_MIN);
@@ -142,7 +141,7 @@ public class NetUtil {
 	 * 
 	 * @param minPort 端口最小值（包含）
 	 * @return 可用的端口
-	 * @since 4.5.4
+	 * @since 2.0.3
 	 */
 	public static int getUsableLocalPort(int minPort) {
 		return getUsableLocalPort(minPort, PORT_RANGE_MAX);
@@ -156,7 +155,7 @@ public class NetUtil {
 	 * @param minPort 端口最小值（包含）
 	 * @param maxPort 端口最大值（包含）
 	 * @return 可用的端口
-	 * @since 4.5.4
+	 * @since 2.0.3
 	 */
 	public static int getUsableLocalPort(int minPort, int maxPort) {
 		final int maxPortExclude = maxPort +1;
@@ -179,7 +178,7 @@ public class NetUtil {
 	 * @param minPort 端口最小值（包含）
 	 * @param maxPort 端口最大值（包含）
 	 * @return 可用的端口
-	 * @since 4.5.4
+	 * @since 2.0.3
 	 */
 	public static TreeSet<Integer> getUsableLocalPorts(int numRequested, int minPort, int maxPort) {
 		final TreeSet<Integer> availablePorts = new TreeSet<>();
@@ -242,7 +241,7 @@ public class NetUtil {
 	 * @return 隐藏部分后的IP
 	 */
 	public static String hideIpPart(String ip) {
-		return StrUtil.builder(ip.length()).append(ip, 0, ip.lastIndexOf(".") + 1).append("*").toString();
+		return StringUtil.builder(ip.length()).append(ip, 0, ip.lastIndexOf(".") + 1).append("*").toString();
 	}
 
 	/**
@@ -265,7 +264,7 @@ public class NetUtil {
 	 * @return InetSocketAddress
 	 */
 	public static InetSocketAddress buildInetSocketAddress(String host, int defaultPort) {
-		if (StrUtil.isBlank(host)) {
+		if (StringUtil.isBlank(host)) {
 			host = LOCAL_IP;
 		}
 
@@ -299,10 +298,36 @@ public class NetUtil {
 	}
 
 	/**
+	 * 获取指定名称的网卡信息
+	 *
+	 * @param name 网络接口名，例如Linux下默认是eth0
+	 * @return 网卡，未找到返回<code>null</code>
+	 * @since 2.0.3
+	 */
+	public static NetworkInterface getNetworkInterface(String name) {
+		Enumeration<NetworkInterface> networkInterfaces;
+		try {
+			networkInterfaces = NetworkInterface.getNetworkInterfaces();
+		} catch (SocketException e) {
+			return null;
+		}
+
+		NetworkInterface netInterface;
+		while(networkInterfaces.hasMoreElements()){
+			netInterface = networkInterfaces.nextElement();
+			if(null != netInterface && name.equals(netInterface.getName())){
+				return netInterface;
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * 获取本机所有网卡
 	 * 
 	 * @return 所有网卡，异常返回<code>null</code>
-	 * @since 3.0.1
+	 * @since 2.0.3
 	 */
 	public static Collection<NetworkInterface> getNetworkInterfaces() {
 		Enumeration<NetworkInterface> networkInterfaces;
@@ -332,7 +357,7 @@ public class NetUtil {
 	 * 返回的IP列表有序，按照系统设备顺序
 	 * 
 	 * @return IP地址列表 {@link LinkedHashSet}
-	 * @since 4.5.17
+	 * @since 2.0.3
 	 */
 	public static LinkedHashSet<String> localIpv6s() {
 		final LinkedHashSet<InetAddress> localAddressList = localAddressList(t -> t instanceof Inet6Address);
@@ -345,7 +370,7 @@ public class NetUtil {
 	 * 
 	 * @param addressList 地址{@link Inet4Address} 列表
 	 * @return IP地址字符串列表
-	 * @since 4.5.17
+	 * @since 2.0.3
 	 */
 	public static LinkedHashSet<String> toIpList(Set<InetAddress> addressList) {
 		final LinkedHashSet<String> ipSet = new LinkedHashSet<>();
@@ -372,7 +397,7 @@ public class NetUtil {
 	 * 
 	 * @param addressFilter 过滤器，null表示不过滤，获取所有地址
 	 * @return 过滤后的地址对象列表
-	 * @since 4.5.17
+	 * @since 2.0.3
 	 */
 	public static LinkedHashSet<InetAddress> localAddressList(Filter<InetAddress> addressFilter) {
 		Enumeration<NetworkInterface> networkInterfaces;
@@ -410,7 +435,7 @@ public class NetUtil {
 	 * 参考：http://stackoverflow.com/questions/9481865/getting-the-ip-address-of-the-current-machine-using-java
 	 * 
 	 * @return 本机网卡IP地址，获取失败返回<code>null</code>
-	 * @since 3.0.7
+	 * @since 2.0.3
 	 */
 	public static String getLocalhostStr() {
 		InetAddress localhost = getLocalhost();
@@ -430,10 +455,8 @@ public class NetUtil {
 	 *
 	 * 此方法不会抛出异常，获取失败将返回<code>null</code><br>
 	 * 
-	 * 见：https://github.com/looly/hutool/issues/428
-	 * 
 	 * @return 本机网卡IP地址，获取失败返回<code>null</code>
-	 * @since 3.0.1
+	 * @since 2.0.3
 	 */
 	public static InetAddress getLocalhost() {
 		final LinkedHashSet<InetAddress> localAddressList = localAddressList(address -> {
@@ -445,8 +468,8 @@ public class NetUtil {
 					&& address instanceof Inet4Address;
 		});
 
-		if (CollUtil.isNotEmpty(localAddressList)) {
-			return CollUtil.get(localAddressList, 0);
+		if (CollectionUtil.isNotEmpty(localAddressList)) {
+			return CollectionUtil.get(localAddressList, 0);
 		}
 
 		try {
@@ -517,10 +540,10 @@ public class NetUtil {
 	 * @param host 域名或IP地址，空表示任意地址
 	 * @param port 端口，0表示系统分配临时端口
 	 * @return {@link InetSocketAddress}
-	 * @since 3.3.0
+	 * @since 2.0.3
 	 */
 	public static InetSocketAddress createAddress(String host, int port) {
-		if (StrUtil.isBlank(host)) {
+		if (StringUtil.isBlank(host)) {
 			return new InetSocketAddress(port);
 		}
 		return new InetSocketAddress(host, port);
@@ -535,7 +558,7 @@ public class NetUtil {
 	 * @param isBlock 是否阻塞方式
 	 * @param data 需要发送的数据
 	 * @throws IORuntimeException IO异常
-	 * @since 3.3.0
+	 * @since 2.0.3
 	 */
 	public static void netCat(String host, int port, boolean isBlock, ByteBuffer data) throws IORuntimeException {
 		try (SocketChannel channel = SocketChannel.open(createAddress(host, port))) {
@@ -554,7 +577,7 @@ public class NetUtil {
 	 * @param port Server端口
 	 * @param data 数据
 	 * @throws IORuntimeException IO异常
-	 * @since 3.3.0
+	 * @since 2.0.3
 	 */
 	public static void netCat(String host, int port, byte[] data) throws IORuntimeException {
 		OutputStream out = null;
@@ -576,10 +599,10 @@ public class NetUtil {
 	 * @param ip 需要验证的IP
 	 * @param cidr CIDR规则
 	 * @return 是否在范围内
-	 * @since 4.0.6
+	 * @since 2.0.3
 	 */
 	public static boolean isInRange(String ip, String cidr) {
-		String[] ips = StrUtil.splitToArray(ip, '.');
+		String[] ips = StringUtil.splitToArray(ip, '.');
 		int ipAddr = (Integer.parseInt(ips[0]) << 24) | (Integer.parseInt(ips[1]) << 16) | (Integer.parseInt(ips[2]) << 8) | Integer.parseInt(ips[3]);
 		int type = Integer.parseInt(cidr.replaceAll(".*/", ""));
 		int mask = 0xFFFFFFFF << (32 - type);
@@ -594,7 +617,7 @@ public class NetUtil {
 	 * 
 	 * @param unicode Unicode域名
 	 * @return puny code
-	 * @since 4.1.22
+	 * @since 2.0.3
 	 */
 	public static String idnToASCII(String unicode) {
 		return IDN.toASCII(unicode);
@@ -605,7 +628,7 @@ public class NetUtil {
 	 * 
 	 * @param ip 获得的IP地址
 	 * @return 第一个非unknown IP地址
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static String getMultistageReverseProxyIp(String ip) {
 		// 多级反向代理检测
@@ -626,11 +649,37 @@ public class NetUtil {
 	 * 
 	 * @param checkString 被检测的字符串
 	 * @return 是否未知
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static boolean isUnknow(String checkString) {
-		return StrUtil.isBlank(checkString) || "unknown".equalsIgnoreCase(checkString);
+		return StringUtil.isBlank(checkString) || "unknown".equalsIgnoreCase(checkString);
 	}
+
+	/**
+	 * 检测IP地址是否能ping通
+	 *
+	 * @param ip IP地址
+	 * @return 返回是否ping通
+	 */
+	public static boolean ping(String ip) {
+		return ping(ip, 200);
+	}
+
+	/**
+	 * 检测IP地址是否能ping通
+	 *
+	 * @param ip      IP地址
+	 * @param timeout 检测超时（毫秒）
+	 * @return 是否ping通
+	 */
+	public static boolean ping(String ip, int timeout) {
+		try {
+			return InetAddress.getByName(ip).isReachable(timeout); // 当返回值是true时，说明host是可用的，false则不可。
+		} catch (Exception ex) {
+			return false;
+		}
+	}
+
 
 	// ----------------------------------------------------------------------------------------- Private method start
 	/**

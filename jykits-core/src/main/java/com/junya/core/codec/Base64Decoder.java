@@ -4,12 +4,12 @@ import java.nio.charset.Charset;
 
 import com.junya.core.util.ArrayUtil;
 import com.junya.core.util.CharsetUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * Base64解码实现
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class Base64Decoder {
@@ -57,7 +57,7 @@ public class Base64Decoder {
 	 * @return 被加密后的字符串
 	 */
 	public static String decodeStr(CharSequence source, Charset charset) {
-		return StrUtil.str(decode(source), charset);
+		return StringUtil.str(decode(source), charset);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class Base64Decoder {
 	 * @return 被加密后的字符串
 	 */
 	public static byte[] decode(CharSequence source) {
-		return decode(StrUtil.bytes(source, DEFAULT_CHARSET));
+		return decode(StringUtil.bytes(source, DEFAULT_CHARSET));
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class Base64Decoder {
 	/**
 	 * int包装，使之可变
 	 * 
-	 * @author looly
+	 * @author zhangchao
 	 *
 	 */
 	private static class IntWrapper {

@@ -7,10 +7,10 @@ import com.junya.poi.exceptions.POIException;
 
 /**
  * Sax方式读取Excel接口，提供一些共用方法
- * @author looly
+ * @author zhangchao
  *
  * @param <T> 子对象类型，用于标记返回值this
- * @since 3.2.0
+ * @since 2.0.1
  */
 public interface ExcelSaxReader<T> {
 	/**

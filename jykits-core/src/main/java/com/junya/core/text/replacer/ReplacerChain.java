@@ -10,8 +10,8 @@ import com.junya.core.text.StrBuilder;
 /**
  * 字符串替换链，用于组合多个字符串替换逻辑
  * 
- * @author looly
- * @since 4.1.5
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class ReplacerChain extends StrReplacer implements Chain<StrReplacer, ReplacerChain> {
 	private static final long serialVersionUID = 1L;

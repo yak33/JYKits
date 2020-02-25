@@ -18,11 +18,11 @@ import com.junya.core.io.IORuntimeException;
 import com.junya.core.io.IoUtil;
 import com.junya.core.lang.Assert;
 import com.junya.core.util.CharsetUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 文件写入器
- * @author Looly
+ * @author zhangchao
  *
  */
 public class FileWriter extends FileWrapper{
@@ -194,7 +194,7 @@ public class FileWriter extends FileWrapper{
 	 * @param isAppend 是否追加
 	 * @return 目标文件
 	 * @throws IORuntimeException IO异常
-	 * @since 3.1.0
+	 * @since 2.0.3
 	 */
 	public <T> File writeLines(Collection<T> list, LineSeparator lineSeparator, boolean isAppend) throws IORuntimeException {
 		try (PrintWriter writer = getPrintWriter(isAppend)){
@@ -217,7 +217,7 @@ public class FileWriter extends FileWrapper{
 	 * @param isAppend 是否追加
 	 * @return 目标文件
 	 * @throws IORuntimeException IO异常
-	 * @since 4.0.5
+	 * @since 2.0.3
 	 */
 	public File writeMap(Map<?, ?> map, String kvSeparator, boolean isAppend) throws IORuntimeException {
 		return writeMap(map, null, kvSeparator, isAppend);
@@ -232,7 +232,7 @@ public class FileWriter extends FileWrapper{
 	 * @param isAppend 是否追加
 	 * @return 目标文件
 	 * @throws IORuntimeException IO异常
-	 * @since 4.0.5
+	 * @since 2.0.3
 	 */
 	public File writeMap(Map<?, ?> map, LineSeparator lineSeparator, String kvSeparator, boolean isAppend) throws IORuntimeException {
 		if(null == kvSeparator) {
@@ -241,7 +241,7 @@ public class FileWriter extends FileWrapper{
 		try(PrintWriter writer  = getPrintWriter(isAppend)) {
 			for (Entry<?, ?> entry : map.entrySet()) {
 				if (null != entry) {
-					writer.print(StrUtil.format("{}{}{}", entry.getKey(), kvSeparator, entry.getValue()));
+					writer.print(StringUtil.format("{}{}{}", entry.getKey(), kvSeparator, entry.getValue()));
 					printNewLine(writer, lineSeparator);
 					writer.flush();
 				}
@@ -377,7 +377,7 @@ public class FileWriter extends FileWrapper{
 	 * 打印新行
 	 * @param writer Writer
 	 * @param lineSeparator 换行符枚举
-	 * @since 4.0.5
+	 * @since 2.0.3
 	 */
 	private void printNewLine(PrintWriter writer, LineSeparator lineSeparator) {
 		if(null == lineSeparator) {

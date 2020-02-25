@@ -2,7 +2,7 @@ package com.junya.http;
 
 /**
  * 返回状态码
- * @author Looly
+ * @author zhangchao
  *
  */
 interface Status {

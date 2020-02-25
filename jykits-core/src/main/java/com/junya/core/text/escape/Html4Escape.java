@@ -5,7 +5,7 @@ import com.junya.core.text.replacer.ReplacerChain;
 
 /**
  * HTML4的ESCAPE
- * @author looly
+ * @author zhangchao
  *
  */
 public class Html4Escape extends ReplacerChain {

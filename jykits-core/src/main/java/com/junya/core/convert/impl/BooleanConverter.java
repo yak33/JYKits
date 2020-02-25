@@ -5,7 +5,7 @@ import com.junya.core.util.BooleanUtil;
 
 /**
  * 波尔转换器
- * @author Looly
+ * @author zhangchao
  *
  */
 public class BooleanConverter extends AbstractConverter<Boolean>{

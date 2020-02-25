@@ -4,15 +4,15 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
 import com.junya.core.util.CharsetUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * {@link ByteBuffer} 工具类<br>
  * 此工具来自于 t-io 项目以及其它项目的相关部分收集<br>
  * ByteBuffer的相关介绍见：https://www.cnblogs.com/ruber/p/6857159.html
  * 
- * @author tanyaowu, looly
- * @since 4.0.0
+ * @author tanyaowu,zhangchao
+ * @since 2.0.3
  *
  */
 public class BufferUtil {
@@ -72,7 +72,7 @@ public class BufferUtil {
 	 * 
 	 * @param buffer ByteBuffer
 	 * @return 字符串
-	 * @since 4.5.0
+	 * @since 2.0.3
 	 */
 	public static String readUtf8Str(ByteBuffer buffer) {
 		return readStr(buffer, CharsetUtil.CHARSET_UTF_8);
@@ -84,10 +84,10 @@ public class BufferUtil {
 	 * @param buffer ByteBuffer
 	 * @param charset 编码
 	 * @return 字符串
-	 * @since 4.5.0
+	 * @since 2.0.3
 	 */
 	public static String readStr(ByteBuffer buffer, Charset charset) {
-		return StrUtil.str(readBytes(buffer), charset);
+		return StringUtil.str(readBytes(buffer), charset);
 	}
 
 	/**
@@ -166,9 +166,9 @@ public class BufferUtil {
 		while (buffer.hasRemaining()) {
 			b = buffer.get();
 			charIndex++;
-			if (b == StrUtil.C_CR) {
+			if (b == StringUtil.C_CR) {
 				canEnd = true;
-			} else if (b == StrUtil.C_LF) {
+			} else if (b == StringUtil.C_LF) {
 				return canEnd ? charIndex - 2 : charIndex - 1;
 			} else {
 				// 只有\r无法确认换行
@@ -178,7 +178,7 @@ public class BufferUtil {
 			if (charIndex - primitivePosition > maxLength) {
 				// 查找到尽头，未找到，还原位置
 				buffer.position(primitivePosition);
-				throw new IndexOutOfBoundsException(StrUtil.format("Position is out of maxLength: {}", maxLength));
+				throw new IndexOutOfBoundsException(StringUtil.format("Position is out of maxLength: {}", maxLength));
 			}
 		}
 
@@ -207,9 +207,9 @@ public class BufferUtil {
 
 		if (endPosition > startPosition) {
 			byte[] bs = readBytes(buffer, startPosition, endPosition);
-			return StrUtil.str(bs, charset);
+			return StringUtil.str(bs, charset);
 		} else if (endPosition == startPosition) {
-			return StrUtil.EMPTY;
+			return StringUtil.EMPTY;
 		}
 
 		return null;
@@ -220,7 +220,7 @@ public class BufferUtil {
 	 * 
 	 * @param data 数据
 	 * @return {@link ByteBuffer}
-	 * @since 4.5.0
+	 * @since 2.0.3
 	 */
 	public static ByteBuffer create(byte[] data) {
 		return ByteBuffer.wrap(data);
@@ -232,10 +232,10 @@ public class BufferUtil {
 	 * @param data 数据
 	 * @param charset 编码
 	 * @return {@link ByteBuffer}
-	 * @since 4.5.0
+	 * @since 2.0.3
 	 */
 	public static ByteBuffer create(CharSequence data, Charset charset) {
-		return create(StrUtil.bytes(data, charset));
+		return create(StringUtil.bytes(data, charset));
 	}
 	
 	/**
@@ -243,9 +243,9 @@ public class BufferUtil {
 	 * 
 	 * @param data 数据
 	 * @return {@link ByteBuffer}
-	 * @since 4.5.0
+	 * @since 2.0.3
 	 */
 	public static ByteBuffer createUtf8(CharSequence data) {
-		return create(StrUtil.utf8Bytes(data));
+		return create(StringUtil.utf8Bytes(data));
 	}
 }

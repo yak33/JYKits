@@ -7,14 +7,14 @@ import java.lang.reflect.Type;
 
 import com.junya.core.convert.AbstractConverter;
 import com.junya.core.convert.ConverterRegistry;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.core.util.TypeUtil;
 
 /**
  * {@link Reference}转换器
  * 
- * @author Looly
- * @since 3.0.8
+ * @author zhangchao
+ * @since 2.0.3
  */
 @SuppressWarnings("rawtypes")
 public class ReferenceConverter extends AbstractConverter<Reference> {
@@ -50,7 +50,7 @@ public class ReferenceConverter extends AbstractConverter<Reference> {
 			return new SoftReference(targetValue);
 		}
 		
-		throw new UnsupportedOperationException(StrUtil.format("Unsupport Reference type: {}", this.targetType.getName()));
+		throw new UnsupportedOperationException(StringUtil.format("Unsupport Reference type: {}", this.targetType.getName()));
 	}
 
 }

@@ -7,7 +7,7 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  * 证书管理
- * @author Looly
+ * @author zhangchao
  *
  */
 public class DefaultTrustManager implements X509TrustManager {

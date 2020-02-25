@@ -2,13 +2,13 @@ package com.junya.core.io.resource;
 
 import com.junya.core.exceptions.ExceptionUtil;
 import com.junya.core.io.IORuntimeException;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 资源文件或资源不存在异常
  * 
- * @author xiaoleilu
- * @since 4.0.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class NoResourceException extends IORuntimeException {
 	private static final long serialVersionUID = -623254467603299129L;
@@ -22,7 +22,7 @@ public class NoResourceException extends IORuntimeException {
 	}
 
 	public NoResourceException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 
 	public NoResourceException(String message, Throwable throwable) {
@@ -30,7 +30,7 @@ public class NoResourceException extends IORuntimeException {
 	}
 
 	public NoResourceException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 
 	/**

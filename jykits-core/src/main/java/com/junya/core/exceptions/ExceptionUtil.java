@@ -12,12 +12,12 @@ import com.junya.core.collection.CollectionUtil;
 import com.junya.core.io.FastByteArrayOutputStream;
 import com.junya.core.util.ArrayUtil;
 import com.junya.core.util.ReflectUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 异常工具类
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class ExceptionUtil {
@@ -30,9 +30,9 @@ public class ExceptionUtil {
 	 */
 	public static String getMessage(Throwable e) {
 		if (null == e) {
-			return StrUtil.NULL;
+			return StringUtil.NULL;
 		}
-		return StrUtil.format("{}: {}", e.getClass().getSimpleName(), e.getMessage());
+		return StringUtil.format("{}: {}", e.getClass().getSimpleName(), e.getMessage());
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class ExceptionUtil {
 	 * @return 消息
 	 */
 	public static String getSimpleMessage(Throwable e) {
-		return (null == e) ? StrUtil.NULL : e.getMessage();
+		return (null == e) ? StringUtil.NULL : e.getMessage();
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class ExceptionUtil {
 	 * @param throwable 异常
 	 * @param wrapThrowable 包装后的异常类
 	 * @return 包装后的异常
-	 * @since 3.3.0
+	 * @since 2.0.3
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Throwable> T wrap(Throwable throwable, Class<T> wrapThrowable) {
@@ -127,7 +127,7 @@ public class ExceptionUtil {
 	 *
 	 * @param i 层数
 	 * @return 指定层的堆栈信息
-	 * @since 4.1.4
+	 * @since 2.0.3
 	 */
 	public static StackTraceElement getStackElement(int i) {
 		return getStackElements()[i];
@@ -137,7 +137,7 @@ public class ExceptionUtil {
 	 * 获取入口堆栈信息
 	 * 
 	 * @return 入口堆栈信息
-	 * @since 4.1.4
+	 * @since 2.0.3
 	 */
 	public static StackTraceElement getRootStackElement() {
 		final StackTraceElement[] stackElements = getStackElements();
@@ -163,9 +163,9 @@ public class ExceptionUtil {
 	 */
 	public static String stacktraceToOneLineString(Throwable throwable, int limit) {
 		Map<Character, String> replaceCharToStrMap = new HashMap<>();
-		replaceCharToStrMap.put(StrUtil.C_CR, StrUtil.SPACE);
-		replaceCharToStrMap.put(StrUtil.C_LF, StrUtil.SPACE);
-		replaceCharToStrMap.put(StrUtil.C_TAB, StrUtil.SPACE);
+		replaceCharToStrMap.put(StringUtil.C_CR, StringUtil.SPACE);
+		replaceCharToStrMap.put(StringUtil.C_LF, StringUtil.SPACE);
+		replaceCharToStrMap.put(StringUtil.C_TAB, StringUtil.SPACE);
 
 		return stacktraceToString(throwable, limit, replaceCharToStrMap);
 	}
@@ -209,7 +209,7 @@ public class ExceptionUtil {
 		}
 
 		if (CollectionUtil.isNotEmpty(replaceCharToStrMap)) {
-			final StringBuilder sb = StrUtil.builder();
+			final StringBuilder sb = StringUtil.builder();
 			char c;
 			String value;
 			for (int i = 0; i < length; i++) {
@@ -223,7 +223,7 @@ public class ExceptionUtil {
 			}
 			return sb.toString();
 		} else {
-			return StrUtil.subPre(exceptionStr, limit);
+			return StringUtil.subPre(exceptionStr, limit);
 		}
 	}
 
@@ -233,7 +233,7 @@ public class ExceptionUtil {
 	 * @param throwable 异常
 	 * @param causeClasses 定义的引起异常的类
 	 * @return 是否由指定异常类引起
-	 * @since 4.1.13
+	 * @since 2.0.3
 	 */
 	@SuppressWarnings("unchecked")
 	public static boolean isCausedBy(Throwable throwable, Class<? extends Exception>... causeClasses) {
@@ -246,7 +246,7 @@ public class ExceptionUtil {
 	 * @param throwable 异常
 	 * @param causeClasses 定义的引起异常的类
 	 * @return 是否由指定异常类引起
-	 * @since 4.1.13
+	 * @since 2.0.3
 	 */
 	@SuppressWarnings("unchecked")
 	public static Throwable getCausedBy(Throwable throwable, Class<? extends Exception>... causeClasses) {
@@ -268,7 +268,7 @@ public class ExceptionUtil {
 	 * @param throwable 异常
 	 * @param exceptionClass 定义的引起异常的类
 	 * @return true 来自或者包含
-	 * @since 4.3.2
+	 * @since 2.0.3
 	 */
 	public static boolean isFromOrSuppressedThrowable(Throwable throwable, Class<? extends Throwable> exceptionClass) {
 		return convertFromOrSuppressedThrowable(throwable, exceptionClass, true) != null;
@@ -281,7 +281,7 @@ public class ExceptionUtil {
 	 * @param exceptionClass 定义的引起异常的类
 	 * @param checkCause 判断cause
 	 * @return true 来自或者包含
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static boolean isFromOrSuppressedThrowable(Throwable throwable, Class<? extends Throwable> exceptionClass, boolean checkCause) {
 		return convertFromOrSuppressedThrowable(throwable, exceptionClass, checkCause) != null;
@@ -294,7 +294,7 @@ public class ExceptionUtil {
 	 * @param throwable 异常
 	 * @param exceptionClass 定义的引起异常的类
 	 * @return 结果为null 不是来自或者包含
-	 * @since 4.3.2
+	 * @since 2.0.3
 	 */
 	public static <T extends Throwable> T convertFromOrSuppressedThrowable(Throwable throwable, Class<T> exceptionClass) {
 		return convertFromOrSuppressedThrowable(throwable, exceptionClass, true);
@@ -308,7 +308,7 @@ public class ExceptionUtil {
 	 * @param exceptionClass 定义的引起异常的类
 	 * @param checkCause 判断cause
 	 * @return 结果为null 不是来自或者包含
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Throwable> T convertFromOrSuppressedThrowable(Throwable throwable, Class<T> exceptionClass, boolean checkCause) {
@@ -345,7 +345,7 @@ public class ExceptionUtil {
 	 * 
 	 * @param throwable 异常对象，可以为null
 	 * @return 异常链中所有异常集合
-	 * @since 4.6.2
+	 * @since 2.0.3
 	 */
 	public static List<Throwable> getThrowableList(Throwable throwable) {
 		final List<Throwable> list = new ArrayList<>();
@@ -378,7 +378,7 @@ public class ExceptionUtil {
 	 * 
 	 * @param th 异常
 	 * @return 消息
-	 * @since 4.6.2
+	 * @since 2.0.3
 	 */
 	public static String getRootCauseMessage(final Throwable th) {
 		return getMessage(getRootCause(th));

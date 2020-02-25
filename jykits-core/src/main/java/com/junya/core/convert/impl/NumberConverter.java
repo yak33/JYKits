@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.junya.core.convert.AbstractConverter;
 import com.junya.core.util.BooleanUtil;
 import com.junya.core.util.NumberUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 数字转换器<br>
@@ -24,7 +24,7 @@ import com.junya.core.util.StrUtil;
  * <li><code>java.math.BigInteger</code></li>
  * </ul>
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public class NumberConverter extends AbstractConverter<Number> {
@@ -55,7 +55,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 				return BooleanUtil.toByteObj((Boolean)value);
 			}
 			final String valueStr = convertToStr(value);
-			return StrUtil.isBlank(valueStr) ? null : Byte.valueOf(valueStr);
+			return StringUtil.isBlank(valueStr) ? null : Byte.valueOf(valueStr);
 			
 		} else if (Short.class == targetType) {
 			if (value instanceof Number) {
@@ -64,7 +64,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 				return BooleanUtil.toShortObj((Boolean)value);
 			}
 			final String valueStr = convertToStr(value);
-			return StrUtil.isBlank(valueStr) ? null : Short.valueOf(valueStr);
+			return StringUtil.isBlank(valueStr) ? null : Short.valueOf(valueStr);
 
 		} else if (Integer.class == targetType) {
 			if (value instanceof Number) {
@@ -73,7 +73,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 				return BooleanUtil.toInteger((Boolean)value);
 			}
 			final String valueStr = convertToStr(value);
-			return StrUtil.isBlank(valueStr) ? null : Integer.valueOf(NumberUtil.parseInt(valueStr));
+			return StringUtil.isBlank(valueStr) ? null : Integer.valueOf(NumberUtil.parseInt(valueStr));
 			
 		} else if (AtomicInteger.class == targetType) {
 			final AtomicInteger intValue = new AtomicInteger();
@@ -83,7 +83,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 				intValue.set(BooleanUtil.toInt((Boolean) value));
 			}
 			final String valueStr = convertToStr(value);
-			if (StrUtil.isBlank(valueStr)) {
+			if (StringUtil.isBlank(valueStr)) {
 				return null;
 			}
 			intValue.set(NumberUtil.parseInt(valueStr));
@@ -95,7 +95,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 				return BooleanUtil.toLongObj((Boolean)value);
 			}
 			final String valueStr = convertToStr(value);
-			return StrUtil.isBlank(valueStr) ? null : Long.valueOf(NumberUtil.parseLong(valueStr));
+			return StringUtil.isBlank(valueStr) ? null : Long.valueOf(NumberUtil.parseLong(valueStr));
 
 		} else if (AtomicLong.class == targetType) {
 			final AtomicLong longValue = new AtomicLong();
@@ -105,7 +105,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 				longValue.set(BooleanUtil.toLong((Boolean) value));
 			}
 			final String valueStr = convertToStr(value);
-			if (StrUtil.isBlank(valueStr)) {
+			if (StringUtil.isBlank(valueStr)) {
 				return null;
 			}
 			longValue.set(NumberUtil.parseLong(valueStr));
@@ -118,7 +118,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 				return BooleanUtil.toFloatObj((Boolean)value);
 			}
 			final String valueStr = convertToStr(value);
-			return StrUtil.isBlank(valueStr) ? null : Float.valueOf(valueStr);
+			return StringUtil.isBlank(valueStr) ? null : Float.valueOf(valueStr);
 
 		} else if (Double.class == targetType) {
 			if (value instanceof Number) {
@@ -127,7 +127,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 				return BooleanUtil.toDoubleObj((Boolean)value);
 			}
 			final String valueStr = convertToStr(value);
-			return StrUtil.isBlank(valueStr) ? null : Double.valueOf(valueStr);
+			return StringUtil.isBlank(valueStr) ? null : Double.valueOf(valueStr);
 
 		} else if (BigDecimal.class == targetType) {
 			return toBigDecimal(value);
@@ -142,10 +142,10 @@ public class NumberConverter extends AbstractConverter<Number> {
 				return BooleanUtil.toInteger((Boolean)value);
 			}
 			final String valueStr = convertToStr(value);
-			return StrUtil.isBlank(valueStr) ? null : NumberUtil.parseNumber(valueStr);
+			return StringUtil.isBlank(valueStr) ? null : NumberUtil.parseNumber(valueStr);
 		}
 
-		throw new UnsupportedOperationException(StrUtil.format("Unsupport Number type: {}", this.targetType.getName()));
+		throw new UnsupportedOperationException(StringUtil.format("Unsupport Number type: {}", this.targetType.getName()));
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 
 		//对于Double类型，先要转换为String，避免精度问题
 		final String valueStr = convertToStr(value);
-		if (StrUtil.isBlank(valueStr)) {
+		if (StringUtil.isBlank(valueStr)) {
 			return null;
 		}
 		return new BigDecimal(valueStr);
@@ -190,7 +190,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 			return BigInteger.valueOf((boolean)value ? 1 : 0);
 		}
 		final String valueStr = convertToStr(value);
-		if (StrUtil.isBlank(valueStr)) {
+		if (StringUtil.isBlank(valueStr)) {
 			return null;
 		}
 		return new BigInteger(valueStr);
@@ -198,7 +198,7 @@ public class NumberConverter extends AbstractConverter<Number> {
 
 	@Override
 	protected String convertToStr(Object value) {
-		return StrUtil.trim(super.convertToStr(value));
+		return StringUtil.trim(super.convertToStr(value));
 	}
 
 	@Override

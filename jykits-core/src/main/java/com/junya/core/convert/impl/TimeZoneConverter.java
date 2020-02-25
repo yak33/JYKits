@@ -6,7 +6,7 @@ import com.junya.core.convert.AbstractConverter;
 
 /**
  * TimeZone转换器
- * @author Looly
+ * @author zhangchao
  *
  */
 public class TimeZoneConverter extends AbstractConverter<TimeZone>{

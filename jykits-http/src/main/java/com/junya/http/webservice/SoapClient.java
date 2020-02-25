@@ -19,12 +19,12 @@ import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPHeaderElement;
 import javax.xml.soap.SOAPMessage;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.io.IoUtil;
 import com.junya.core.map.MapUtil;
 import com.junya.core.util.CharsetUtil;
 import com.junya.core.util.ObjectUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.core.util.XmlUtil;
 import com.junya.http.HttpGlobalConfig;
 import com.junya.http.HttpRequest;
@@ -49,8 +49,8 @@ import com.junya.http.HttpResponse;
  *
  * </pre>
  *
- * @author looly
- * @since 4.5.4
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class SoapClient {
 
@@ -121,7 +121,7 @@ public class SoapClient {
 	 * @param protocol     协议，见{@link SoapProtocol}
 	 * @param namespaceURI 方法上的命名空间URI
 	 * @return {@link SoapClient}
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public static SoapClient create(String url, SoapProtocol protocol, String namespaceURI) {
 		return new SoapClient(url, protocol, namespaceURI);
@@ -152,7 +152,7 @@ public class SoapClient {
 	 * @param url          WS的URL地址
 	 * @param protocol     协议版本，见{@link SoapProtocol}
 	 * @param namespaceURI 方法上的命名空间URI
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public SoapClient(String url, SoapProtocol protocol, String namespaceURI) {
 		this.url = url;
@@ -186,7 +186,7 @@ public class SoapClient {
 	 * 重置后需调用serMethod方法重新指定请求方法，并调用setParam方法重新定义参数
 	 *
 	 * @return this
-	 * @since 4.6.7
+	 * @since 2.0.3
 	 */
 	public SoapClient reset() {
 		try {
@@ -254,7 +254,7 @@ public class SoapClient {
 		try {
 			header = this.message.getSOAPHeader();
 			ele = header.addHeaderElement(name);
-			if (StrUtil.isNotBlank(roleUri)) {
+			if (StringUtil.isNotBlank(roleUri)) {
 				ele.setRole(roleUri);
 			}
 			if (null != relay) {
@@ -264,7 +264,7 @@ public class SoapClient {
 			throw new SoapRuntimeException(e);
 		}
 
-		if (StrUtil.isNotBlank(actorURI)) {
+		if (StringUtil.isNotBlank(actorURI)) {
 			ele.setActor(actorURI);
 		}
 		if (null != mustUnderstand) {
@@ -327,7 +327,7 @@ public class SoapClient {
 	 * @return this
 	 */
 	public SoapClient setMethod(String methodName, String namespaceURI) {
-		final List<String> methodNameList = StrUtil.split(methodName, ':');
+		final List<String> methodNameList = StringUtil.split(methodName, ':');
 		final QName qName;
 		if (2 == methodNameList.size()) {
 			qName = new QName(namespaceURI, methodNameList.get(1), methodNameList.get(0));
@@ -382,7 +382,7 @@ public class SoapClient {
 	 *
 	 * @param params 参数列表
 	 * @return this
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public SoapClient setParams(Map<String, Object> params) {
 		return setParams(params, true);
@@ -394,7 +394,7 @@ public class SoapClient {
 	 * @param params          参数列表
 	 * @param useMethodPrefix 是否使用方法的命名空间前缀
 	 * @return this
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public SoapClient setParams(Map<String, Object> params, boolean useMethodPrefix) {
 		for (Entry<String, Object> entry : MapUtil.wrap(params)) {
@@ -408,7 +408,7 @@ public class SoapClient {
 	 * 用于创建子节点等操作
 	 *
 	 * @return {@link SOAPBodyElement}
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public SOAPBodyElement getMethodEle() {
 		return this.methodEle;
@@ -418,7 +418,7 @@ public class SoapClient {
 	 * 获取SOAP消息对象 {@link SOAPMessage}
 	 *
 	 * @return {@link SOAPMessage}
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public SOAPMessage getMessage() {
 		return this.message;
@@ -439,7 +439,7 @@ public class SoapClient {
 	 *
 	 * @param out 输出流
 	 * @return this
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public SoapClient write(OutputStream out) {
 		try {
@@ -475,7 +475,7 @@ public class SoapClient {
 	 *
 	 * @param milliseconds 超时毫秒数
 	 * @return this
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public SoapClient setConnectionTimeout(int milliseconds) {
 		this.connectionTimeout = milliseconds;
@@ -487,7 +487,7 @@ public class SoapClient {
 	 *
 	 * @param milliseconds 超时毫秒数
 	 * @return this
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public SoapClient setReadTimeout(int milliseconds) {
 		this.readTimeout = milliseconds;
@@ -503,8 +503,8 @@ public class SoapClient {
 		final HttpResponse res = sendForResponse();
 		final MimeHeaders headers = new MimeHeaders();
 		for (Entry<String, List<String>> entry : res.headers().entrySet()) {
-			if (StrUtil.isNotEmpty(entry.getKey())) {
-				headers.setHeader(entry.getKey(), CollUtil.get(entry.getValue(), 0));
+			if (StringUtil.isNotEmpty(entry.getKey())) {
+				headers.setHeader(entry.getKey(), CollectionUtil.get(entry.getValue(), 0));
 			}
 		}
 		try {
@@ -575,7 +575,7 @@ public class SoapClient {
 	private static SOAPElement setParam(SOAPElement ele, String name, Object value, String prefix) {
 		final SOAPElement childEle;
 		try {
-			if (StrUtil.isNotBlank(prefix)) {
+			if (StringUtil.isNotBlank(prefix)) {
 				childEle = ele.addChildElement(name, prefix);
 			} else {
 				childEle = ele.addChildElement(name);

@@ -1,11 +1,11 @@
 package com.junya.core.bean;
 
 import com.junya.core.exceptions.ExceptionUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * Bean异常
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class BeanException extends RuntimeException{
 	private static final long serialVersionUID = -8096998667745023423L;
@@ -19,7 +19,7 @@ public class BeanException extends RuntimeException{
 	}
 	
 	public BeanException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 	
 	public BeanException(String message, Throwable throwable) {
@@ -27,6 +27,6 @@ public class BeanException extends RuntimeException{
 	}
 	
 	public BeanException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 }

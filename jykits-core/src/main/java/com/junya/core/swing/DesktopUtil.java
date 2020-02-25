@@ -12,8 +12,8 @@ import com.junya.core.util.URLUtil;
  * 桌面相关工具（平台相关）<br>
  * Desktop 类允许 Java 应用程序启动已在本机桌面上注册的关联应用程序，以处理 URI 或文件。
  * 
- * @author looly
- * @since 4.5.7
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class DesktopUtil {
 
@@ -39,7 +39,7 @@ public class DesktopUtil {
 	 * 使用平台默认浏览器打开指定URI地址
 	 * 
 	 * @param uri URI地址
-	 * @since 4.6.3
+	 * @since 2.0.3
 	 */
 	public static void browse(URI uri) {
 		final Desktop dsktop = getDsktop();

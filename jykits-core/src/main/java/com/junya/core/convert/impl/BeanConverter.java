@@ -21,8 +21,8 @@ import com.junya.core.util.TypeUtil;
  * </pre>
  * 
  * @param <T> Bean类型
- * @author Looly
- * @since 4.0.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class BeanConverter<T> extends AbstractConverter<T> {
 	private static final long serialVersionUID = 1L;

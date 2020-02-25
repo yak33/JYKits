@@ -4,7 +4,7 @@ package com.junya.core.codec;
  * 凯撒密码实现<br>
  * 算法来自：https://github.com/zhaorenjie110/SymmetricEncryptionAndDecryption
  *
- * @author looly
+ * @author zhangchao
  */
 public class Caesar {
 

@@ -12,7 +12,7 @@ import javax.net.ssl.SSLSocketFactory;
 /**
  * 自定义支持协议类型的SSLSocketFactory
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class CustomProtocolsSSLFactory extends SSLSocketFactory {

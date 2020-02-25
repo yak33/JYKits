@@ -7,8 +7,8 @@ import com.junya.core.util.CharUtil;
 /**
  * CSV基础配置项
  * 
- * @author looly
- * @since 4.0.5
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class CsvConfig implements Serializable{
 	private static final long serialVersionUID = -8069578249066158459L;

@@ -10,8 +10,8 @@ import com.junya.core.io.FileUtil;
 /**
  * 大数据量Excel写出
  * 
- * @author looly
- * @since 4.1.13
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class BigExcelWriter extends ExcelWriter {
 
@@ -54,7 +54,7 @@ public class BigExcelWriter extends ExcelWriter {
 	 * 
 	 * @param rowAccessWindowSize 在内存中的行数
 	 * @param sheetName sheet名，第一个sheet名并写出到此sheet，例如sheet1
-	 * @since 4.1.8
+	 * @since 2.0.1
 	 */
 	public BigExcelWriter(int rowAccessWindowSize, String sheetName) {
 		this(WorkbookUtil.createSXSSFBook(rowAccessWindowSize), sheetName);
@@ -108,7 +108,7 @@ public class BigExcelWriter extends ExcelWriter {
 	 * 若写出到文件，还需调用{@link #setDestFile(File)}方法自定义写出的文件，然后调用{@link #flush()}方法写出到文件
 	 * 
 	 * @param sheet {@link Sheet}
-	 * @since 4.0.6
+	 * @since 2.0.1
 	 */
 	public BigExcelWriter(Sheet sheet) {
 		super(sheet);

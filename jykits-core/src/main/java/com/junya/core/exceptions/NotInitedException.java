@@ -1,11 +1,11 @@
 package com.junya.core.exceptions;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 未初始化异常
  * 
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class NotInitedException extends RuntimeException {
 	private static final long serialVersionUID = 8247610319171014183L;
@@ -19,7 +19,7 @@ public class NotInitedException extends RuntimeException {
 	}
 
 	public NotInitedException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 
 	public NotInitedException(String message, Throwable throwable) {
@@ -27,6 +27,6 @@ public class NotInitedException extends RuntimeException {
 	}
 
 	public NotInitedException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 }

@@ -3,7 +3,7 @@ package com.junya.core.convert;
 import com.junya.core.util.ArrayUtil;
 import com.junya.core.util.CharUtil;
 import com.junya.core.util.ClassUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
  * 抽象转换器，提供通用的转换逻辑，同时通过convertInternal实现对应类型的专属逻辑<br>
  * 转换器不会抛出转换异常，转换失败时会返回{@code null}
  * 
- * @author Looly
+ * @author zhangchao
  *
  */
 public abstract class AbstractConverter<T> implements Converter<T>, Serializable {
@@ -25,7 +25,7 @@ public abstract class AbstractConverter<T> implements Converter<T>, Serializable
 	 * @param value 被转换的值
 	 * @param defaultValue 默认值
 	 * @return 转换后的值
-	 * @since 4.5.7
+	 * @since 2.0.3
 	 */
 	public T convertQuietly(Object value, T defaultValue) {
 		try {
@@ -40,7 +40,7 @@ public abstract class AbstractConverter<T> implements Converter<T>, Serializable
 	public T convert(Object value, T defaultValue) {
 		Class<T> targetType = getTargetType();
 		if (null == targetType && null == defaultValue) {
-			throw new NullPointerException(StrUtil.format("[type] and [defaultValue] are both null for Converter [{}], we can not know what type to convert !", this.getClass().getName()));
+			throw new NullPointerException(StringUtil.format("[type] and [defaultValue] are both null for Converter [{}], we can not know what type to convert !", this.getClass().getName()));
 		}
 		if (null == targetType) {
 			// 目标类型不确定时使用默认值的类型
@@ -58,7 +58,7 @@ public abstract class AbstractConverter<T> implements Converter<T>, Serializable
 			T result = convertInternal(value);
 			return ((null == result) ? defaultValue : result);
 		} else {
-			throw new IllegalArgumentException(StrUtil.format("Default value [{}] is not the instance of [{}]", defaultValue, targetType));
+			throw new IllegalArgumentException(StringUtil.format("Default value [{}] is not the instance of [{}]", defaultValue, targetType));
 		}
 	}
 

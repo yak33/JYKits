@@ -8,11 +8,11 @@ import java.util.regex.Pattern;
 import com.junya.core.lang.PatternPool;
 import com.junya.core.util.CharUtil;
 import com.junya.core.util.NumberUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 字符串切分器
- * @author Looly
+ * @author zhangchao
  *
  */
 public class StrSpliter {
@@ -23,7 +23,7 @@ public class StrSpliter {
 	 * 
 	 * @param str 被切分的字符串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static List<String> splitPath(String str){
 		return splitPath(str, 0);
@@ -34,7 +34,7 @@ public class StrSpliter {
 	 * 
 	 * @param str 被切分的字符串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static String[] splitPathToArray(String str){
 		return toArray(splitPath(str));
@@ -46,10 +46,10 @@ public class StrSpliter {
 	 * @param str 被切分的字符串
 	 * @param limit 限制分片数
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static List<String> splitPath(String str, int limit){
-		return split(str, StrUtil.C_SLASH, limit, true, true);
+		return split(str, StringUtil.C_SLASH, limit, true, true);
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public class StrSpliter {
 	 * @param str 被切分的字符串
 	 * @param limit 限制分片数
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static String[] splitPathToArray(String str, int limit){
 		return toArray(splitPath(str, limit));
@@ -71,7 +71,7 @@ public class StrSpliter {
 	 * @param separator 分隔符字符
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static List<String> splitTrim(String str, char separator, boolean ignoreEmpty){
 		return split(str, separator, 0, true, ignoreEmpty);
@@ -85,7 +85,7 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static List<String> split(String str, char separator, boolean isTrim, boolean ignoreEmpty){
 		return split(str, separator, 0, isTrim, ignoreEmpty);
@@ -99,7 +99,7 @@ public class StrSpliter {
 	 * @param limit 限制分片数，-1不限制
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static List<String> splitTrim(String str, char separator, int limit, boolean ignoreEmpty){
 		return split(str, separator, limit, true, ignoreEmpty, false);
@@ -114,7 +114,7 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static List<String> split(String str, char separator, int limit, boolean isTrim, boolean ignoreEmpty){
 		return split(str, separator, limit, isTrim, ignoreEmpty, false);
@@ -129,7 +129,7 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static List<String> splitIgnoreCase(String str, char separator, int limit, boolean isTrim, boolean ignoreEmpty){
 		return split(str, separator, limit, isTrim, ignoreEmpty, true);
@@ -145,10 +145,10 @@ public class StrSpliter {
 	 * @param ignoreEmpty 是否忽略空串
 	 * @param ignoreCase 是否忽略大小写
 	 * @return 切分后的集合
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static List<String> split(String str, char separator, int limit, boolean isTrim, boolean ignoreEmpty, boolean ignoreCase){
-		if(StrUtil.isEmpty(str)){
+		if(StringUtil.isEmpty(str)){
 			return new ArrayList<String>(0);
 		}
 		if(limit == 1){
@@ -181,7 +181,7 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static String[] splitToArray(String str, char separator, int limit, boolean isTrim, boolean ignoreEmpty){
 		return toArray(split(str, separator, limit, isTrim, ignoreEmpty));
@@ -197,7 +197,7 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static List<String> split(String str, String separator, boolean isTrim, boolean ignoreEmpty){
 		return split(str, separator, -1, isTrim, ignoreEmpty, false);
@@ -210,7 +210,7 @@ public class StrSpliter {
 	 * @param separator 分隔符字符串
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static List<String> splitTrim(String str, String separator, boolean ignoreEmpty){
 		return split(str, separator, true, ignoreEmpty);
@@ -225,7 +225,7 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static List<String> split(String str, String separator, int limit, boolean isTrim, boolean ignoreEmpty){
 		return split(str, separator, limit, isTrim, ignoreEmpty, false);
@@ -239,7 +239,7 @@ public class StrSpliter {
 	 * @param limit 限制分片数
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static List<String> splitTrim(String str, String separator, int limit, boolean ignoreEmpty){
 		return split(str, separator, limit, true, ignoreEmpty);
@@ -254,7 +254,7 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static List<String> splitIgnoreCase(String str, String separator, int limit, boolean isTrim, boolean ignoreEmpty){
 		return split(str, separator, limit, isTrim, ignoreEmpty, true);
@@ -268,7 +268,7 @@ public class StrSpliter {
 	 * @param limit 限制分片数
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static List<String> splitTrimIgnoreCase(String str, String separator, int limit, boolean ignoreEmpty){
 		return split(str, separator, limit, true, ignoreEmpty, true);
@@ -284,17 +284,17 @@ public class StrSpliter {
 	 * @param ignoreEmpty 是否忽略空串
 	 * @param ignoreCase 是否忽略大小写
 	 * @return 切分后的集合
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static List<String> split(String str, String separator, int limit, boolean isTrim, boolean ignoreEmpty, boolean ignoreCase){
-		if(StrUtil.isEmpty(str)){
+		if(StringUtil.isEmpty(str)){
 			return new ArrayList<String>(0);
 		}
 		if(limit == 1){
 			return addToList(new ArrayList<String>(1), str, isTrim, ignoreEmpty);
 		}
 		
-		if(StrUtil.isEmpty(separator)){//分隔符为空时按照空白符切分
+		if(StringUtil.isEmpty(separator)){//分隔符为空时按照空白符切分
 			return split(str, limit);
 		}else if(separator.length() == 1){//分隔符只有一个字符长度时按照单分隔符切分
 			return split(str, separator.charAt(0), limit, isTrim, ignoreEmpty, ignoreCase);
@@ -306,7 +306,7 @@ public class StrSpliter {
 		int start = 0;
 		int i = 0;
 		while(i < len){
-			i = StrUtil.indexOf(str, separator, start, ignoreCase);
+			i = StringUtil.indexOf(str, separator, start, ignoreCase);
 			if(i > -1){
 				addToList(list, str.substring(start, i), isTrim, ignoreEmpty);
 				start = i + separatorLen;
@@ -331,7 +331,7 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static String[] splitToArray(String str, String separator, int limit, boolean isTrim, boolean ignoreEmpty){
 		return toArray(split(str, separator, limit, isTrim, ignoreEmpty));
@@ -346,10 +346,10 @@ public class StrSpliter {
 	 * @param str 被切分的字符串
 	 * @param limit 限制分片数
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static List<String> split(String str, int limit){
-		if(StrUtil.isEmpty(str)){
+		if(StringUtil.isEmpty(str)){
 			return new ArrayList<String>(0);
 		}
 		if(limit == 1){
@@ -379,7 +379,7 @@ public class StrSpliter {
 	 * @param str 被切分的字符串
 	 * @param limit 限制分片数
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static String[] splitToArray(String str, int limit){
 		return toArray(split(str, limit));
@@ -394,7 +394,7 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static List<String> splitByRegex(String str, String separatorRegex, int limit, boolean isTrim, boolean ignoreEmpty){
 		final Pattern pattern = PatternPool.get(separatorRegex);
@@ -409,10 +409,10 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static List<String> split(String str, Pattern separatorPattern, int limit, boolean isTrim, boolean ignoreEmpty){
-		if(StrUtil.isEmpty(str)){
+		if(StringUtil.isEmpty(str)){
 			return new ArrayList<String>(0);
 		}
 		if(limit == 1){
@@ -448,7 +448,7 @@ public class StrSpliter {
 	 * @param isTrim 是否去除切分字符串后每个元素两边的空格
 	 * @param ignoreEmpty 是否忽略空串
 	 * @return 切分后的集合
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static String[] splitToArray(String str, Pattern separatorPattern, int limit, boolean isTrim, boolean ignoreEmpty){
 		return toArray(split(str, separatorPattern, limit, isTrim, ignoreEmpty));
@@ -493,7 +493,7 @@ public class StrSpliter {
 	 */
 	private static List<String> addToList(List<String> list, String part, boolean isTrim, boolean ignoreEmpty){
 		if(isTrim){
-			part = StrUtil.trim(part);
+			part = StringUtil.trim(part);
 		}
 		if(false == ignoreEmpty || false == part.isEmpty()){
 			list.add(part);

@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
  * <p>
  * 参考：https://my.oschina.net/xinxingegeya/blog/287476
  *
- * @author Looly
+ * @author zhangchao
  */
 public class HexUtil {
 
@@ -65,7 +65,7 @@ public class HexUtil {
 	 * @return 十六进制char[]
 	 */
 	public static char[] encodeHex(String str, Charset charset) {
-		return encodeHex(StrUtil.bytes(str, charset), true);
+		return encodeHex(StringUtil.bytes(str, charset), true);
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class HexUtil {
 	 * @return 十六进制String
 	 */
 	public static String encodeHexStr(String data, Charset charset) {
-		return encodeHexStr(StrUtil.bytes(data, charset), true);
+		return encodeHexStr(StringUtil.bytes(data, charset), true);
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class HexUtil {
 	 * @return 字符串
 	 */
 	public static String decodeHexStr(String hexStr, Charset charset) {
-		if (StrUtil.isEmpty(hexStr)) {
+		if (StringUtil.isEmpty(hexStr)) {
 			return hexStr;
 		}
 		return decodeHexStr(hexStr.toCharArray(), charset);
@@ -155,7 +155,7 @@ public class HexUtil {
 	 * @return 字符串
 	 */
 	public static String decodeHexStr(char[] hexData, Charset charset) {
-		return StrUtil.str(decodeHex(hexData), charset);
+		return StringUtil.str(decodeHex(hexData), charset);
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class HexUtil {
 	 * @return byte[]
 	 */
 	public static byte[] decodeHex(String hexStr) {
-		if (StrUtil.isEmpty(hexStr)) {
+		if (StringUtil.isEmpty(hexStr)) {
 			return null;
 		}
 		return decodeHex(hexStr.toCharArray());
@@ -207,7 +207,7 @@ public class HexUtil {
 	 *
 	 * @param color {@link Color}
 	 * @return Hex字符串
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static String encodeColor(Color color) {
 		return encodeColor(color, "#");
@@ -219,7 +219,7 @@ public class HexUtil {
 	 * @param color  {@link Color}
 	 * @param prefix 前缀字符串，可以是#、0x等
 	 * @return Hex字符串
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static String encodeColor(Color color, String prefix) {
 		final StringBuilder builder = new StringBuilder(prefix);
@@ -247,7 +247,7 @@ public class HexUtil {
 	 *
 	 * @param hexColor 16进制颜色值，可以以#开头，也可以用0x开头
 	 * @return {@link Color}
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static Color decodeColor(String hexColor) {
 		return Color.decode(hexColor);
@@ -288,7 +288,7 @@ public class HexUtil {
 	 *
 	 * @param ch char值
 	 * @return Unicode表现形式
-	 * @since 4.0.1
+	 * @since 2.0.3
 	 */
 	public static String toUnicodeHex(char ch) {
 		return "\\u" +//
@@ -303,7 +303,7 @@ public class HexUtil {
 	 *
 	 * @param value int值
 	 * @return 16进制字符串
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static String toHex(int value) {
 		return Integer.toHexString(value);
@@ -314,7 +314,7 @@ public class HexUtil {
 	 *
 	 * @param value int值
 	 * @return 16进制字符串
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static String toHex(long value) {
 		return Long.toHexString(value);
@@ -326,7 +326,7 @@ public class HexUtil {
 	 * @param builder     {@link StringBuilder}
 	 * @param b           byte
 	 * @param toLowerCase 是否使用小写
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static void appendHex(StringBuilder builder, byte b, boolean toLowerCase) {
 		final char[] toDigits = toLowerCase ? DIGITS_LOWER : DIGITS_UPPER;

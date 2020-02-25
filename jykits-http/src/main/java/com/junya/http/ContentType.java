@@ -1,14 +1,14 @@
 package com.junya.http;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 import java.nio.charset.Charset;
 
 /**
  * 常用Content-Type类型枚举
  *
- * @author looly
- * @since 4.0.11
+ * @author zhangchao
+ * @since 2.0.3
  */
 public enum ContentType {
 
@@ -59,7 +59,7 @@ public enum ContentType {
 	 *
 	 * @param contentType 内容类型
 	 * @return 是否为默认Content-Type
-	 * @since 4.1.5
+	 * @since 2.0.3
 	 */
 	public static boolean isDefault(String contentType) {
 		return null == contentType || isFormUrlEncoed(contentType);
@@ -72,7 +72,7 @@ public enum ContentType {
 	 * @return 是否为application/x-www-form-urlencoded
 	 */
 	public static boolean isFormUrlEncoed(String contentType) {
-		return StrUtil.startWithIgnoreCase(contentType, FORM_URLENCODED.toString());
+		return StringUtil.startWithIgnoreCase(contentType, FORM_URLENCODED.toString());
 	}
 
 	/**
@@ -88,7 +88,7 @@ public enum ContentType {
 	 */
 	public static ContentType get(String body) {
 		ContentType contentType = null;
-		if (StrUtil.isNotBlank(body)) {
+		if (StringUtil.isNotBlank(body)) {
 			char firstChar = body.charAt(0);
 			switch (firstChar) {
 				case '{':
@@ -114,9 +114,9 @@ public enum ContentType {
 	 * @param contentType Content-Type类型
 	 * @param charset     编码
 	 * @return Content-Type字符串
-	 * @since 4.5.4
+	 * @since 2.0.3
 	 */
 	public static String build(String contentType, Charset charset) {
-		return StrUtil.format("{};charset={}", contentType, charset.name());
+		return StringUtil.format("{};charset={}", contentType, charset.name());
 	}
 }

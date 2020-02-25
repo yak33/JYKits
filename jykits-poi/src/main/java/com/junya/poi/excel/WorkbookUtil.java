@@ -15,14 +15,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.junya.core.io.FileUtil;
 import com.junya.core.io.IORuntimeException;
 import com.junya.core.io.IoUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.poi.exceptions.POIException;
 
 /**
  * Excel工作簿{@link Workbook}相关工具类
  * 
- * @author looly
- * @since 4.0.7
+ * @author zhangchao
+ * @since 2.0.1
  *
  */
 public class WorkbookUtil {
@@ -32,7 +32,7 @@ public class WorkbookUtil {
 	 * 
 	 * @param excelFilePath Excel文件路径，绝对路径或相对于ClassPath路径
 	 * @return {@link Workbook}
-	 * @since 3.1.1
+	 * @since 2.0.1
 	 */
 	public static Workbook createBook(String excelFilePath) {
 		return createBook(FileUtil.file(excelFilePath), null);
@@ -59,7 +59,7 @@ public class WorkbookUtil {
 	 * 
 	 * @param excelFile Excel文件
 	 * @return {@link Workbook}
-	 * @since 4.5.18
+	 * @since 2.0.1
 	 */
 	public static Workbook createBookForWriter(File excelFile) {
 		if (null == excelFile) {
@@ -70,7 +70,7 @@ public class WorkbookUtil {
 			return createBook(FileUtil.getInputStream(excelFile), true);
 		}
 		
-		return createBook(StrUtil.endWithIgnoreCase(excelFile.getName(), ".xlsx"));
+		return createBook(StringUtil.endWithIgnoreCase(excelFile.getName(), ".xlsx"));
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class WorkbookUtil {
 	 * @param password 密码
 	 * @param closeAfterRead 读取结束是否关闭流
 	 * @return {@link Workbook}
-	 * @since 4.0.3
+	 * @since 2.0.3
 	 */
 	public static Workbook createBook(InputStream in, String password, boolean closeAfterRead) {
 		try {
@@ -125,7 +125,7 @@ public class WorkbookUtil {
 	 * 
 	 * @param isXlsx 是否为xlsx格式的Excel
 	 * @return {@link Workbook}
-	 * @since 4.1.0
+	 * @since 2.0.1
 	 */
 	public static Workbook createBook(boolean isXlsx) {
 		Workbook workbook;
@@ -142,7 +142,7 @@ public class WorkbookUtil {
 	 * 
 	 * @param excelFilePath Excel文件路径，绝对路径或相对于ClassPath路径
 	 * @return {@link SXSSFWorkbook}
-	 * @since 4.1.13
+	 * @since 2.0.1
 	 */
 	public static SXSSFWorkbook createSXSSFBook(String excelFilePath) {
 		return createSXSSFBook(FileUtil.file(excelFilePath), null);
@@ -153,7 +153,7 @@ public class WorkbookUtil {
 	 * 
 	 * @param excelFile Excel文件
 	 * @return {@link SXSSFWorkbook}
-	 * @since 4.1.13
+	 * @since 2.0.1
 	 */
 	public static SXSSFWorkbook createSXSSFBook(File excelFile) {
 		return createSXSSFBook(excelFile, null);
@@ -165,7 +165,7 @@ public class WorkbookUtil {
 	 * @param excelFile Excel文件
 	 * @param password Excel工作簿密码，如果无密码传{@code null}
 	 * @return {@link SXSSFWorkbook}
-	 * @since 4.1.13
+	 * @since 2.0.1
 	 */
 	public static SXSSFWorkbook createSXSSFBook(File excelFile, String password) {
 		return toSXSSFBook(createBook(excelFile, password));
@@ -177,7 +177,7 @@ public class WorkbookUtil {
 	 * @param in Excel输入流
 	 * @param closeAfterRead 读取结束是否关闭流
 	 * @return {@link SXSSFWorkbook}
-	 * @since 4.1.13
+	 * @since 2.0.1
 	 */
 	public static SXSSFWorkbook createSXSSFBook(InputStream in, boolean closeAfterRead) {
 		return createSXSSFBook(in, null, closeAfterRead);
@@ -190,7 +190,7 @@ public class WorkbookUtil {
 	 * @param password 密码
 	 * @param closeAfterRead 读取结束是否关闭流
 	 * @return {@link SXSSFWorkbook}
-	 * @since 4.1.13
+	 * @since 2.0.1
 	 */
 	public static SXSSFWorkbook createSXSSFBook(InputStream in, String password, boolean closeAfterRead) {
 		return toSXSSFBook(createBook(in, password, closeAfterRead));
@@ -200,7 +200,7 @@ public class WorkbookUtil {
 	 * 创建SXSSFWorkbook，用于大批量数据写出
 	 * 
 	 * @return {@link SXSSFWorkbook}
-	 * @since 4.1.13
+	 * @since 2.0.1
 	 */
 	public static SXSSFWorkbook createSXSSFBook() {
 		return new SXSSFWorkbook();
@@ -211,7 +211,7 @@ public class WorkbookUtil {
 	 * 
 	 * @param rowAccessWindowSize 在内存中的行数
 	 * @return {@link Workbook}
-	 * @since 4.1.13
+	 * @since 2.0.1
 	 */
 	public static SXSSFWorkbook createSXSSFBook(int rowAccessWindowSize) {
 		return new SXSSFWorkbook(rowAccessWindowSize);
@@ -223,7 +223,7 @@ public class WorkbookUtil {
 	 * @param book {@link Workbook}
 	 * @param out 输出流
 	 * @throws IORuntimeException IO异常
-	 * @since 3.2.0
+	 * @since 2.0.1
 	 */
 	public static void writeBook(Workbook book, OutputStream out) throws IORuntimeException {
 		try {
@@ -240,13 +240,13 @@ public class WorkbookUtil {
 	 * @param book 工作簿{@link Workbook}
 	 * @param sheetName 工作表名
 	 * @return 工作表{@link Sheet}
-	 * @since 4.0.2
+	 * @since 2.0.3
 	 */
 	public static Sheet getOrCreateSheet(Workbook book, String sheetName) {
 		if (null == book) {
 			return null;
 		}
-		sheetName = StrUtil.isBlank(sheetName) ? "sheet1" : sheetName;
+		sheetName = StringUtil.isBlank(sheetName) ? "sheet1" : sheetName;
 		Sheet sheet = book.getSheet(sheetName);
 		if (null == sheet) {
 			sheet = book.createSheet(sheetName);
@@ -260,7 +260,7 @@ public class WorkbookUtil {
 	 * 
 	 * @param sheet {@link Sheet}
 	 * @return sheet是否为空
-	 * @since 4.0.1
+	 * @since 2.0.1
 	 */
 	public static boolean isEmpty(Sheet sheet) {
 		return null == sheet || (sheet.getLastRowNum() == 0 && sheet.getPhysicalNumberOfRows() == 0);
@@ -272,7 +272,7 @@ public class WorkbookUtil {
 	 * 
 	 * @param book 工作簿
 	 * @return SXSSFWorkbook
-	 * @since 4.1.13
+	 * @since 2.0.1
 	 */
 	private static SXSSFWorkbook toSXSSFBook(Workbook book) {
 		if (book instanceof SXSSFWorkbook) {

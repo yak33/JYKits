@@ -1,11 +1,11 @@
 package com.junya.core.clone;
 
 import com.junya.core.exceptions.ExceptionUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 克隆异常
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class CloneRuntimeException extends RuntimeException{
 	private static final long serialVersionUID = 6774837422188798989L;
@@ -19,7 +19,7 @@ public class CloneRuntimeException extends RuntimeException{
 	}
 	
 	public CloneRuntimeException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 	
 	public CloneRuntimeException(String message, Throwable throwable) {
@@ -27,6 +27,6 @@ public class CloneRuntimeException extends RuntimeException{
 	}
 	
 	public CloneRuntimeException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 }

@@ -63,7 +63,7 @@ public class SystemClock {
 	//------------------------------------------------------------------------ static
 	/**
 	 * 单例
-	 * @author Looly
+	 * @author zhangchao
 	 *
 	 */
 	private static class InstanceHolder {

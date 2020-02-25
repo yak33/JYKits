@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 缓存对象
- * @author Looly
+ * @author zhangchao
  *
  * @param <K> Key类型
  * @param <V> Value类型
@@ -55,7 +55,7 @@ public class CacheObj<K, V> implements Serializable{
 	 * 
 	 * @param isUpdateLastAccess 是否更新最后访问时间
 	 * @return 获得对象
-	 * @since 4.0.10
+	 * @since 2.0.1
 	 */
 	V get(boolean isUpdateLastAccess) {
 		if(isUpdateLastAccess) {
@@ -68,7 +68,7 @@ public class CacheObj<K, V> implements Serializable{
 	/**
 	 * 获取键
 	 * @return 键
-	 * @since 4.0.10
+	 * @since 2.0.1
 	 */
 	public K getKey() {
 		return this.key;
@@ -77,7 +77,7 @@ public class CacheObj<K, V> implements Serializable{
 	/**
 	 * 获取值
 	 * @return 值
-	 * @since 4.0.10
+	 * @since 2.0.1
 	 */
 	public V getValue() {
 		return this.obj;

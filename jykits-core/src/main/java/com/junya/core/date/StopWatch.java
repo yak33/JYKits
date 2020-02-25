@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.junya.core.io.FileUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 秒表封装<br>
@@ -37,7 +37,7 @@ import com.junya.core.util.StrUtil;
  * </pre>
  *
  * @author Spring Framework, Looly
- * @since 4.6.6
+ * @since 2.0.3
  */
 public class StopWatch {
 
@@ -75,7 +75,7 @@ public class StopWatch {
 	 * 构造，不启动任何任务
 	 */
 	public StopWatch() {
-		this(StrUtil.EMPTY);
+		this(StringUtil.EMPTY);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class StopWatch {
 	 * @throws IllegalStateException 前一个任务没有结束
 	 */
 	public void start() throws IllegalStateException {
-		start(StrUtil.EMPTY);
+		start(StringUtil.EMPTY);
 	}
 
 	/**
@@ -301,7 +301,7 @@ public class StopWatch {
 	 * @return 任务信息
 	 */
 	public String shortSummary() {
-		return StrUtil.format("StopWatch '{}': running time = {} ns", this.id, this.totalTimeNanos);
+		return StringUtil.format("StopWatch '{}': running time = {} ns", this.id, this.totalTimeNanos);
 	}
 
 	/**
@@ -338,8 +338,8 @@ public class StopWatch {
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder(shortSummary());
-		if (null == this.taskList) {
-			for (TaskInfo task : getTaskInfo()) {
+		if (null != this.taskList) {
+			for (TaskInfo task : this.taskList) {
 				sb.append("; [").append(task.getTaskName()).append("] took ").append(task.getTimeNanos()).append(" ns");
 				long percent = Math.round(100.0 * task.getTimeNanos() / getTotalTimeNanos());
 				sb.append(" = ").append(percent).append("%");
@@ -353,7 +353,7 @@ public class StopWatch {
 	/**
 	 * 存放任务名称和花费时间对象
 	 *
-	 * @author Looly
+	 * @author zhangchao
 	 */
 	public static final class TaskInfo {
 

@@ -1,7 +1,7 @@
 package com.junya.cache;
 
 import com.junya.core.thread.ThreadUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 全局缓存清理定时器池，用于在需要过期支持的缓存对象中超时任务池
  *
- * @author looly
+ * @author zhangchao
  */
 public enum GlobalPruneTimer {
 	/**
@@ -56,7 +56,7 @@ public enum GlobalPruneTimer {
 		if (null != pruneTimer) {
 			shutdownNow();
 		}
-		this.pruneTimer = new ScheduledThreadPoolExecutor(16, r -> ThreadUtil.newThread(r, StrUtil.format("Pure-Timer-{}", cacheTaskNumber.getAndIncrement())));
+		this.pruneTimer = new ScheduledThreadPoolExecutor(16, r -> ThreadUtil.newThread(r, StringUtil.format("Pure-Timer-{}", cacheTaskNumber.getAndIncrement())));
 	}
 
 	/**

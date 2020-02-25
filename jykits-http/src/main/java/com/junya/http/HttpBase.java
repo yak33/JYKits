@@ -11,11 +11,11 @@ import java.util.Map.Entry;
 import com.junya.core.collection.CollectionUtil;
 import com.junya.core.map.CaseInsensitiveMap;
 import com.junya.core.util.CharsetUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * http基类
- * @author Looly
+ * @author zhangchao
  * @param <T> 子类类型，方便链式编程
  */
 @SuppressWarnings("unchecked")
@@ -55,10 +55,10 @@ public abstract class HttpBase<T> {
 	 * 根据name获取头信息列表
 	 * @param name Header名
 	 * @return Header值
-	 * @since 3.1.1
+	 * @since 2.0.3
 	 */
 	public List<String> headerList(String name) {
-		if(StrUtil.isBlank(name)) {
+		if(StringUtil.isBlank(name)) {
 			return null;
 		}
 		
@@ -140,7 +140,7 @@ public abstract class HttpBase<T> {
 	 * @param headers 请求头
 	 * @param isOverride 是否覆盖已有头信息
 	 * @return this
-	 * @since 4.6.3
+	 * @since 2.0.3
 	 */
 	public T headerMap(Map<String, String> headers, boolean isOverride) {
 		if(CollectionUtil.isEmpty(headers)) {
@@ -148,7 +148,7 @@ public abstract class HttpBase<T> {
 		}
 		
 		for (Entry<String, String> entry : headers.entrySet()) {
-			this.header(entry.getKey(), StrUtil.nullToEmpty(entry.getValue()), isOverride);
+			this.header(entry.getKey(), StringUtil.nullToEmpty(entry.getValue()), isOverride);
 		}
 		return (T)this;
 	}
@@ -170,7 +170,7 @@ public abstract class HttpBase<T> {
 	 * @param headers 请求头
 	 * @param isOverride 是否覆盖已有头信息
 	 * @return this
-	 * @since 4.0.8
+	 * @since 2.0.3
 	 */
 	public T header(Map<String, List<String>> headers, boolean isOverride) {
 		if(CollectionUtil.isEmpty(headers)) {
@@ -181,7 +181,7 @@ public abstract class HttpBase<T> {
 		for (Entry<String, List<String>> entry : headers.entrySet()) {
 			name = entry.getKey();
 			for (String value : entry.getValue()) {
-				this.header(name, StrUtil.nullToEmpty(value), isOverride);
+				this.header(name, StringUtil.nullToEmpty(value), isOverride);
 			}
 		}
 		return (T)this;
@@ -193,7 +193,7 @@ public abstract class HttpBase<T> {
 	 * 
 	 * @param headers 请求头
 	 * @return this
-	 * @since 4.0.3
+	 * @since 2.0.3
 	 */
 	public T addHeaders(Map<String, String> headers) {
 		if(CollectionUtil.isEmpty(headers)) {
@@ -201,7 +201,7 @@ public abstract class HttpBase<T> {
 		}
 		
 		for (Entry<String,String> entry : headers.entrySet()) {
-			this.header(entry.getKey(), StrUtil.nullToEmpty(entry.getValue()), false);
+			this.header(entry.getKey(), StringUtil.nullToEmpty(entry.getValue()), false);
 		}
 		return (T)this;
 	}
@@ -269,7 +269,7 @@ public abstract class HttpBase<T> {
 	 * @see CharsetUtil
 	 */
 	public T charset(String charset) {
-		if(StrUtil.isNotBlank(charset)){
+		if(StringUtil.isNotBlank(charset)){
 			this.charset = Charset.forName(charset);
 		}
 		return (T) this;
@@ -290,14 +290,14 @@ public abstract class HttpBase<T> {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = StrUtil.builder();
-		sb.append("Request Headers: ").append(StrUtil.CRLF);
+		StringBuilder sb = StringUtil.builder();
+		sb.append("Request Headers: ").append(StringUtil.CRLF);
 		for (Entry<String, List<String>> entry : this.headers.entrySet()) {
-			sb.append("    ").append(entry).append(StrUtil.CRLF);
+			sb.append("    ").append(entry).append(StringUtil.CRLF);
 		}
 		
-		sb.append("Request Body: ").append(StrUtil.CRLF);
-		sb.append("    ").append(StrUtil.str(this.bodyBytes, this.charset)).append(StrUtil.CRLF);
+		sb.append("Request Body: ").append(StringUtil.CRLF);
+		sb.append("    ").append(StringUtil.str(this.bodyBytes, this.charset)).append(StringUtil.CRLF);
 		
 		return sb.toString();
 	}

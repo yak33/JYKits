@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.util.ArrayUtil;
 
 /**
  * 无重复键的Map
  * 
- * @author looly
+ * @author zhangchao
  *
  * @param <K> 键类型
  * @param <V> 值类型
@@ -42,8 +42,8 @@ public class TableMap<K, V> implements Map<K, V>, Serializable {
 	 * @param values 值列表
 	 */
 	public TableMap(K[] keys, V[] values) {
-		this.keys = CollUtil.toList(keys);
-		this.values = CollUtil.toList(values);
+		this.keys = CollectionUtil.toList(keys);
+		this.values = CollectionUtil.toList(values);
 	}
 
 	@Override

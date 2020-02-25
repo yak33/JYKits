@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.junya.core.util.CharUtil;
 import com.junya.core.util.ObjectUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 版本比较器<br>
@@ -15,8 +15,8 @@ import com.junya.core.util.StrUtil;
  * 支持如：1.3.20.8，6.82.20160101，8.5a/8.5c等版本形式<br>
  * 参考：https://www.cnblogs.com/shihaiming/p/6286575.html
  * 
- * @author Looly
- * @since 4.0.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class VersionComparator implements Comparator<String>, Serializable {
 	private static final long serialVersionUID = 8083701245147495562L;
@@ -61,8 +61,8 @@ public class VersionComparator implements Comparator<String>, Serializable {
 			return 1;
 		}
 
-		final List<String> v1s = StrUtil.split(version1, CharUtil.DOT);
-		final List<String> v2s = StrUtil.split(version2, CharUtil.DOT);
+		final List<String> v1s = StringUtil.split(version1, CharUtil.DOT);
+		final List<String> v2s = StringUtil.split(version2, CharUtil.DOT);
 
 		int diff = 0;
 		int minLength = Math.min(v1s.size(), v2s.size());// 取最小长度值

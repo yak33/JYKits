@@ -18,7 +18,7 @@ import com.junya.core.getter.BasicTypeGetter;
 /**
  * 字典对象，扩充了HashMap中的方法
  * 
- * @author loolly
+ * @author zhangchao
  *
  */
 public class Dict extends LinkedHashMap<String, Object> implements BasicTypeGetter<String> {
@@ -104,7 +104,7 @@ public class Dict extends LinkedHashMap<String, Object> implements BasicTypeGett
 	 * @param initialCapacity 初始容量
 	 * @param loadFactor 容量增长因子，0~1，即达到容量的百分之多少时扩容
 	 * @param caseInsensitive 是否大小写不敏感
-	 * @since 4.5.16
+	 * @since 2.0.3
 	 */
 	public Dict(int initialCapacity, float loadFactor, boolean caseInsensitive) {
 		super(initialCapacity, loadFactor);
@@ -138,7 +138,7 @@ public class Dict extends LinkedHashMap<String, Object> implements BasicTypeGett
 	 * @param <T> Bean类型
 	 * @param bean Bean
 	 * @return Bean
-	 * @since 3.3.1
+	 * @since 2.0.3
 	 */
 	public <T> T toBeanIgnoreCase(T bean) {
 		BeanUtil.fillBeanWithMapIgnoreCase(this, bean, false);
@@ -249,7 +249,7 @@ public class Dict extends LinkedHashMap<String, Object> implements BasicTypeGett
 	 * 
 	 * @param keys 键列表
 	 * @return Dict 结果
-	 * @since 4.0.10
+	 * @since 2.0.3
 	 */
 	public Dict filter(String... keys) {
 		final Dict result = new Dict(keys.length, 1);
@@ -303,7 +303,7 @@ public class Dict extends LinkedHashMap<String, Object> implements BasicTypeGett
 	 * @param <T> 值类型
 	 * @param attr 字段名
 	 * @return 字段值
-	 * @since 4.6.3
+	 * @since 2.0.3
 	 */
 	public <T> T getBean(String attr) {
 		return get(attr, null);

@@ -3,7 +3,7 @@ package com.junya.http.useragent;
 /**
  * User-Agent工具类
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class UserAgentUtil {

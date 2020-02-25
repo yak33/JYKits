@@ -3,7 +3,6 @@ package com.junya.core.convert.impl;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-import com.junya.core.collection.CollUtil;
 import com.junya.core.collection.CollectionUtil;
 import com.junya.core.convert.Converter;
 import com.junya.core.util.TypeUtil;
@@ -11,8 +10,8 @@ import com.junya.core.util.TypeUtil;
 /**
  * 各种集合类转换器
  * 
- * @author Looly
- * @since 3.0.8
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class CollectionConverter implements Converter<Collection<?>> {
 
@@ -78,6 +77,6 @@ public class CollectionConverter implements Converter<Collection<?>> {
 	 */
 	protected Collection<?> convertInternal(Object value) {
 		final Collection<Object> collection = CollectionUtil.create(TypeUtil.getClass(this.collectionType));
-		return CollUtil.addAll(collection, value, this.elementType);
+		return CollectionUtil.addAll(collection, value, this.elementType);
 	}
 }

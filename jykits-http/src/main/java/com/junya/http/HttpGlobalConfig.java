@@ -8,8 +8,8 @@ import com.junya.http.cookie.GlobalCookieManager;
 /**
  * HTTP 全局参数配置
  * 
- * @author Looly
- * @since 4.6.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class HttpGlobalConfig implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -38,7 +38,7 @@ public class HttpGlobalConfig implements Serializable {
 	 * 获取Cookie管理器，用于自定义Cookie管理
 	 * 
 	 * @return {@link CookieManager}
-	 * @since 4.1.0
+	 * @since 2.0.3
 	 * @see GlobalCookieManager#getCookieManager()
 	 */
 	public static CookieManager getCookieManager() {
@@ -49,7 +49,7 @@ public class HttpGlobalConfig implements Serializable {
 	 * 自定义{@link CookieManager}
 	 * 
 	 * @param customCookieManager 自定义的{@link CookieManager}
-	 * @since 4.5.14
+	 * @since 2.0.3
 	 * @see GlobalCookieManager#setCookieManager(CookieManager)
 	 */
 	public static void setCookieManager(CookieManager customCookieManager) {
@@ -59,7 +59,7 @@ public class HttpGlobalConfig implements Serializable {
 	/**
 	 * 关闭Cookie
 	 * 
-	 * @since 4.1.9
+	 * @since 2.0.3
 	 * @see GlobalCookieManager#setCookieManager(CookieManager)
 	 */
 	public static void closeCookie() {

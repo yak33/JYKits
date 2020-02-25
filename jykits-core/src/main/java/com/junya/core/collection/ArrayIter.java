@@ -7,10 +7,10 @@ import java.util.NoSuchElementException;
 
 /**
  * 数组Iterator对象
- * @author Looly
+ * @author zhangchao
  *
  * @param <E> 元素类型
- * @since 4.1.1
+ * @since 2.0.3
  */
 public class ArrayIter<E> implements Iterator<E>, Iterable<E>, Serializable{
 	private static final long serialVersionUID = 1L;

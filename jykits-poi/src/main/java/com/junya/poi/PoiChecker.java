@@ -6,8 +6,8 @@ import com.junya.core.util.ClassLoaderUtil;
 /**
  * POI引入检查器
  * 
- * @author looly
- * @since 4.0.10
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class PoiChecker {
 

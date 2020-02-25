@@ -14,7 +14,7 @@ import com.junya.core.util.ArrayUtil;
  * 3. 获取指定字段的结束时间
  * </pre>
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class DateModifier {
@@ -126,7 +126,7 @@ public class DateModifier {
 	/**
 	 * 修改类型
 	 * 
-	 * @author looly
+	 * @author zhangchao
 	 *
 	 */
 	public enum ModifyType {

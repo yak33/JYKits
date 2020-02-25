@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.junya.core.collection.CollectionUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 全局头部信息<br>
  * 所有Http请求将共用此全局头部信息，除非在{@link HttpRequest}中自定义头部信息覆盖之
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public enum GlobalHeaders {
@@ -50,7 +50,7 @@ public enum GlobalHeaders {
 		header(Header.ACCEPT_LANGUAGE, "zh-CN,zh;q=0.8", true);
 		// 此Header只有在post请求中有用，因此在HttpRequest的method方法中设置此头信息，此处去掉
 		// header(Header.CONTENT_TYPE, ContentType.FORM_URLENCODED.toString(CharsetUtil.CHARSET_UTF_8), true);
-		header(Header.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 Hutool", true);
+		header(Header.USER_AGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 JYKits", true);
 		return this;
 	}
 
@@ -74,10 +74,10 @@ public enum GlobalHeaders {
 	 * 
 	 * @param name Header名
 	 * @return Header值
-	 * @since 3.1.1
+	 * @since 2.0.3
 	 */
 	public List<String> headerList(String name) {
-		if (StrUtil.isBlank(name)) {
+		if (StringUtil.isBlank(name)) {
 			return null;
 		}
 
@@ -173,7 +173,7 @@ public enum GlobalHeaders {
 		for (Entry<String, List<String>> entry : headers.entrySet()) {
 			name = entry.getKey();
 			for (String value : entry.getValue()) {
-				this.header(name, StrUtil.nullToEmpty(value), false);
+				this.header(name, StringUtil.nullToEmpty(value), false);
 			}
 		}
 		return this;

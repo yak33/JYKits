@@ -1,11 +1,11 @@
 package com.junya.http.webservice;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * SOAP异常
  * 
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class SoapRuntimeException extends RuntimeException {
 	private static final long serialVersionUID = 8247610319171014183L;
@@ -19,7 +19,7 @@ public class SoapRuntimeException extends RuntimeException {
 	}
 
 	public SoapRuntimeException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 
 	public SoapRuntimeException(String message, Throwable throwable) {
@@ -27,6 +27,6 @@ public class SoapRuntimeException extends RuntimeException {
 	}
 
 	public SoapRuntimeException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.nio.charset.Charset;
 
 import com.junya.core.util.CharsetUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * Murmur3 32bit、64bit、128bit 哈希算法实现<br>
@@ -15,8 +15,8 @@ import com.junya.core.util.StrUtil;
  * 128-bit Java port of https://code.google.com/p/smhasher/source/browse/trunk/MurmurHash3.cpp#255
  * </p>
  * 
- * @author looly,Simhash4J
- * @since 4.3.3
+ * @author zhangchao,Simhash4J
+ * @since 2.0.3
  */
 public class MurmurHash implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -49,7 +49,7 @@ public class MurmurHash implements Serializable{
 	 * @return Hash值
 	 */
 	public static int hash32(CharSequence data) {
-		return hash32(StrUtil.bytes(data, DEFAULT_CHARSET));
+		return hash32(StringUtil.bytes(data, DEFAULT_CHARSET));
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class MurmurHash implements Serializable{
 	 * @return Hash值
 	 */
 	public static long hash64(CharSequence data) {
-		return hash64(StrUtil.bytes(data, DEFAULT_CHARSET));
+		return hash64(StringUtil.bytes(data, DEFAULT_CHARSET));
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class MurmurHash implements Serializable{
 	 * @return Hash值 (2 longs)
 	 */
 	public static long[] hash128(CharSequence data) {
-		return hash128(StrUtil.bytes(data, DEFAULT_CHARSET));
+		return hash128(StringUtil.bytes(data, DEFAULT_CHARSET));
 	}
 
 	/**

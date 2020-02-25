@@ -4,13 +4,13 @@ import java.io.File;
 import java.nio.file.Path;
 
 import com.junya.core.io.FileUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.core.util.URLUtil;
 
 /**
  * 文件资源访问对象
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class FileResource extends UrlResource {
@@ -21,7 +21,7 @@ public class FileResource extends UrlResource {
 	 * 构造
 	 * 
 	 * @param path 文件
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public FileResource(Path path) {
 		this(path.toFile());
@@ -43,7 +43,7 @@ public class FileResource extends UrlResource {
 	 * @param fileName 文件名，如果为null获取文件本身的文件名
 	 */
 	public FileResource(File file, String fileName) {
-		super(URLUtil.getURL(file), StrUtil.isBlank(fileName) ? file.getName() : fileName);
+		super(URLUtil.getURL(file), StringUtil.isBlank(fileName) ? file.getName() : fileName);
 	}
 
 	/**

@@ -2,13 +2,13 @@ package com.junya.http.useragent;
 
 import java.util.List;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 
 /**
  * 系统对象
  * 
- * @author looly
- * @since 4.2.1
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class OS extends UserAgentInfo {
 	
@@ -18,7 +18,7 @@ public class OS extends UserAgentInfo {
 	/**
 	 * 支持的引擎类型
 	 */
-	public static final List<OS> oses = CollUtil.newArrayList(//
+	public static final List<OS> oses = CollectionUtil.newArrayList(//
 			new OS("Windows 10 or Windows Server 2016","windows nt 10\\.0"),//
 			new OS("Windows 8.1 or Winsows Server 2012R2","windows nt 6\\.3"),//
 			new OS("Windows 8 or Winsows Server 2012","windows nt 6\\.2"),//

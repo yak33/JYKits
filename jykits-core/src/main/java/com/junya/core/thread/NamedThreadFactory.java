@@ -4,7 +4,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 线程创建工厂类，此工厂可选配置：
@@ -14,8 +14,8 @@ import com.junya.core.util.StrUtil;
  * 2. 自定义是否守护线程
  * </pre>
  * 
- * @author looly
- * @since 4.0.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class NamedThreadFactory implements ThreadFactory {
 
@@ -60,7 +60,7 @@ public class NamedThreadFactory implements ThreadFactory {
 	 * @param handler 未捕获异常处理
 	 */
 	public NamedThreadFactory(String prefix, ThreadGroup threadGroup, boolean isDaemon, UncaughtExceptionHandler handler) {
-		this.prefix = StrUtil.isBlank(prefix) ? "Hutool" : prefix;
+		this.prefix = StringUtil.isBlank(prefix) ? "JYKits" : prefix;
 		if (null == threadGroup) {
 			threadGroup = ThreadUtil.currentThreadGroup();
 		}
@@ -71,7 +71,7 @@ public class NamedThreadFactory implements ThreadFactory {
 
 	@Override
 	public Thread newThread(Runnable r) {
-		final Thread t = new Thread(this.group, r, StrUtil.format("{}{}", prefix, threadNumber.getAndIncrement()));
+		final Thread t = new Thread(this.group, r, StringUtil.format("{}{}", prefix, threadNumber.getAndIncrement()));
 		
 		//守护线程
 		if (false == t.isDaemon()) {

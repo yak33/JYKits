@@ -15,8 +15,8 @@ import com.junya.core.util.XmlUtil;
 /**
  * SOAP相关工具类
  * 
- * @author looly
- * @since 4.5.7
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class SoapUtil {
 
@@ -48,7 +48,7 @@ public class SoapUtil {
 	 * @param protocol 协议，见{@link SoapProtocol}
 	 * @param namespaceURI 方法上的命名空间URI
 	 * @return {@link SoapClient}
-	 * @since 4.5.6
+	 * @since 2.0.3
 	 */
 	public static SoapClient createClient(String url, SoapProtocol protocol, String namespaceURI) {
 		return SoapClient.create(url, protocol, namespaceURI);
@@ -72,7 +72,7 @@ public class SoapUtil {
 	 * @param pretty 是否格式化
 	 * @param charset 编码
 	 * @return SOAP XML字符串
-	 * @since 4.5.7
+	 * @since 2.0.3
 	 */
 	public static String toString(SOAPMessage message, boolean pretty, Charset charset) {
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();

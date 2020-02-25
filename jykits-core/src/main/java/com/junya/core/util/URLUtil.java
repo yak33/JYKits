@@ -26,7 +26,7 @@ import java.util.jar.JarFile;
 /**
  * 统一资源定位符相关工具类
  *
- * @author xiaoleilu
+ * @author zhangchao
  *
  */
 public class URLUtil {
@@ -74,7 +74,7 @@ public class URLUtil {
 	 * @param url URL
 	 * @param handler {@link URLStreamHandler}
 	 * @return URL对象
-	 * @since 4.1.1
+	 * @since 2.0.3
 	 */
 	public static URL url(String url, URLStreamHandler handler) {
 		Assert.notNull(url, "URL must not be null");
@@ -102,7 +102,7 @@ public class URLUtil {
 	 *
 	 * @param urlStr URL字符串
 	 * @return URL
-	 * @since 4.1.9
+	 * @since 2.0.3
 	 */
 	public static URL toUrlForHttp(String urlStr) {
 		return toUrlForHttp(urlStr, null);
@@ -114,7 +114,7 @@ public class URLUtil {
 	 * @param urlStr URL字符串
 	 * @param handler {@link URLStreamHandler}
 	 * @return URL
-	 * @since 4.1.9
+	 * @since 2.0.3
 	 */
 	public static URL toUrlForHttp(String urlStr, URLStreamHandler handler) {
 		Assert.notBlank(urlStr, "Url is blank !");
@@ -132,7 +132,7 @@ public class URLUtil {
 	 *
 	 * @param urlStr URL字符串
 	 * @return 编码后的字符串
-	 * @since 4.5.14
+	 * @since 2.0.3
 	 */
 	public static String encodeBlank(CharSequence urlStr) {
 		if (urlStr == null) {
@@ -217,7 +217,7 @@ public class URLUtil {
 	 *
 	 * @param url URL
 	 * @return 域名的URI
-	 * @since 4.6.9
+	 * @since 2.0.3
 	 */
 	public static URI getHost(URL url){
 		if(null == url){
@@ -241,7 +241,7 @@ public class URLUtil {
 	 */
 	public static String complateUrl(String baseUrl, String relativePath) {
 		baseUrl = normalize(baseUrl, false);
-		if (StrUtil.isBlank(baseUrl)) {
+		if (StringUtil.isBlank(baseUrl)) {
 			return null;
 		}
 
@@ -291,7 +291,7 @@ public class URLUtil {
 	 * @param url URL
 	 * @return 编码后的URL
 	 * @exception UtilException UnsupportedEncodingException
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static String encode(String url) throws UtilException {
 		return encode(url, CharsetUtil.CHARSET_UTF_8);
@@ -305,7 +305,7 @@ public class URLUtil {
 	 * @param url URL
 	 * @return 编码后的URL
 	 * @exception UtilException UnsupportedEncodingException
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static String encodeQuery(String url) throws UtilException {
 		return encodeQuery(url, CharsetUtil.CHARSET_UTF_8);
@@ -319,10 +319,10 @@ public class URLUtil {
 	 * @param url 被编码内容
 	 * @param charset 编码
 	 * @return 编码后的字符
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static String encode(String url, Charset charset) {
-		if (StrUtil.isEmpty(url)) {
+		if (StringUtil.isEmpty(url)) {
 			return url;
 		}
 		if (null == charset) {
@@ -339,10 +339,10 @@ public class URLUtil {
 	 * @param url 被编码内容
 	 * @param charset 编码
 	 * @return 编码后的字符
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static String encodeQuery(String url, Charset charset) {
-		if (StrUtil.isEmpty(url)) {
+		if (StringUtil.isEmpty(url)) {
 			return url;
 		}
 		if (null == charset) {
@@ -362,10 +362,10 @@ public class URLUtil {
 	 * @exception UtilException UnsupportedEncodingException
 	 */
 	public static String encode(String url, String charset) throws UtilException {
-		if (StrUtil.isEmpty(url)) {
+		if (StringUtil.isEmpty(url)) {
 			return url;
 		}
-		return encode(url, StrUtil.isBlank(charset) ? CharsetUtil.defaultCharset() : CharsetUtil.charset(charset));
+		return encode(url, StringUtil.isBlank(charset) ? CharsetUtil.defaultCharset() : CharsetUtil.charset(charset));
 	}
 
 	/**
@@ -379,7 +379,7 @@ public class URLUtil {
 	 * @exception UtilException UnsupportedEncodingException
 	 */
 	public static String encodeQuery(String url, String charset) throws UtilException {
-		return encodeQuery(url, StrUtil.isBlank(charset) ? CharsetUtil.defaultCharset() : CharsetUtil.charset(charset));
+		return encodeQuery(url, StringUtil.isBlank(charset) ? CharsetUtil.defaultCharset() : CharsetUtil.charset(charset));
 	}
 
 	/**
@@ -389,7 +389,7 @@ public class URLUtil {
 	 * @param url URL
 	 * @return 解码后的URL
 	 * @exception UtilException UnsupportedEncodingException
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static String decode(String url) throws UtilException {
 		return decode(url, CharsetUtil.UTF_8);
@@ -401,7 +401,7 @@ public class URLUtil {
 	 * @param content 被解码内容
 	 * @param charset 编码
 	 * @return 编码后的字符
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static String decode(String content, Charset charset) {
 		if (null == charset) {
@@ -420,7 +420,7 @@ public class URLUtil {
 	 * @exception UtilException UnsupportedEncodingException
 	 */
 	public static String decode(String url, String charset) throws UtilException {
-		if (StrUtil.isEmpty(url)) {
+		if (StringUtil.isEmpty(url)) {
 			return url;
 		}
 		try {
@@ -454,7 +454,7 @@ public class URLUtil {
 	 *
 	 * @param url {@link URL}
 	 * @return 路径
-	 * @since 3.0.8
+	 * @since 2.0.3
 	 */
 	public static String getDecodedPath(URL url) {
 		if (null == url) {
@@ -489,7 +489,7 @@ public class URLUtil {
 	 * @param isEncode 是否编码参数中的特殊字符（默认UTF-8编码）
 	 * @return URI
 	 * @exception UtilException 包装URISyntaxException
-	 * @since 4.6.9
+	 * @since 2.0.3
 	 */
 	public static URI toURI(URL url, boolean isEncode) throws UtilException {
 		if (null == url) {
@@ -517,7 +517,7 @@ public class URLUtil {
 	 * @param isEncode 是否编码参数中的特殊字符（默认UTF-8编码）
 	 * @return URI
 	 * @exception UtilException 包装URISyntaxException
-	 * @since 4.6.9
+	 * @since 2.0.3
 	 */
 	public static URI toURI(String location, boolean isEncode) throws UtilException {
 		if(isEncode){
@@ -536,7 +536,7 @@ public class URLUtil {
 	 *
 	 * @param url {@link URL}
 	 * @return 是否为文件
-	 * @since 3.0.9
+	 * @since 2.0.3
 	 */
 	public static boolean isFileURL(URL url) {
 		String protocol = url.getProtocol();
@@ -564,7 +564,7 @@ public class URLUtil {
 	 *
 	 * @param url the URL to check
 	 * @return whether the URL has been identified as a JAR file URL
-	 * @since 4.1
+	 * @since 2.0.3
 	 */
 	public static boolean isJarFileURL(URL url) {
 		return (URL_PROTOCOL_FILE.equals(url.getProtocol()) && //
@@ -576,7 +576,7 @@ public class URLUtil {
 	 *
 	 * @param url {@link URL}
 	 * @return InputStream流
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static InputStream getStream(URL url) {
 		Assert.notNull(url);
@@ -593,7 +593,7 @@ public class URLUtil {
 	 * @param url {@link URL}
 	 * @param charset 编码
 	 * @return {@link BufferedReader}
-	 * @since 3.2.1
+	 * @since 2.0.3
 	 */
 	public static BufferedReader getReader(URL url, Charset charset) {
 		return IoUtil.getReader(getStream(url), charset);
@@ -604,7 +604,7 @@ public class URLUtil {
 	 *
 	 * @param url URL
 	 * @return JarFile
-	 * @since 4.1.5
+	 * @since 2.0.3
 	 */
 	public static JarFile getJarFile(URL url) {
 		try {
@@ -639,37 +639,37 @@ public class URLUtil {
 	 * @param url URL字符串
 	 * @param isEncodeBody 是否对URL中body部分的中文和特殊字符做转义（不包括http:和/）
 	 * @return 标准化后的URL字符串
-	 * @since 4.4.1
+	 * @since 2.0.3
 	 */
 	public static String normalize(String url, boolean isEncodeBody) {
-		if (StrUtil.isBlank(url)) {
+		if (StringUtil.isBlank(url)) {
 			return url;
 		}
 		final int sepIndex = url.indexOf("://");
 		String pre;
 		String body;
 		if (sepIndex > 0) {
-			pre = StrUtil.subPre(url, sepIndex + 3);
-			body = StrUtil.subSuf(url, sepIndex + 3);
+			pre = StringUtil.subPre(url, sepIndex + 3);
+			body = StringUtil.subSuf(url, sepIndex + 3);
 		} else {
 			pre = "http://";
 			body = url;
 		}
 
-		final int paramsSepIndex = StrUtil.indexOf(body, '?');
+		final int paramsSepIndex = StringUtil.indexOf(body, '?');
 		String params = null;
 		if (paramsSepIndex > 0) {
-			params = StrUtil.subSuf(body, paramsSepIndex);
-			body = StrUtil.subPre(body, paramsSepIndex);
+			params = StringUtil.subSuf(body, paramsSepIndex);
+			body = StringUtil.subPre(body, paramsSepIndex);
 		}
 
 		// 去除开头的\或者/
-		body = body.replaceAll("^[\\\\/]+", StrUtil.EMPTY);
+		body = body.replaceAll("^[\\\\/]+", StringUtil.EMPTY);
 		// 替换多个\或/为单个/
 		body = body.replace("\\", "/").replaceAll("//+", "/");
 		if (isEncodeBody) {
 			body = encode(body);
 		}
-		return pre + body + StrUtil.nullToEmpty(params);
+		return pre + body + StringUtil.nullToEmpty(params);
 	}
 }

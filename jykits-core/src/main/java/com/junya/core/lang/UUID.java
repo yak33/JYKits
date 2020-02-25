@@ -6,7 +6,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 import com.junya.core.util.RandomUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 提供通用唯一识别码（universally unique identifier）（UUID）实现，UUID表示一个128位的值。<br>
@@ -38,7 +38,7 @@ import com.junya.core.util.StrUtil;
  * version 字段保存描述此 UUID 类型的值。有 4 种不同的基本 UUID 类型：基于时间的 UUID、DCE 安全 UUID、基于名称的 UUID 和随机生成的 UUID。<br>
  * 这些类型的 version 值分别为 1、2、3 和 4。
  *
- * @since 4.1.11
+ * @since 2.0.3
  */
 public final class UUID implements java.io.Serializable, Comparable<UUID> {
 	private static final long serialVersionUID = -1185015143654744140L;
@@ -46,7 +46,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
 	/**
 	 * {@link SecureRandom} 的单例
 	 *
-	 * @author looly
+	 * @author zhangchao
 	 */
 	private static class Holder {
 		static final SecureRandom numberGenerator = RandomUtil.getSecureRandom();
@@ -342,7 +342,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
 	 * @return 此{@code UUID} 的字符串表现形式
 	 */
 	public String toString(boolean isSimple) {
-		final StringBuilder builder = StrUtil.builder(isSimple ? 32 : 36);
+		final StringBuilder builder = StringUtil.builder(isSimple ? 32 : 36);
 		// time_low
 		builder.append(digits(mostSigBits >> 32, 8));
 		if (false == isSimple) {

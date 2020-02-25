@@ -11,8 +11,8 @@ import com.junya.core.util.NumberUtil;
  * 组合，即C(n, m)<br>
  * 排列组合相关类 参考：http://cgs1999.iteye.com/blog/2327664
  *
- * @author looly
- * @since 4.0.6
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class Combination implements Serializable {
 	private static final long serialVersionUID = 1L;

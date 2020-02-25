@@ -7,15 +7,14 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import com.junya.core.util.StrUtil;
 import com.junya.poi.excel.cell.CellEditor;
 import com.junya.poi.excel.cell.CellUtil;
 
 /**
  * Excel中的行{@link Row}封装工具类
  * 
- * @author looly
- * @since 4.0.7
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class RowUtil {
 	/**
@@ -24,7 +23,7 @@ public class RowUtil {
 	 * @param sheet Excel表
 	 * @param rowIndex 行号
 	 * @return {@link Row}
-	 * @since 4.0.2
+	 * @since 2.0.3
 	 */
 	public static Row getOrCreateRow(Sheet sheet, int rowIndex) {
 		Row row = sheet.getRow(rowIndex);
@@ -54,7 +53,7 @@ public class RowUtil {
 		boolean isAllNull = true;
 		for (short i = 0; i < length; i++) {
 			cellValue = CellUtil.getCellValue(row.getCell(i), cellEditor);
-			isAllNull &= StrUtil.isEmptyIfStr(cellValue);
+			isAllNull &= isEmptyIfStr(cellValue);
 			cellValues.add(cellValue);
 		}
 
@@ -64,6 +63,25 @@ public class RowUtil {
 		}
 		return cellValues;
 	}
+
+	/**
+	 * 如果对象是字符串是否为空串空的定义如下:<br>
+	 * 1、为null <br>
+	 * 2、为""<br>
+	 *
+	 * @param obj 对象
+	 * @return 如果为字符串是否为空串
+	 * @since 2.0.1
+	 */
+	public static boolean isEmptyIfStr(Object obj) {
+		if (null == obj) {
+			return true;
+		} else if (obj instanceof CharSequence) {
+			return 0 == ((CharSequence) obj).length();
+		}
+		return false;
+	}
+
 
 	/**
 	 * 写一行数据

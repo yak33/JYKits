@@ -6,8 +6,8 @@
 
     <parent>
         <artifactId>JYKits</artifactId>
-        <groupId>com.junya</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>com.gitee.smiletou</groupId>
+        <version>2.1.4</version>
     </parent>
     <packaging>jar</packaging>
 
@@ -17,33 +17,28 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.junya</groupId>
+            <groupId>com.gitee.smiletou</groupId>
             <artifactId>jykits-cache</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.junya</groupId>
-            <artifactId>jykits-captcha</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.junya</groupId>
+            <groupId>com.gitee.smiletou</groupId>
             <artifactId>jykits-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.junya</groupId>
+            <groupId>com.gitee.smiletou</groupId>
             <artifactId>jykits-http</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.junya</groupId>
-            <artifactId>jykits-json</artifactId>
+            <groupId>com.gitee.smiletou</groupId>
+            <artifactId>jykits-poi</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.junya</groupId>
-            <artifactId>jykits-poi</artifactId>
+            <groupId>com.gitee.smiletou</groupId>
+            <artifactId>jykits-secure</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>

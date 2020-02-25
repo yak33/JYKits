@@ -8,8 +8,8 @@ import com.junya.core.util.BooleanUtil;
 /**
  * {@link AtomicBoolean}转换器
  * 
- * @author Looly
- * @since 3.0.8
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class AtomicBooleanConverter extends AbstractConverter<AtomicBoolean> {
 	private static final long serialVersionUID = 1L;

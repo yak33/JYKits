@@ -1,11 +1,11 @@
 package com.junya.core.date;
 
 import com.junya.core.exceptions.ExceptionUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 工具类异常
- * @author xiaoleilu
+ * @author zhangchao
  */
 public class DateException extends RuntimeException{
 	private static final long serialVersionUID = 8247610319171014183L;
@@ -19,7 +19,7 @@ public class DateException extends RuntimeException{
 	}
 	
 	public DateException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 	
 	public DateException(String message, Throwable throwable) {
@@ -27,6 +27,6 @@ public class DateException extends RuntimeException{
 	}
 	
 	public DateException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 }

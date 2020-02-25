@@ -3,7 +3,7 @@ package com.junya.http;
 /**
  * HTTP状态码
  * 
- * @author Looly
+ * @author zhangchao
  * @see java.net.HttpURLConnection
  *
  */

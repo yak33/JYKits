@@ -9,7 +9,7 @@ import com.junya.core.io.FileUtil;
 
 /**
  * 字符集工具类
- * @author xiaoleilu
+ * @author zhangchao
  *
  */
 public class CharsetUtil {
@@ -26,7 +26,18 @@ public class CharsetUtil {
 	/** UTF-8 */
 	public static final Charset CHARSET_UTF_8 = StandardCharsets.UTF_8;
 	/** GBK */
-	public static final Charset CHARSET_GBK = Charset.forName(GBK);
+	public static final Charset CHARSET_GBK;
+
+	static{
+		//避免不支持GBK的系统中运行报错 issue#731
+		Charset _CHARSET_GBK = null;
+		try{
+			_CHARSET_GBK = Charset.forName(GBK);
+		} catch (UnsupportedCharsetException e){
+			//ignore
+		}
+		CHARSET_GBK = _CHARSET_GBK;
+	}
 	
 	/**
 	 * 转换为Charset对象
@@ -35,7 +46,7 @@ public class CharsetUtil {
 	 * @throws UnsupportedCharsetException 编码不支持
 	 */
 	public static Charset charset(String charsetName) throws UnsupportedCharsetException{
-		return StrUtil.isBlank(charsetName) ? Charset.defaultCharset() : Charset.forName(charsetName);
+		return StringUtil.isBlank(charsetName) ? Charset.defaultCharset() : Charset.forName(charsetName);
 	}
 	
 	/**
@@ -73,7 +84,7 @@ public class CharsetUtil {
 			destCharset = StandardCharsets.UTF_8;
 		}
 		
-		if (StrUtil.isBlank(source) || srcCharset.equals(destCharset)) {
+		if (StringUtil.isBlank(source) || srcCharset.equals(destCharset)) {
 			return source;
 		}
 		return new String(source.getBytes(srcCharset), destCharset);
@@ -87,7 +98,7 @@ public class CharsetUtil {
 	 * @param srcCharset 原文件的编码，必须与文件内容的编码保持一致
 	 * @param destCharset 转码后的编码
 	 * @return 被转换编码的文件
-	 * @since 3.1.0
+	 * @since 2.0.3
 	 */
 	public static File convert(File file, Charset srcCharset, Charset destCharset) {
 		final String str = FileUtil.readString(file, srcCharset);
@@ -99,7 +110,7 @@ public class CharsetUtil {
 	 * 
 	 * @see CharsetUtil#defaultCharsetName()
 	 * @return 系统字符集编码
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static String systemCharsetName() {
 		return systemCharset().name();
@@ -110,7 +121,7 @@ public class CharsetUtil {
 	 * 
 	 * @see CharsetUtil#defaultCharsetName()
 	 * @return 系统字符集编码
-	 * @since 3.1.2
+	 * @since 2.0.3
 	 */
 	public static Charset systemCharset() {
 		return FileUtil.isWindows() ? CHARSET_GBK : defaultCharset();

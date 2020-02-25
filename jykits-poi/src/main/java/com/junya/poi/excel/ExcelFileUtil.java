@@ -13,8 +13,8 @@ import com.junya.core.io.IoUtil;
 /**
  * Excel文件工具类
  * 
- * @author looly
- * @since 4.2.1
+ * @author zhangchao
+ * @since 2.0.1
  */
 public class ExcelFileUtil {
 	// ------------------------------------------------------------------------------------------------ isXls

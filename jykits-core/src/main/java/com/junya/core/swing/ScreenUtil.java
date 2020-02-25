@@ -9,8 +9,8 @@ import java.io.File;
 /**
  * 屏幕相关（当前显示设置）工具类
  * 
- * @author looly
- * @since 4.1.14
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class ScreenUtil {
 	public static Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();

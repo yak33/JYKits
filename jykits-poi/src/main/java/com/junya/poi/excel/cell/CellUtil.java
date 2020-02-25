@@ -1,7 +1,7 @@
 package com.junya.poi.excel.cell;
 
 import com.junya.core.date.DateUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 import com.junya.poi.excel.StyleSet;
 import com.junya.poi.excel.editors.TrimEditor;
 import org.apache.poi.ss.usermodel.Cell;
@@ -28,8 +28,8 @@ import java.util.List;
 /**
  * Excel表格中单元格工具类
  *
- * @author looly
- * @since 4.0.7
+ * @author zhangchao
+ * @since 2.0.1
  */
 @SuppressWarnings("deprecation")
 public class CellUtil {
@@ -39,7 +39,7 @@ public class CellUtil {
 	 *
 	 * @param cell {@link Cell}单元格
 	 * @return 值，类型可能为：Date、Double、Boolean、String
-	 * @since 4.6.3
+	 * @since 2.0.1
 	 */
 	public static Object getCellValue(Cell cell) {
 		return getCellValue(cell, false);
@@ -115,11 +115,11 @@ public class CellUtil {
 				value = getCellValue(cell, cell.getCachedFormulaResultTypeEnum(), cellEditor);
 				break;
 			case BLANK:
-				value = StrUtil.EMPTY;
+				value = StringUtil.EMPTY;
 				break;
 			case ERROR:
 				final FormulaError error = FormulaError.forInt(cell.getErrorCellValue());
-				value = (null == error) ? StrUtil.EMPTY : error.getString();
+				value = (null == error) ? StringUtil.EMPTY : error.getString();
 				break;
 			default:
 				value = cell.getStringCellValue();
@@ -153,20 +153,53 @@ public class CellUtil {
 			}
 		}
 
-		if (null == value) {
-			cell.setCellValue(StrUtil.EMPTY);
-		} else if (value instanceof FormulaCellValue) {
-			// 公式
-			cell.setCellFormula(((FormulaCellValue) value).getValue());
-		} else if (value instanceof Date) {
+		if (value instanceof Date) {
 			if (null != styleSet && null != styleSet.getCellStyleForDate()) {
 				cell.setCellStyle(styleSet.getCellStyleForDate());
 			}
-			cell.setCellValue((Date) value);
 		} else if (value instanceof TemporalAccessor) {
 			if (null != styleSet && null != styleSet.getCellStyleForDate()) {
 				cell.setCellStyle(styleSet.getCellStyleForDate());
 			}
+		} else if (value instanceof Calendar) {
+			if (null != styleSet && null != styleSet.getCellStyleForDate()) {
+				cell.setCellStyle(styleSet.getCellStyleForDate());
+			}
+		} else if (value instanceof Number) {
+			if ((value instanceof Double || value instanceof Float || value instanceof BigDecimal) && null != styleSet && null != styleSet.getCellStyleForNumber()) {
+				cell.setCellStyle(styleSet.getCellStyleForNumber());
+			}
+		}
+
+		setCellValue(cell, value, null);
+	}
+
+	/**
+	 * 设置单元格值<br>
+	 * 根据传入的styleSet自动匹配样式<br>
+	 * 当为头部样式时默认赋值头部样式，但是头部中如果有数字、日期等类型，将按照数字、日期样式设置
+	 *
+	 * @param cell  单元格
+	 * @param value 值
+	 * @param style 自定义样式，null表示无样式
+	 */
+	public static void setCellValue(Cell cell, Object value, CellStyle style) {
+		if (null == cell) {
+			return;
+		}
+
+		if (null != style) {
+			cell.setCellStyle(style);
+		}
+
+		if (null == value) {
+			cell.setCellValue(StringUtil.EMPTY);
+		} else if (value instanceof FormulaCellValue) {
+			// 公式
+			cell.setCellFormula(((FormulaCellValue) value).getValue());
+		} else if (value instanceof Date) {
+			cell.setCellValue((Date) value);
+		} else if (value instanceof TemporalAccessor) {
 			if (value instanceof Instant) {
 				cell.setCellValue(Date.from((Instant) value));
 			} else if (value instanceof LocalDateTime) {
@@ -175,18 +208,12 @@ public class CellUtil {
 				cell.setCellValue((LocalDate) value);
 			}
 		} else if (value instanceof Calendar) {
-			if (null != styleSet && null != styleSet.getCellStyleForDate()) {
-				cell.setCellStyle(styleSet.getCellStyleForDate());
-			}
 			cell.setCellValue((Calendar) value);
 		} else if (value instanceof Boolean) {
 			cell.setCellValue((Boolean) value);
 		} else if (value instanceof RichTextString) {
 			cell.setCellValue((RichTextString) value);
 		} else if (value instanceof Number) {
-			if ((value instanceof Double || value instanceof Float || value instanceof BigDecimal) && null != styleSet && null != styleSet.getCellStyleForNumber()) {
-				cell.setCellStyle(styleSet.getCellStyleForNumber());
-			}
 			cell.setCellValue(((Number) value).doubleValue());
 		} else {
 			cell.setCellValue(value.toString());
@@ -199,7 +226,7 @@ public class CellUtil {
 	 * @param row       Excel表的行
 	 * @param cellIndex 列号
 	 * @return {@link Row}
-	 * @since 4.0.2
+	 * @since 2.0.3
 	 */
 	public static Cell getOrCreateCell(Row row, int cellIndex) {
 		Cell cell = row.getCell(cellIndex);
@@ -265,7 +292,7 @@ public class CellUtil {
 	 * @param y     行号，从0开始，可以是合并单元格范围中的任意一行
 	 * @param x     列号，从0开始，可以是合并单元格范围中的任意一列
 	 * @return 合并单元格的值
-	 * @since 4.6.3
+	 * @since 2.0.1
 	 */
 	public static Object getMergedRegionValue(Sheet sheet, int x, int y) {
 		final List<CellRangeAddress> addrs = sheet.getMergedRegions();
@@ -306,12 +333,12 @@ public class CellUtil {
 			final short formatIndex = style.getDataFormat();
 			// 判断是否为日期
 			if (isDateType(cell, formatIndex)) {
-				return DateUtil.date(cell.getDateCellValue());// 使用Hutool的DateTime包装
+				return DateUtil.date(cell.getDateCellValue());// 使用JYKits的DateTime包装
 			}
 
 			final String format = style.getDataFormatString();
 			// 普通数字
-			if (null != format && format.indexOf(StrUtil.C_DOT) < 0) {
+			if (null != format && format.indexOf(StringUtil.C_DOT) < 0) {
 				final long longPart = (long) value;
 				if (((double) longPart) == value) {
 					// 对于无小数部分的数字类型，转为Long

@@ -6,9 +6,9 @@ import com.junya.core.convert.ConvertException;
 /**
  * 强转转换器
  * 
- * @author Looly
+ * @author zhangchao
  * @param <T> 强制转换到的类型
- * @since 4.0.2
+ * @since 2.0.3
  */
 public class CastConverter<T> extends AbstractConverter<T> {
 	private static final long serialVersionUID = 1L;

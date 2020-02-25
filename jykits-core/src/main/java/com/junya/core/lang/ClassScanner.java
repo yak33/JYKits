@@ -1,6 +1,6 @@
 package com.junya.core.lang;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.collection.EnumerationIter;
 import com.junya.core.io.FileUtil;
 import com.junya.core.io.IORuntimeException;
@@ -22,8 +22,8 @@ import java.util.jar.JarFile;
 /**
  * 类扫描器
  *
- * @author looly
- * @since 4.6.9
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class ClassScanner implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -93,7 +93,7 @@ public class ClassScanner implements Serializable {
 	 * @return 类集合
 	 */
 	public static Set<Class<?>> scanPackage() {
-		return scanPackage(StrUtil.EMPTY, null);
+		return scanPackage(StringUtil.EMPTY, null);
 	}
 
 	/**
@@ -153,9 +153,9 @@ public class ClassScanner implements Serializable {
 	 * @param charset     编码
 	 */
 	public ClassScanner(String packageName, Filter<Class<?>> classFilter, Charset charset) {
-		packageName = StrUtil.nullToEmpty(packageName);
+		packageName = StringUtil.nullToEmpty(packageName);
 		this.packageName = packageName;
-		this.packageNameWithDot = StrUtil.addSuffixIfNot(packageName, StrUtil.DOT);
+		this.packageNameWithDot = StringUtil.addSuffixIfNot(packageName, StringUtil.DOT);
 		this.packageDirName = packageName.replace(CharUtil.DOT, File.separatorChar);
 		this.packagePath = packageName.replace(CharUtil.DOT, CharUtil.SLASH);
 		this.classFilter = classFilter;
@@ -179,7 +179,7 @@ public class ClassScanner implements Serializable {
 			}
 		}
 
-		if (CollUtil.isEmpty(this.classes)) {
+		if (CollectionUtil.isEmpty(this.classes)) {
 			scanJavaClassPaths();
 		}
 
@@ -199,7 +199,7 @@ public class ClassScanner implements Serializable {
 	 * 设置自定义的类加载器
 	 *
 	 * @param classLoader 类加载器
-	 * @since 4.6.9
+	 * @since 2.0.3
 	 */
 	public void setClassLoader(ClassLoader classLoader) {
 		this.classLoader = classLoader;
@@ -258,7 +258,7 @@ public class ClassScanner implements Serializable {
 	private void scanJar(JarFile jar) {
 		String name;
 		for (JarEntry entry : new EnumerationIter<>(jar.entries())) {
-			name = StrUtil.removePrefix(entry.getName(), StrUtil.SLASH);
+			name = StringUtil.removePrefix(entry.getName(), StringUtil.SLASH);
 			if (name.startsWith(this.packagePath)) {
 				if (name.endsWith(FileUtil.CLASS_EXT) && false == entry.isDirectory()) {
 					final String className = name//
@@ -303,7 +303,7 @@ public class ClassScanner implements Serializable {
 	 * @param className 类名
 	 */
 	private void addIfAccept(String className) {
-		if (StrUtil.isBlank(className)) {
+		if (StringUtil.isBlank(className)) {
 			return;
 		}
 		int classLen = className.length();
@@ -343,10 +343,10 @@ public class ClassScanner implements Serializable {
 	 */
 	private String subPathBeforePackage(File file) {
 		String filePath = file.getAbsolutePath();
-		if (StrUtil.isNotEmpty(this.packageDirName)) {
-			filePath = StrUtil.subBefore(filePath, this.packageDirName, true);
+		if (StringUtil.isNotEmpty(this.packageDirName)) {
+			filePath = StringUtil.subBefore(filePath, this.packageDirName, true);
 		}
-		return StrUtil.addSuffixIfNot(filePath, File.separator);
+		return StringUtil.addSuffixIfNot(filePath, File.separator);
 	}
 	// --------------------------------------------------------------------------------------------------- Private method end
 }

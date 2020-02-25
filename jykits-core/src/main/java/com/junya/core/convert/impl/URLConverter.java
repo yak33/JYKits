@@ -8,7 +8,7 @@ import com.junya.core.convert.AbstractConverter;
 
 /**
  * URL对象转换器
- * @author Looly
+ * @author zhangchao
  *
  */
 public class URLConverter extends AbstractConverter<URL>{

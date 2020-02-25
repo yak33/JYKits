@@ -6,7 +6,7 @@ import javax.net.ssl.SSLSession;
 /**
  * https 域名校验
  * 
- * @author Looly
+ * @author zhangchao
  */
 public class TrustAnyHostnameVerifier implements HostnameVerifier {
 	

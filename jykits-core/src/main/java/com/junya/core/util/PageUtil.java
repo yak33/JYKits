@@ -3,7 +3,7 @@ package com.junya.core.util;
 /**
  * 分页工具类
  * 
- * @author xiaoleilu
+ * @author zhangchao
  * 
  */
 public class PageUtil {

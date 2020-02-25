@@ -6,13 +6,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.junya.core.util.ArrayUtil;
 import com.junya.core.util.ClassUtil;
 import com.junya.core.util.ReflectUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 单例类<br>
  * 提供单例对象的统一管理，当调用get方法时，如果对象池中存在此对象，返回此对象，否则创建新对象返回<br>
  * 
- * @author loolly
+ * @author zhangchao
  *
  */
 public final class Singleton {
@@ -69,7 +69,7 @@ public final class Singleton {
 	 * 将已有对象放入单例中，其Class做为键
 	 * 
 	 * @param obj 对象
-	 * @since 4.0.7
+	 * @since 2.0.3
 	 */
 	public static void put(Object obj) {
 		Assert.notNull(obj, "Bean object must be not null !");
@@ -106,7 +106,7 @@ public final class Singleton {
 		if (ArrayUtil.isEmpty(params)) {
 			return className;
 		}
-		return StrUtil.format("{}#{}", className, ArrayUtil.join(params, "_"));
+		return StringUtil.format("{}#{}", className, ArrayUtil.join(params, "_"));
 	}
 	// ------------------------------------------------------------------------------------------- Private method end
 }

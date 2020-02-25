@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 全局Cookie管理器，只针对Hutool请求有效
+ * 全局Cookie管理器，只针对JYKits请求有效
  * 
- * @author Looly
- * @since 4.5.15
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class GlobalCookieManager {
 
@@ -50,7 +50,7 @@ public class GlobalCookieManager {
 	 *
 	 * @param conn HTTP连接
 	 * @return Cookie信息列表
-	 * @since 4.6.9
+	 * @since 2.0.3
 	 */
 	public static List<HttpCookie> getCookies(HttpConnection conn){
 		return cookieManager.getCookieStore().get(getURI(conn));

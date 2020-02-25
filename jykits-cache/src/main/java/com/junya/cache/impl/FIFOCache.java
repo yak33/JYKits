@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
  * 缺点：不灵活，不能保证最常用的对象总是被保留
  * </p>
  * 
- * @author Looly
+ * @author zhangchao
  *
  * @param <K> 键类型
  * @param <V> 值类型

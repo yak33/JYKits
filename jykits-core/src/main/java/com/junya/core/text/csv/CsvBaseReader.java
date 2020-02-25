@@ -19,8 +19,8 @@ import java.util.Objects;
 /**
  * CSV文件读取器基础类，提供灵活的文件、路径中的CSV读取，一次构造可多次调用读取不同数据，参考：FastCSV
  *
- * @author Looly
- * @since 5.0.4
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class CsvBaseReader implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -178,7 +178,7 @@ public class CsvBaseReader implements Serializable {
 	 * @param csvParser  CSV解析器
 	 * @param rowHandler 行处理器，用于一行一行的处理数据
 	 * @throws IORuntimeException IO异常
-	 * @since 5.0.4
+	 * @since 2.0.3
 	 */
 	private void read(CsvParser csvParser, CsvRowHandler rowHandler) throws IORuntimeException {
 		try {

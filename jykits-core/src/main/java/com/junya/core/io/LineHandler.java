@@ -2,7 +2,7 @@ package com.junya.core.io;
 
 /**
  * 行处理器
- * @author Looly
+ * @author zhangchao
  *
  */
 @FunctionalInterface

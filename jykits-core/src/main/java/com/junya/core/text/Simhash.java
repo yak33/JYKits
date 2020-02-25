@@ -22,8 +22,8 @@ import com.junya.core.lang.MurmurHash;
  * 局部敏感hash定义：假定两个字符串具有一定的相似性，在hash之后，仍然能保持这种相似性，就称之为局部敏感hash。
  * </p>
  *
- * @author Looly, litaoxiao
- * @since 4.3.3
+ * @author zhangchao, litaoxiao
+ * @since 2.0.3
  */
 public class Simhash {
 

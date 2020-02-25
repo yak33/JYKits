@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 import com.junya.core.convert.Convert;
 import com.junya.core.map.MapUtil;
 import com.junya.core.text.StrBuilder;
 import com.junya.core.util.ArrayUtil;
 import com.junya.core.util.CharUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * Bean路径表达式，用于获取多层嵌套Bean中的字段值或Bean对象<br>
@@ -34,8 +34,8 @@ import com.junya.core.util.StrUtil;
  * ['person']['friends'][5]['name']
  * </pre>
  * 
- * @author Looly
- * @since 4.0.6
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class BeanPath implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -167,13 +167,13 @@ public class BeanPath implements Serializable{
 
 	@SuppressWarnings("unchecked")
 	private static Object getFieldValue(Object bean, String expression) {
-		if (StrUtil.isBlank(expression)) {
+		if (StringUtil.isBlank(expression)) {
 			return null;
 		}
 
-		if (StrUtil.contains(expression, ':')) {
+		if (StringUtil.contains(expression, ':')) {
 			// [start:end:step] 模式
-			final List<String> parts = StrUtil.splitTrim(expression, ':');
+			final List<String> parts = StringUtil.splitTrim(expression, ':');
 			int start = Integer.parseInt(parts.get(0));
 			int end = Integer.parseInt(parts.get(1));
 			int step = 1;
@@ -181,21 +181,21 @@ public class BeanPath implements Serializable{
 				step = Integer.parseInt(parts.get(2));
 			}
 			if (bean instanceof Collection) {
-				return CollUtil.sub((Collection<?>) bean, start, end, step);
+				return CollectionUtil.sub((Collection<?>) bean, start, end, step);
 			} else if (ArrayUtil.isArray(bean)) {
 				return ArrayUtil.sub(bean, start, end, step);
 			}
-		} else if (StrUtil.contains(expression, ',')) {
+		} else if (StringUtil.contains(expression, ',')) {
 			// [num0,num1,num2...]模式或者['key0','key1']模式
-			final List<String> keys = StrUtil.splitTrim(expression, ',');
+			final List<String> keys = StringUtil.splitTrim(expression, ',');
 			if (bean instanceof Collection) {
-				return CollUtil.getAny((Collection<?>) bean, Convert.convert(int[].class, keys));
+				return CollectionUtil.getAny((Collection<?>) bean, Convert.convert(int[].class, keys));
 			} else if (ArrayUtil.isArray(bean)) {
 				return ArrayUtil.getAny(bean, Convert.convert(int[].class, keys));
 			} else {
 				final String[] unwrapedKeys = new String[keys.size()];
 				for (int i = 0; i < unwrapedKeys.length; i++) {
-					unwrapedKeys[i] = StrUtil.unWrap(keys.get(i), '\'');
+					unwrapedKeys[i] = StringUtil.unWrap(keys.get(i), '\'');
 				}
 				if (bean instanceof Map) {
 					// 只支持String为key的Map
@@ -222,7 +222,7 @@ public class BeanPath implements Serializable{
 		List<String> localPatternParts = new ArrayList<>();
 		int length = expression.length();
 
-		final StrBuilder builder = StrUtil.strBuilder();
+		final StrBuilder builder = StringUtil.strBuilder();
 		char c;
 		boolean isNumStart = false;// 下标标识符开始
 		for (int i = 0; i < length; i++) {
@@ -238,7 +238,7 @@ public class BeanPath implements Serializable{
 				if (CharUtil.BRACKET_END == c) {
 					// 中括号（数字下标）结束
 					if (false == isNumStart) {
-						throw new IllegalArgumentException(StrUtil.format("Bad expression '{}':{}, we find ']' but no '[' !", expression, i));
+						throw new IllegalArgumentException(StringUtil.format("Bad expression '{}':{}, we find ']' but no '[' !", expression, i));
 					}
 					isNumStart = false;
 					// 中括号结束加入下标
@@ -249,7 +249,7 @@ public class BeanPath implements Serializable{
 				} else {
 					if (isNumStart) {
 						// 非结束中括号情况下发现起始中括号报错（中括号未关闭）
-						throw new IllegalArgumentException(StrUtil.format("Bad expression '{}':{}, we find '[' but no ']' !", expression, i));
+						throw new IllegalArgumentException(StringUtil.format("Bad expression '{}':{}, we find '[' but no ']' !", expression, i));
 					} else if (CharUtil.BRACKET_START == c) {
 						// 数字下标开始
 						isNumStart = true;
@@ -268,7 +268,7 @@ public class BeanPath implements Serializable{
 
 		// 末尾边界符检查
 		if (isNumStart) {
-			throw new IllegalArgumentException(StrUtil.format("Bad expression '{}':{}, we find '[' but no ']' !", expression, length - 1));
+			throw new IllegalArgumentException(StringUtil.format("Bad expression '{}':{}, we find '[' but no ']' !", expression, length - 1));
 		} else {
 			if (builder.length() > 0) {
 				localPatternParts.add(unWrapIfPossible(builder));
@@ -286,10 +286,10 @@ public class BeanPath implements Serializable{
 	 * @return 表达式
 	 */
 	private static String unWrapIfPossible(CharSequence expression) {
-		if (StrUtil.containsAny(expression, " = ", " > ", " < ", " like ", ",")) {
+		if (StringUtil.containsAny(expression, " = ", " > ", " < ", " like ", ",")) {
 			return expression.toString();
 		}
-		return StrUtil.unWrap(expression, '\'');
+		return StringUtil.unWrap(expression, '\'');
 	}
 	// ------------------------------------------------------------------------------------------------------------------------------------- Private method end
 }

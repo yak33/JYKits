@@ -1,11 +1,11 @@
 package com.junya.core.exceptions;
 
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 带有状态码的异常
  * 
- * @author xiaoleilu
+ * @author zhangchao
  *
  */
 public class StatefulException extends RuntimeException {
@@ -22,7 +22,7 @@ public class StatefulException extends RuntimeException {
 	}
 
 	public StatefulException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 
 	public StatefulException(Throwable throwable) {

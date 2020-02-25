@@ -12,8 +12,8 @@ import com.junya.core.map.MapUtil;
 /**
  * 枚举工具类
  *
- * @author looly
- * @since 3.3.0
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class EnumUtil {
 
@@ -44,7 +44,7 @@ public class EnumUtil {
 	 *
 	 * @param e Enum
 	 * @return name值
-	 * @since 4.1.13
+	 * @since 2.0.3
 	 */
 	public static String toString(Enum<?> e) {
 		return null != e ? e.name() : null;
@@ -57,7 +57,7 @@ public class EnumUtil {
 	 * @param enumClass 枚举类
 	 * @param value     值
 	 * @return 枚举值
-	 * @since 4.1.13
+	 * @since 2.0.3
 	 */
 	public static <E extends Enum<E>> E fromString(Class<E> enumClass, String value) {
 		return Enum.valueOf(enumClass, value);
@@ -72,7 +72,7 @@ public class EnumUtil {
 	 * @param value        值
 	 * @param defaultValue 无对应枚举值返回的默认值
 	 * @return 枚举值
-	 * @since 4.5.18
+	 * @since 2.0.3
 	 */
 	public static <E extends Enum<E>> E fromString(Class<E> enumClass, String value, E defaultValue) {
 		return ObjectUtil.defaultIfNull(fromStringQuietly(enumClass, value), defaultValue);
@@ -85,10 +85,10 @@ public class EnumUtil {
 	 * @param enumClass 枚举类
 	 * @param value     值
 	 * @return 枚举值
-	 * @since 4.5.18
+	 * @since 2.0.3
 	 */
 	public static <E extends Enum<E>> E fromStringQuietly(Class<E> enumClass, String value) {
-		if (null == enumClass || StrUtil.isBlank(value)) {
+		if (null == enumClass || StringUtil.isBlank(value)) {
 			return null;
 		}
 
@@ -178,7 +178,7 @@ public class EnumUtil {
 	 *
 	 * @param clazz 枚举类
 	 * @return 字段名列表
-	 * @since 4.1.20
+	 * @since 2.0.3
 	 */
 	public static List<String> getFieldNames(Class<? extends Enum<?>> clazz) {
 		final List<String> names = new ArrayList<>();
@@ -203,7 +203,7 @@ public class EnumUtil {
 	 * @param <E>       枚举类型
 	 * @param enumClass 枚举类
 	 * @return 枚举字符串值和枚举对象的Map对应，使用LinkedHashMap保证有序
-	 * @since 4.0.2
+	 * @since 2.0.3
 	 */
 	public static <E extends Enum<E>> LinkedHashMap<String, E> getEnumMap(final Class<E> enumClass) {
 		final LinkedHashMap<String, E> map = new LinkedHashMap<String, E>();
@@ -265,7 +265,7 @@ public class EnumUtil {
 	 * @return 是非匹配
 	 */
 	public static boolean equalsIgnoreCase(final Enum<?> e, String val) {
-		return StrUtil.equalsIgnoreCase(toString(e), val);
+		return StringUtil.equalsIgnoreCase(toString(e), val);
 	}
 
 	/**
@@ -276,6 +276,6 @@ public class EnumUtil {
 	 * @return 是非匹配
 	 */
 	public static boolean equals(final Enum<?> e, String val) {
-		return StrUtil.equals(toString(e), val);
+		return StringUtil.equals(toString(e), val);
 	}
 }

@@ -2,13 +2,13 @@ package com.junya.http.useragent;
 
 import java.util.List;
 
-import com.junya.core.collection.CollUtil;
+import com.junya.core.collection.CollectionUtil;
 
 /**
  * 引擎对象
  * 
- * @author looly
- * @since 4.2.1
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class Engine extends UserAgentInfo {
 	
@@ -18,7 +18,7 @@ public class Engine extends UserAgentInfo {
 	/**
 	 * 支持的引擎类型
 	 */
-	public static final List<Engine> engines = CollUtil.newArrayList(//
+	public static final List<Engine> engines = CollectionUtil.newArrayList(//
 			new Engine("Trident", "trident"), //
 			new Engine("Webkit", "webkit"), //
 			new Engine("Chrome", "chrome"), //

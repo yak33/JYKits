@@ -18,7 +18,7 @@ import com.junya.core.date.DateException;
  * {@link java.text.SimpleDateFormat} 的线程安全版本，用于将 {@link Date} 格式化输出<br>
  * Thanks to Apache Commons Lang 3.5
  *
- * @since 2.16.2
+ * @since 2.0.3
  * @see FastDateParser
  */
 class FastDatePrinter extends AbstractDateBasic implements DatePrinter {

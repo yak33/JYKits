@@ -10,8 +10,8 @@ import com.junya.core.text.StrBuilder;
 /**
  * 查找替换器，通过查找指定关键字，替换对应的值
  * 
- * @author looly
- * @since 4.1.5
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class LookupReplacer extends StrReplacer {
 	private static final long serialVersionUID = 1L;

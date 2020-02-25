@@ -9,12 +9,12 @@ import com.junya.core.collection.IterUtil;
 import com.junya.core.convert.AbstractConverter;
 import com.junya.core.convert.ConverterRegistry;
 import com.junya.core.util.ArrayUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 数组转换器，包括原始类型数组
  * 
- * @author Looly
+ * @author zhangchao
  */
 public class ArrayConverter extends AbstractConverter<Object> {
 	private static final long serialVersionUID = 1L;
@@ -92,7 +92,7 @@ public class ArrayConverter extends AbstractConverter<Object> {
 			}
 
 			// 单纯字符串情况下按照逗号分隔后劈开
-			final String[] strings = StrUtil.split(value.toString(), StrUtil.COMMA);
+			final String[] strings = StringUtil.split(value.toString(), StringUtil.COMMA);
 			return convertArrayToArray(strings);
 		}
 

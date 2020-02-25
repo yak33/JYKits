@@ -13,15 +13,15 @@ import com.junya.core.getter.OptNullBasicTypeFromObjectGetter;
 import com.junya.core.util.ArrayUtil;
 import com.junya.core.util.BooleanUtil;
 import com.junya.core.util.ClassLoaderUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * Map代理，提供各种getXXX方法，并提供默认值支持
  * 
- * @author looly
- * @since 3.2.0
+ * @author zhangchao
+ * @since 2.0.3
  */
-public class MapProxy extends OptNullBasicTypeFromObjectGetter<Object> implements Map<Object, Object>, InvocationHandler, Serializable {
+public class MapProxy implements Map<Object, Object>, OptNullBasicTypeFromObjectGetter<Object>, InvocationHandler, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("rawtypes")
@@ -89,7 +89,7 @@ public class MapProxy extends OptNullBasicTypeFromObjectGetter<Object> implement
 		return map.remove(key);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "NullableProblems"})
 	@Override
 	public void putAll(Map<?, ?> m) {
 		map.putAll(m);
@@ -100,19 +100,19 @@ public class MapProxy extends OptNullBasicTypeFromObjectGetter<Object> implement
 		map.clear();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "NullableProblems"})
 	@Override
 	public Set<Object> keySet() {
 		return map.keySet();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "NullableProblems"})
 	@Override
 	public Collection<Object> values() {
 		return map.values();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "NullableProblems"})
 	@Override
 	public Set<Entry<Object, Object>> entrySet() {
 		return map.entrySet();
@@ -129,20 +129,20 @@ public class MapProxy extends OptNullBasicTypeFromObjectGetter<Object> implement
 				String fieldName = null;
 				if (methodName.startsWith("get")) {
 					// 匹配getXXX
-					fieldName = StrUtil.removePreAndLowerFirst(methodName, 3);
+					fieldName = StringUtil.removePreAndLowerFirst(methodName, 3);
 				} else if (BooleanUtil.isBoolean(returnType) && methodName.startsWith("is")) {
 					// 匹配isXXX
-					fieldName = StrUtil.removePreAndLowerFirst(methodName, 2);
+					fieldName = StringUtil.removePreAndLowerFirst(methodName, 2);
 				}else if ("hashCode".equals(methodName)) {
 					return this.hashCode();
 				} else if ("toString".equals(methodName)) {
 					return this.toString();
 				}
 				
-				if (StrUtil.isNotBlank(fieldName)) {
+				if (StringUtil.isNotBlank(fieldName)) {
 					if (false == this.containsKey(fieldName)) {
 						// 驼峰不存在转下划线尝试
-						fieldName = StrUtil.toUnderlineCase(fieldName);
+						fieldName = StringUtil.toUnderlineCase(fieldName);
 					}
 					return Convert.convert(method.getGenericReturnType(), this.get(fieldName));
 				}
@@ -152,8 +152,8 @@ public class MapProxy extends OptNullBasicTypeFromObjectGetter<Object> implement
 			// 匹配Setter
 			final String methodName = method.getName();
 			if (methodName.startsWith("set")) {
-				final String fieldName = StrUtil.removePreAndLowerFirst(methodName, 3);
-				if (StrUtil.isNotBlank(fieldName)) {
+				final String fieldName = StringUtil.removePreAndLowerFirst(methodName, 3);
+				if (StringUtil.isNotBlank(fieldName)) {
 					this.put(fieldName, args[0]);
 				}
 			} else if ("equals".equals(methodName)) {
@@ -170,7 +170,7 @@ public class MapProxy extends OptNullBasicTypeFromObjectGetter<Object> implement
 	 * @param <T> 代理的Bean类型
 	 * @param interfaceClass 接口
 	 * @return 代理对象
-	 * @since 4.5.2
+	 * @since 2.0.3
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T toProxyBean(Class<T> interfaceClass) {

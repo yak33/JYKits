@@ -1,25 +1,22 @@
 package com.junya.poi.word;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import com.junya.core.bean.BeanUtil;
+import com.junya.core.collection.CollectionUtil;
+import com.junya.core.convert.Convert;
+import com.junya.core.lang.Assert;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
-import com.junya.core.bean.BeanUtil;
-import com.junya.core.collection.CollUtil;
-import com.junya.core.collection.IterUtil;
-import com.junya.core.convert.Convert;
-import com.junya.core.lang.Assert;
-import com.junya.core.map.MapUtil;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Word中表格相关工具
  * 
- * @author Looly
- * @since 4.5.14
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class TableUtil {
 	
@@ -44,7 +41,7 @@ public class TableUtil {
 		Assert.notNull(doc, "XWPFDocument must be not null !");
 		XWPFTable table = doc.createTable();
 
-		if (IterUtil.isEmpty(data)) {
+		if (CollectionUtil.isEmpty(data)) {
 			// 数据为空，返回空表
 			return table;
 		}
@@ -78,7 +75,7 @@ public class TableUtil {
 			rowMap = BeanUtil.beanToMap(rowBean, new LinkedHashMap<String, Object>(), false, false);
 		} else {
 			// 其它转为字符串默认输出
-			writeRow(row, CollUtil.newArrayList(rowBean), isWriteKeyAsHead);
+			writeRow(row, CollectionUtil.newArrayList(rowBean), isWriteKeyAsHead);
 		}
 		
 		writeRow(row, rowMap, isWriteKeyAsHead);
@@ -92,7 +89,7 @@ public class TableUtil {
 	 * @param isWriteKeyAsHead 是否写标题
 	 */
 	public static void writeRow(XWPFTableRow row, Map<?, ?> rowMap, boolean isWriteKeyAsHead) {
-		if (MapUtil.isEmpty(rowMap)) {
+		if (CollectionUtil.isEmpty(rowMap)) {
 			return;
 		}
 

@@ -11,8 +11,8 @@ import java.nio.file.Path;
 /**
  * CSV文件读取器，参考：FastCSV
  *
- * @author Looly
- * @since 4.0.1
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class CsvReader extends CsvBaseReader {
 	private static final long serialVersionUID = 1L;
@@ -42,7 +42,7 @@ public class CsvReader extends CsvBaseReader {
 	 *
 	 * @param file   CSV文件路径，null表示不设置路径
 	 * @param config 配置项，null表示默认配置
-	 * @since 5.0.4
+	 * @since 2.0.3
 	 */
 	public CsvReader(File file, CsvReadConfig config) {
 		this(file, DEFAULT_CHARSET, config);
@@ -53,7 +53,7 @@ public class CsvReader extends CsvBaseReader {
 	 *
 	 * @param path   CSV文件路径，null表示不设置路径
 	 * @param config 配置项，null表示默认配置
-	 * @since 5.0.4
+	 * @since 2.0.3
 	 */
 	public CsvReader(Path path, CsvReadConfig config) {
 		this(path, DEFAULT_CHARSET, config);
@@ -65,7 +65,7 @@ public class CsvReader extends CsvBaseReader {
 	 * @param file    CSV文件路径，null表示不设置路径
 	 * @param charset 编码
 	 * @param config  配置项，null表示默认配置
-	 * @since 5.0.4
+	 * @since 2.0.3
 	 */
 	public CsvReader(File file, Charset charset, CsvReadConfig config) {
 		this(FileUtil.getReader(file, charset), config);
@@ -77,7 +77,7 @@ public class CsvReader extends CsvBaseReader {
 	 * @param path    CSV文件路径，null表示不设置路径
 	 * @param charset 编码
 	 * @param config  配置项，null表示默认配置
-	 * @since 5.0.4
+	 * @since 2.0.3
 	 */
 	public CsvReader(Path path, Charset charset, CsvReadConfig config) {
 		this(FileUtil.getReader(path, charset), config);
@@ -88,7 +88,7 @@ public class CsvReader extends CsvBaseReader {
 	 *
 	 * @param reader {@link Reader}，null表示不设置默认reader
 	 * @param config 配置项，null表示默认配置
-	 * @since 5.0.4
+	 * @since 2.0.3
 	 */
 	public CsvReader(Reader reader, CsvReadConfig config) {
 		super(config);
@@ -112,7 +112,7 @@ public class CsvReader extends CsvBaseReader {
 	 *
 	 * @param rowHandler 行处理器，用于一行一行的处理数据
 	 * @throws IORuntimeException IO异常
-	 * @since 5.0.4
+	 * @since 2.0.3
 	 */
 	public void read(CsvRowHandler rowHandler) throws IORuntimeException {
 		read(this.reader, rowHandler);

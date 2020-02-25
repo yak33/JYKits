@@ -24,8 +24,8 @@ import com.junya.core.util.CharsetUtil;
 /**
  * 文件内容跟随器，实现类似Linux下"tail -f"命令功能
  * 
- * @author looly
- * @since 4.5.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class Tailer implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -211,8 +211,8 @@ public class Tailer implements Serializable {
 	/**
 	 * 命令行打印的行处理器
 	 * 
-	 * @author looly
-	 * @since 4.5.2
+	 * @author zhangchao
+	 * @since 2.0.3
 	 */
 	public static class ConsoleLineHandler implements LineHandler {
 		@Override

@@ -3,8 +3,8 @@ package com.junya.core.lang.caller;
 /**
  * 调用者。可以通过此类的方法获取调用者、多级调用者以及判断是否被调用
  * 
- * @author Looly
- * @since 4.1.6
+ * @author zhangchao
+ * @since 2.0.3
  */
 public class CallerUtil {
 	private static final Caller INSTANCE;

@@ -2,7 +2,7 @@ package com.junya.core.lang;
 
 /**
  * 责任链接口
- * @author Looly
+ * @author zhangchao
  *
  * @param <E> 元素类型
  * @param <T> 目标类类型，用于返回this对象

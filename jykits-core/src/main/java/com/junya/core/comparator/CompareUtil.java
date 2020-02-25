@@ -2,6 +2,9 @@ package com.junya.core.comparator;
 
 import java.util.Comparator;
 
+/**
+ * @author zhangchao
+ */
 public class CompareUtil {
 
 	/**
@@ -17,7 +20,7 @@ public class CompareUtil {
 	 * @param comparator 比较器
 	 * @return 比较结果
 	 * @see java.util.Comparator#compare(Object, Object)
-	 * @since 4.6.9
+	 * @since 2.0.3
 	 */
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	public static <T> int compare(T c1, T c2, Comparator<T> comparator) {

@@ -1,11 +1,11 @@
 package com.junya.core.io.watch;
 
 import com.junya.core.exceptions.ExceptionUtil;
-import com.junya.core.util.StrUtil;
+import com.junya.core.util.StringUtil;
 
 /**
  * 监听异常
- * @author Looly
+ * @author zhangchao
  *
  */
 public class WatchException extends RuntimeException {
@@ -20,7 +20,7 @@ public class WatchException extends RuntimeException {
 	}
 
 	public WatchException(String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params));
+		super(StringUtil.format(messageTemplate, params));
 	}
 
 	public WatchException(String message, Throwable throwable) {
@@ -28,6 +28,6 @@ public class WatchException extends RuntimeException {
 	}
 
 	public WatchException(Throwable throwable, String messageTemplate, Object... params) {
-		super(StrUtil.format(messageTemplate, params), throwable);
+		super(StringUtil.format(messageTemplate, params), throwable);
 	}
 }

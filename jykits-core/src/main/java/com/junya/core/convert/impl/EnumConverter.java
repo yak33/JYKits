@@ -5,8 +5,8 @@ import com.junya.core.convert.AbstractConverter;
 /**
  * 无泛型检查的枚举转换器
  * 
- * @author Looly
- * @since 4.0.2
+ * @author zhangchao
+ * @since 2.0.3
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class EnumConverter extends AbstractConverter<Object> {

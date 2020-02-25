@@ -6,7 +6,7 @@ import com.junya.core.text.replacer.ReplacerChain;
 /**
  * HTML4的UNESCAPE
  * 
- * @author looly
+ * @author zhangchao
  *
  */
 public class Html4Unescape extends ReplacerChain {

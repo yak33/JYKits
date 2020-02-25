@@ -17,7 +17,7 @@ import com.junya.core.util.URLUtil;
 /**
  * 外部Jar的类加载器
  *
- * @author Looly
+ * @author zhangchao
  */
 public class JarClassLoader extends URLClassLoader {
 
@@ -127,7 +127,7 @@ public class JarClassLoader extends URLClassLoader {
 	 *
 	 * @param dir 目录
 	 * @return this
-	 * @since 4.4.2
+	 * @since 2.0.3
 	 */
 	public JarClassLoader addURL(File dir) {
 		super.addURL(URLUtil.getURL(dir));
@@ -156,7 +156,7 @@ public class JarClassLoader extends URLClassLoader {
 	 *
 	 * @param file 文件
 	 * @return 是否为jar文件
-	 * @since 4.4.2
+	 * @since 2.0.3
 	 */
 	private static boolean isJarFile(File file) {
 		if (false == FileUtil.isFile(file)) {
